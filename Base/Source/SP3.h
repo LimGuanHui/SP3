@@ -43,6 +43,13 @@ public:
         End,
     };
 
+	enum StartOption
+	{
+		Start,
+		Quit,
+		NUM
+	};
+
     enum Game_Stage
     {
         Normal,
@@ -50,6 +57,7 @@ public:
     };
 
     GameState gameState;
+	string StartOption[NUM];
     Game_Stage gameStage;
 
 protected:
