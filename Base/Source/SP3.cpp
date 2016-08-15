@@ -34,11 +34,10 @@ void SP3::Init()
 
     m_ghost = new GameObject(GameObject::GO_BALL);
 
-
+    gameState = Menu;
+    gameStage = Normal;
     
 }
-
-
 
 
 GameObject* SP3::FetchGO()
@@ -178,8 +177,49 @@ void SP3::Update(double dt)
         }
     }
 
-        
+    
+    switch (gameState)
+    {
+    case SP3::Menu:
+    {
 
+    }
+        break;
+    case SP3::Game:
+    {
+        switch (gameStage)
+        {
+        case SP3::Normal:
+        {
+
+        }
+            break;
+        case SP3::Boss:
+        {
+
+        }
+            break;
+        default:
+            break;
+        }
+    }
+        break;
+    case SP3::Transition:
+    {
+        //Transition here
+
+
+        gameState = Game;
+    }
+        break;
+    case SP3::End:
+    {
+
+    }
+        break;
+    default:
+        break;
+    }
 
 }
 

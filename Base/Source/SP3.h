@@ -40,6 +40,15 @@ public:
         End,
     };
 
+    enum Game_Stage
+    {
+        Normal,
+        Boss,
+    };
+
+    GameState gameState;
+    Game_Stage gameStage;
+
 protected:
 
 
