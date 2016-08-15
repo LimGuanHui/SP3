@@ -33,6 +33,8 @@ void SP3::Init()
     m_objectCount = 0;
 
     m_ghost = new GameObject(GameObject::GO_BALL);
+
+
     
 }
 
@@ -93,23 +95,23 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
     {
     case GameObject::GO_BALL:
     {
-                                //Exercise 8b: store values in auditing variables
-                                m1 = go1->mass;
-                                m2 = go2->mass;
-                                u1 = go1->vel;
-                                u2 = go2->vel;
+        //Exercise 8b: store values in auditing variables
+        m1 = go1->mass;
+        m2 = go2->mass;
+        u1 = go1->vel;
+        u2 = go2->vel;
 
-                                Vector3 u1N, u2N, N;
-                                N = (go2->pos - go1->pos).Normalized();
+        Vector3 u1N, u2N, N;
+        N = (go2->pos - go1->pos).Normalized();
 
-                                u1N = u1.Dot(N) * N;
-                                u2N = u2.Dot(N) * N;
-                                go1->vel = u1 + (2 * m2) / (m1 + m2) * (u2N - u1N);
-                                go2->vel = u2 + (2 * m1) / (m1 + m2) * (u1N - u2N);
+        u1N = u1.Dot(N) * N;
+        u2N = u2.Dot(N) * N;
+        go1->vel = u1 + (2 * m2) / (m1 + m2) * (u2N - u1N);
+        go2->vel = u2 + (2 * m1) / (m1 + m2) * (u1N - u2N);
 
-                                v1 = go1->vel;
-                                v2 = go2->vel;
-                                break;
+        v1 = go1->vel;
+        v2 = go2->vel;
+        break;
     }
     }
 }

@@ -6,16 +6,16 @@
 #define MOB_AI_API __declspec(dllimport) 
 #endif
 
-
+#include "Vector3.h"
 
 namespace MOB_AI
 {
 
-    class Mob
+    class MOB_AI_API Mob
     {
     public:
-        MOB_AI_API Mob(float reactionDistance);
-        MOB_AI_API ~Mob();
+        Mob(float reactionDistance);
+        ~Mob();
         
         enum State
         {
@@ -27,10 +27,10 @@ namespace MOB_AI
 
         State state;
         float ReactDist;
-        
-        
+        Vector3 Position;
 
-        MOB_AI_API void Init();
-        MOB_AI_API void update();
+
+        void Init();
+        void update();
     };
 }

@@ -5,6 +5,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include <map>;
+#include "Panel.h"
 
 
 class SP3 : public SceneBase
@@ -28,7 +29,16 @@ public:
 
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
+    std::vector<Panel *> PanelList;
     //Physics
+
+    enum GameState
+    {
+        Menu,
+        Game,
+        Transition,
+        End,
+    };
 
 protected:
 
