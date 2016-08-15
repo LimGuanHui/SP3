@@ -6,6 +6,7 @@
 #include "SceneBase.h"
 #include <map>;
 #include "Panel.h"
+#include "Mob.h"
 
 
 class SP3 : public SceneBase
@@ -34,7 +35,9 @@ public:
 
     enum GameState
     {
+        EditMode,
         Menu,
+        Pause,
         Game,
         Transition,
         End,
@@ -64,6 +67,9 @@ protected:
     Vector3 u1, u2, v1, v2;
     Vector3 initialMomentum, finalMomentum;
     float initialKE, finalKE;
+
+    //Mob
+    std::vector<Mob_AI::Mob *> mob_list;
 
 };
 

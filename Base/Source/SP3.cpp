@@ -180,7 +180,17 @@ void SP3::Update(double dt)
     
     switch (gameState)
     {
+    case SP3::EditMode:
+    {
+
+    }
+        break;
     case SP3::Menu:
+    {
+
+    }
+        break;
+    case SP3::Pause:
     {
 
     }
@@ -220,7 +230,6 @@ void SP3::Update(double dt)
     default:
         break;
     }
-
 }
 
 

@@ -8,7 +8,8 @@ class Panel
 public:
     Panel();
     ~Panel();
-    void Init(int panelNo, Vector3 startpos);
+    void Init(int panelNo, Vector3 startpos, float offset);
+    void update(int *playerhp);
 
     Vector3 Pos;
     int PanelNo;

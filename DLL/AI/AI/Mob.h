@@ -8,7 +8,7 @@
 
 #include "Vector3.h"
 
-namespace MOB_AI
+namespace Mob_AI
 {
 
     class MOB_AI_API Mob
