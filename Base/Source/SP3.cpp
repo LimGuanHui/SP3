@@ -312,3 +312,4 @@ void SP3::Exit()
         m_ghost = NULL;
     }
 }
+
