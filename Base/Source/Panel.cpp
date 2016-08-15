@@ -56,7 +56,7 @@ void Panel::Init(int panelNo, Vector3 startpos, float offset)
     }
 }
 
-void update(int *playerhp)
+void Panel::update(int *playerhp)
 {
 
 }
