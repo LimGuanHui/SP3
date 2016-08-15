@@ -45,7 +45,7 @@ public:
 	{
 		GEO_AXES,
 		GEO_TEXT,
-
+		GEO_UI,
 		NUM_GEOMETRY,
 
 	};

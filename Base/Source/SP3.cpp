@@ -289,9 +289,24 @@ void SP3::Render()
     ss.str(string());
     ss.precision(5);
     ss << "FPS: " << fps;
-    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
+    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
+	if (gameState == Menu)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(65.f, 50.f, 0.f);
+		modelStack.Scale(115, 90, 0);
+		RenderMesh(meshList[GEO_UI], false);
+		modelStack.PopMatrix();
 
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 25, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 35, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 8, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 20, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 22, 15);
+		modelStack.PopMatrix();
+	}
 
 }
 
