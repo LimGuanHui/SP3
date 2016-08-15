@@ -5,6 +5,8 @@
 #include <vector>
 #include "SceneBase.h"
 #include <map>;
+#include "Panel.h"
+#include "Mob.h"
 
 
 class SP3 : public SceneBase
@@ -28,7 +30,35 @@ public:
 
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
+    std::vector<Panel *> PanelList;
     //Physics
+
+    enum GameState
+    {
+        EditMode,
+        Menu,
+        Pause,
+        Game,
+        Transition,
+        End,
+    };
+
+	enum StartOption
+	{
+		Start,
+		Quit,
+		NUM
+	};
+
+    enum Game_Stage
+    {
+        Normal,
+        Boss,
+    };
+
+    GameState gameState;
+	string StartOption[NUM];
+    Game_Stage gameStage;
 
 protected:
 
@@ -45,6 +75,9 @@ protected:
     Vector3 u1, u2, v1, v2;
     Vector3 initialMomentum, finalMomentum;
     float initialKE, finalKE;
+
+    //Mob
+    std::vector<Mob_AI::Mob *> mob_list;
 
 };
 

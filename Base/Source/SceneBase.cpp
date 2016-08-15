@@ -106,6 +106,8 @@ void SceneBase::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//calibri.tga");
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
+	
+	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 
 	bLightEnabled = false;
 }

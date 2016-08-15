@@ -19,9 +19,11 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\Panel.cpp" />
     <ClCompile Include="Source\SceneBase.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SP3.cpp" />
+    <ClCompile Include="Source\SpriteAnimation.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -35,10 +37,12 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\Panel.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneBase.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SP3.h" />
+    <ClInclude Include="Source\SpriteAnimation.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>
@@ -85,7 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\DLL\AI\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -103,7 +107,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;$(SolutionDir)\DLL\AI\AI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

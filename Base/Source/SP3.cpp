@@ -33,10 +33,11 @@ void SP3::Init()
     m_objectCount = 0;
 
     m_ghost = new GameObject(GameObject::GO_BALL);
+
+    gameState = Menu;
+    gameStage = Normal;
     
 }
-
-
 
 
 GameObject* SP3::FetchGO()
@@ -82,38 +83,6 @@ bool SP3::CheckCollision(GameObject *go1, GameObject *go2, float dt)
                                 }
     }
 
-    case GameObject::GO_WALL:
-    {
-                                Vector3  w0 = go2->pos;
-                                Vector3 b1 = go1->pos;
-                                Vector3 N = go2->normal;
-                                float r = go1->scale.x;
-                                float h = go2->scale.x;
-                                float l = go2->scale.y;
-
-                                Vector3 NP(-N.y, N.x);
-
-                                Vector3 RV = go1->vel;
-                                Vector3 RD = w0 - b1;
-
-                                if (RD.Dot(N) < 0)
-                                    N = -N;
-
-                                return abs(RD.Dot(N)) < r + h / 2 && abs(RD.Dot(NP)) < l / 2 && RV.Dot(N) > 0;
-    }
-    case GameObject::GO_PILLAR:
-    {
-                                  Vector3 p1 = go1->pos;
-                                  Vector3 p2 = go2->pos;
-                                  float r1 = go1->scale.x;
-                                  float r2 = go2->scale.x;
-                                  float combinedRadius = r1 + r2;
-
-                                  Vector3 u = go1->vel;
-
-                                  return (p2 - p1).LengthSquared() < combinedRadius * combinedRadius && (p2 - p1).Dot(u) > 0;
-    }
-
 
     }
     return false;
@@ -125,38 +94,23 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
     {
     case GameObject::GO_BALL:
     {
-                                //Exercise 8b: store values in auditing variables
-                                m1 = go1->mass;
-                                m2 = go2->mass;
-                                u1 = go1->vel;
-                                u2 = go2->vel;
+        //Exercise 8b: store values in auditing variables
+        m1 = go1->mass;
+        m2 = go2->mass;
+        u1 = go1->vel;
+        u2 = go2->vel;
 
-                                Vector3 u1N, u2N, N;
-                                N = (go2->pos - go1->pos).Normalized();
+        Vector3 u1N, u2N, N;
+        N = (go2->pos - go1->pos).Normalized();
 
-                                u1N = u1.Dot(N) * N;
-                                u2N = u2.Dot(N) * N;
-                                go1->vel = u1 + (2 * m2) / (m1 + m2) * (u2N - u1N);
-                                go2->vel = u2 + (2 * m1) / (m1 + m2) * (u1N - u2N);
+        u1N = u1.Dot(N) * N;
+        u2N = u2.Dot(N) * N;
+        go1->vel = u1 + (2 * m2) / (m1 + m2) * (u2N - u1N);
+        go2->vel = u2 + (2 * m1) / (m1 + m2) * (u1N - u2N);
 
-                                v1 = go1->vel;
-                                v2 = go2->vel;
-                                break;
-    }
-    case GameObject::GO_WALL:
-    {
-                                Vector3 u = go1->vel;
-                                Vector3 N = go2->normal;
-                                Vector3 uN = u.Dot(N) * N;
-                                go1->vel = u - 2 * uN;
-                                break;
-    }
-    case GameObject::GO_PILLAR:
-    {
-                                  Vector3 u = go1->vel;
-                                  Vector3 N = (go2->pos - go1->pos).Normalized();
-                                  go1->vel = u - 2 * u.Dot(N) * N;
-                                  break;
+        v1 = go1->vel;
+        v2 = go2->vel;
+        break;
     }
     }
 }
@@ -223,9 +177,59 @@ void SP3::Update(double dt)
         }
     }
 
-        
+    
+    switch (gameState)
+    {
+    case SP3::EditMode:
+    {
+
+    }
+        break;
+    case SP3::Menu:
+    {
+
+    }
+        break;
+    case SP3::Pause:
+    {
+
+    }
+        break;
+    case SP3::Game:
+    {
+        switch (gameStage)
+        {
+        case SP3::Normal:
+        {
+
+        }
+            break;
+        case SP3::Boss:
+        {
+
+        }
+            break;
+        default:
+            break;
+        }
+    }
+        break;
+    case SP3::Transition:
+    {
+        //Transition here
 
 
+        gameState = Game;
+    }
+        break;
+    case SP3::End:
+    {
+
+    }
+        break;
+    default:
+        break;
+    }
 }
 
 
@@ -285,9 +289,24 @@ void SP3::Render()
     ss.str(string());
     ss.precision(5);
     ss << "FPS: " << fps;
-    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 3);
+    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
+	if (gameState == Menu)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(65.f, 50.f, 0.f);
+		modelStack.Scale(115, 90, 0);
+		RenderMesh(meshList[GEO_UI], false);
+		modelStack.PopMatrix();
 
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 25, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 35, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 8, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 20, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 22, 15);
+		modelStack.PopMatrix();
+	}
 
 }
 
@@ -312,3 +331,4 @@ void SP3::Exit()
         m_ghost = NULL;
     }
 }
+
