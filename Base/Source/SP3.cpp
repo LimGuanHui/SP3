@@ -82,38 +82,6 @@ bool SP3::CheckCollision(GameObject *go1, GameObject *go2, float dt)
                                 }
     }
 
-    case GameObject::GO_WALL:
-    {
-                                Vector3  w0 = go2->pos;
-                                Vector3 b1 = go1->pos;
-                                Vector3 N = go2->normal;
-                                float r = go1->scale.x;
-                                float h = go2->scale.x;
-                                float l = go2->scale.y;
-
-                                Vector3 NP(-N.y, N.x);
-
-                                Vector3 RV = go1->vel;
-                                Vector3 RD = w0 - b1;
-
-                                if (RD.Dot(N) < 0)
-                                    N = -N;
-
-                                return abs(RD.Dot(N)) < r + h / 2 && abs(RD.Dot(NP)) < l / 2 && RV.Dot(N) > 0;
-    }
-    case GameObject::GO_PILLAR:
-    {
-                                  Vector3 p1 = go1->pos;
-                                  Vector3 p2 = go2->pos;
-                                  float r1 = go1->scale.x;
-                                  float r2 = go2->scale.x;
-                                  float combinedRadius = r1 + r2;
-
-                                  Vector3 u = go1->vel;
-
-                                  return (p2 - p1).LengthSquared() < combinedRadius * combinedRadius && (p2 - p1).Dot(u) > 0;
-    }
-
 
     }
     return false;
@@ -142,21 +110,6 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
                                 v1 = go1->vel;
                                 v2 = go2->vel;
                                 break;
-    }
-    case GameObject::GO_WALL:
-    {
-                                Vector3 u = go1->vel;
-                                Vector3 N = go2->normal;
-                                Vector3 uN = u.Dot(N) * N;
-                                go1->vel = u - 2 * uN;
-                                break;
-    }
-    case GameObject::GO_PILLAR:
-    {
-                                  Vector3 u = go1->vel;
-                                  Vector3 N = (go2->pos - go1->pos).Normalized();
-                                  go1->vel = u - 2 * u.Dot(N) * N;
-                                  break;
     }
     }
 }
