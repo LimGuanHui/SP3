@@ -1,5 +1,6 @@
 #include "Map_Editor.h"
-#include <WinUser.h>
+#include <iostream>
+#include <Windows.h>
 
 Map_Editor::Map_Editor()
 {
@@ -82,11 +83,14 @@ std::string Map_Editor::getState()
 
 void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
 {
-    unsigned short key = ((GetAsyncKeyState(key) & 0x8001) != 0);
+    /*unsigned short key = ((GetAsyncKeyState(key) & 0x8001) != 0);
 
     Vector3 platformpos = selected_platform->getpos();
 
+
+
     switch (key)
+        switch (key)
     {
     case VK_UP:
         selected_platform->Setpos(Vector3(platformpos.x, platformpos.y + dt * 5.f, 0));
@@ -103,5 +107,5 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
 
     default:
         break;
-    }
+    }*/
 }
