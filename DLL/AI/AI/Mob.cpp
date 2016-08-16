@@ -1,12 +1,9 @@
+#include "stdafx.h"
 #include "Mob.h"
-
-namespace Mob_AI
-{
-
 
     Mob::Mob(float reactionDistance)
     {
-        ReactDist = 0;
+        ReactDist = reactionDistance;
     }
     Mob::~Mob()
     {
@@ -16,7 +13,6 @@ namespace Mob_AI
     void Mob::Init()
     {
         state = Spawn;
-
     }
     void Mob::update()
     {
@@ -34,5 +30,3 @@ namespace Mob_AI
             break;
         }
     }
-
-}

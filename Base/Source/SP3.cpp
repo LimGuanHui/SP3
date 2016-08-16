@@ -41,6 +41,10 @@ void SP3::Init()
 	
 	StartOption[Start] = "Start Game";
 	StartOption[Quit] = "Quit Game";
+
+	//B_battle = new BossBattle::Boss_Battle();
+	//B_battle->Init();
+
 }
 
 

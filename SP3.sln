@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcxproj", "{9B172635-4E2B-46F1-A403-08F4194D00F5}"
 	ProjectSection(ProjectDependencies) = postProject
+		{F31BAD1B-8E2E-4446-9D68-5AB351F6A16D} = {F31BAD1B-8E2E-4446-9D68-5AB351F6A16D}
+		{13D3F928-14AB-43CF-BC68-55A92BA7D1EF} = {13D3F928-14AB-43CF-BC68-55A92BA7D1EF}
 		{B594FE34-E00B-4E94-AD04-D1FF100AA5DC} = {B594FE34-E00B-4E94-AD04-D1FF100AA5DC}
 	EndProjectSection
 EndProject
@@ -14,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AI", "DLL\AI\AI\AI.vcxproj"
 	ProjectSection(ProjectDependencies) = postProject
 		{B594FE34-E00B-4E94-AD04-D1FF100AA5DC} = {B594FE34-E00B-4E94-AD04-D1FF100AA5DC}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage", "DLL\Stage\Stage\BossStage.vcxproj", "{13D3F928-14AB-43CF-BC68-55A92BA7D1EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{F31BAD1B-8E2E-4446-9D68-5AB351F6A16D}.Debug|Win32.Build.0 = Debug|Win32
 		{F31BAD1B-8E2E-4446-9D68-5AB351F6A16D}.Release|Win32.ActiveCfg = Release|Win32
 		{F31BAD1B-8E2E-4446-9D68-5AB351F6A16D}.Release|Win32.Build.0 = Release|Win32
+		{13D3F928-14AB-43CF-BC68-55A92BA7D1EF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{13D3F928-14AB-43CF-BC68-55A92BA7D1EF}.Debug|Win32.Build.0 = Debug|Win32
+		{13D3F928-14AB-43CF-BC68-55A92BA7D1EF}.Release|Win32.ActiveCfg = Release|Win32
+		{13D3F928-14AB-43CF-BC68-55A92BA7D1EF}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
