@@ -4,10 +4,17 @@ Base/Debug/Base.tlog/CL.write.1.tlog
 Base/Debug/vc120.idb
 Base/Debug/
 Common/Debug/
+<<<<<<< HEAD
+ipch/ai-f24fdce1/ai-27c54176.ipch
+=======
 DLL/AI/AI/Debug/
 DLL/Stage/Stage/Debug/
 ipch/bossstage-eb88ce58/stage-8a0066e0.ipch
 ipch/bossstage-eb88ce58/bossstage-a5ea3ed7.ipch
 ipch/bossstage-89e75b2a/stage-8a0066e0.ipch
 Debug/Base.exp
+<<<<<<< HEAD
 ipch/ai-fc7dd3f5/ai-27c54176.ipch
+=======
+>>>>>>> 625d6acdd2bb1f0a86d7b0487ef2ade82d90aeb2
+>>>>>>> f7bd94dc2e4bb6bc47687b63b07fab04719ecc57
