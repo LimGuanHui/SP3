@@ -81,9 +81,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map_Editor.h" />
+    <ClInclude Include="Platform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Map_Editor.cpp" />
+    <ClCompile Include="Platform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Common.vcxproj">
