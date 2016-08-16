@@ -34,6 +34,8 @@ void SP3::Init()
 
     m_ghost = new GameObject(GameObject::GO_BALL);
 
+    Mob* testMob = CreateMob(5.0f);
+    testMob->Init();
 
     gameState = Menu;
     gameStage = Normal;
