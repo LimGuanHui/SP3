@@ -65,6 +65,16 @@ public:
         Boss,
     };
 
+	enum Select
+	{
+		First,
+		Second,
+		NUM3
+	};
+
+
+	Select option;
+	int selectArrow = 0;
     GameState gameState;
 	string StartOption[NUM];
 	string PauseOption[NUM2];

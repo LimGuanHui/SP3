@@ -110,6 +110,9 @@ void SceneBase::Init()
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//bg.tga");
 
+	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("select", Color(1, 1, 1), 1.f);
+	meshList[GEO_SELECT]->textureID = LoadTGA("Image//selectarrow.tga");
+
 	bLightEnabled = false;
 }
 

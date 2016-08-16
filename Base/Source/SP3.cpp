@@ -43,7 +43,7 @@ void SP3::Init()
 	editLevel = false;
 	pauseGame = false;
 
-
+	option = First;
     gameState = Menu;
     gameStage = Normal;
 	
@@ -147,6 +147,15 @@ void SP3::Update(double dt)
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
+	if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+	{
+		InputDelayTimer = InputDelay;
+		if (selectArrow != (NUM3 - 1))
+			selectArrow++;
+		else
+			selectArrow = 0;
+	}
+
 	if (gameState == Menu)
 	{
         if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
@@ -165,8 +174,9 @@ void SP3::Update(double dt)
 			else
 				startScreenArrow = NUM - 1;
 		}
-		if (Application::IsKeyPressed(VK_RETURN))
+		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 		{
+			InputDelayTimer = InputDelay;
 			switch (startScreenArrow)
 			{
 			case(Start) :
@@ -209,8 +219,9 @@ void SP3::Update(double dt)
 				else
 					startScreenArrow = NUM2 - 1;
 			}
-			if (Application::IsKeyPressed(VK_RETURN))
+			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				switch (startScreenArrow)
 				{
 				case(Resume) :
@@ -354,6 +365,25 @@ void SP3::Render()
     ss.precision(5);
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+	switch (selectArrow)
+	{
+	case(First) :
+		modelStack.PushMatrix();
+		modelStack.Translate(30, 28, 0);
+		modelStack.Scale(10, 10, 10);
+		RenderMesh(meshList[GEO_SELECT], false);
+		modelStack.PopMatrix();
+		break;
+	case(Second) :
+		modelStack.PushMatrix();
+		modelStack.Translate(30, 23, 0);
+		modelStack.Scale(5, 5, 5);
+		RenderMesh(meshList[GEO_SELECT], false);
+		modelStack.PopMatrix();
+		break;
+	}
+
 
 	if (gameState == Menu)
 	{

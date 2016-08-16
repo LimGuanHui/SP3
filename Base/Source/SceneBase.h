@@ -46,6 +46,7 @@ public:
 		GEO_AXES,
 		GEO_TEXT,
 		GEO_UI,
+		GEO_SELECT,
 		NUM_GEOMETRY,
 
 	};
