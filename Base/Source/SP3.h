@@ -8,10 +8,15 @@
 
 #include "GameObject.h"
 #include "Mob.h"
+<<<<<<< HEAD
 #include "Movement.h"
 using namespace MOVEMENT;
 //#include "Panel.h"
 //#include "Boss_Battle.h"
+=======
+#include "Boss_Battle.h"
+
+>>>>>>> 9a23e32041febdbbb793d4ea1d17a04e16e69ff1
 
 class SP3 : public SceneBase
 {
@@ -69,6 +74,16 @@ public:
         Boss,
     };
 
+	enum Select
+	{
+		First,
+		Second,
+		NUM3
+	};
+
+
+	Select option;
+	int selectArrow = 0;
     GameState gameState;
 	string StartOption[NUM];
 	string PauseOption[NUM2];
@@ -98,7 +113,7 @@ protected:
 
     //Boss Battle
     //BossBattle::Boss_Battle *B_battle;
-
+    
     //Menu
     float InputDelayTimer;
 };

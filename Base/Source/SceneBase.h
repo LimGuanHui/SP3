@@ -46,11 +46,15 @@ public:
 		GEO_AXES,
 		GEO_TEXT,
 		GEO_UI,
+<<<<<<< HEAD
 
 		GEO_BACKGROUND,
 		GEO_CHARACTER,
 		GEO_CHARACTER2,
 
+=======
+		GEO_SELECT,
+>>>>>>> 9a23e32041febdbbb793d4ea1d17a04e16e69ff1
 		NUM_GEOMETRY,
 
 	};

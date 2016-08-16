@@ -51,6 +51,9 @@
     <ProjectReference Include="..\Character\Character.vcxproj">
       <Project>{38e2e4d0-088c-41c9-9a96-96835fd9f5c2}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\MapEditor\Map_Editor\Map_Editor.vcxproj">
+      <Project>{87be76ec-7f52-4bc0-8807-36304e111b8e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Stage\Stage.vcxproj">
       <Project>{4676f9e4-df7d-4213-ad3c-94744faa919c}</Project>
     </ProjectReference>
@@ -98,7 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Stage;$(SolutionDir)\Character;$(SolutionDir)\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Stage;$(SolutionDir)\Character;$(SolutionDir)\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;$(SolutionDir)\MapEditor\Map_Editor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

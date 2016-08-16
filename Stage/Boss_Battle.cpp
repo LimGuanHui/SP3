@@ -15,7 +15,7 @@
         for (int i = 0; i < 7; i++)
         {
             Panels::Panel *N_panel = new Panels::Panel();
-            N_panel->Init(i, 5.0f, Panels::Panel::Normal);
+            N_panel->Init(i,Vector3(0,0,0), 5.0f, Panels::Panel::Normal);
             P_Panel_List.push_back(N_panel);
         }
     }
