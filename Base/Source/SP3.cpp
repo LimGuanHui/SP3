@@ -2,7 +2,7 @@
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
-#define InputDelay 0.4f
+#define InputDelay 0.1f
 
 SP3::SP3()
 {
@@ -193,15 +193,17 @@ void SP3::Update(double dt)
 		}
 		if (pauseGame == true)
 		{
-			if (Application::IsKeyPressed(VK_DOWN))
+			if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				if (startScreenArrow != (NUM2 - 1))
 					startScreenArrow++;
 				else
 					startScreenArrow = 0;
 			}
-			if (Application::IsKeyPressed(VK_UP))
+			if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				if (startScreenArrow != 0)
 					startScreenArrow--;
 				else
