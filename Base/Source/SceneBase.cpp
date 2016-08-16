@@ -108,6 +108,10 @@ void SceneBase::Init()
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
 	
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
+	meshList[GEO_UI]->textureID = LoadTGA("Image//bg.tga");
+
+	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("select", Color(1, 1, 1), 1.f);
+	meshList[GEO_SELECT]->textureID = LoadTGA("Image//selectarrow.tga");
 
 	bLightEnabled = false;
 }
@@ -181,7 +185,7 @@ void SceneBase::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 	for(unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(i * 1.0f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(i * 0.7f + 0.5f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
