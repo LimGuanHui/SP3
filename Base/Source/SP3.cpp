@@ -34,9 +34,11 @@ void SP3::Init()
 
     m_ghost = new GameObject(GameObject::GO_BALL);
 
+
     gameState = Menu;
     gameStage = Normal;
-    
+    //B_battle = new BossBattle::Boss_Battle();
+    //B_battle->Init();
 }
 
 
