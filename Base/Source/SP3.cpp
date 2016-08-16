@@ -218,7 +218,8 @@ void SP3::Update(double dt)
 					pauseGame = false;
 					break;
 				case(Quit2) :
-					quitGame = true;
+					gameState = Menu;
+					pauseGame = false;
 					break;
 				}
 			}
@@ -243,7 +244,6 @@ void SP3::Update(double dt)
             
         }
     }
-
     
     switch (gameState)
     {
@@ -323,8 +323,6 @@ void SP3::Render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
     // Projection matrix : Orthographic Projection
     Mtx44 projection;
     projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
@@ -341,7 +339,6 @@ void SP3::Render()
     modelStack.LoadIdentity();
 
     RenderMesh(meshList[GEO_AXES], false);
-
 
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
     {
