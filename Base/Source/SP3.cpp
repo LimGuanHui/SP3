@@ -366,24 +366,6 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	switch (selectArrow)
-	{
-	case(First) :
-		modelStack.PushMatrix();
-		modelStack.Translate(30, 28, 1);
-		modelStack.Scale(8, 8, 8);
-		RenderMesh(meshList[GEO_SELECT], false);
-		modelStack.PopMatrix();
-		break;
-	case(Second) :
-		modelStack.PushMatrix();	
-		modelStack.Translate(30, 23, 0);
-		modelStack.Scale(5, 5, 5);
-		RenderMesh(meshList[GEO_SELECT], false);
-		modelStack.PopMatrix();
-		break;
-	}
-
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
@@ -412,6 +394,24 @@ void SP3::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(1, 0, 0), 4, 26, 40);
 		RenderTextOnScreen(meshList[GEO_TEXT], PauseOption[startScreenArrow], Color(1, 0, 0), 4, 28, 15);
 		modelStack.PopMatrix();
+	}
+
+	switch (selectArrow)
+	{
+	case(First) :
+		modelStack.PushMatrix();
+		modelStack.Translate(30, 28, 1);
+		modelStack.Scale(10, 10, 10);
+		RenderMesh(meshList[GEO_SELECT], false);
+		modelStack.PopMatrix();
+		break;
+	case(Second) :
+		modelStack.PushMatrix();
+		modelStack.Translate(30, 23, 1);
+		modelStack.Scale(10, 10, 10);
+		RenderMesh(meshList[GEO_SELECT], false);
+		modelStack.PopMatrix();
+		break;
 	}
 
 }
