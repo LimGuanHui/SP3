@@ -35,6 +35,11 @@ namespace MOVEMENT
 		return AnimationCounter;
 	}
 
+	int CMovement::GetJumpspeed()
+	{
+		return jumpspeed;
+	}
+
 	void CMovement::SetPos_X(int pos_X)
 	{
 		this->position.x = pos_X;
@@ -52,11 +57,37 @@ namespace MOVEMENT
 
 	void CMovement::SetToJump(bool jump)
 	{
-		if (jump && OnGround && !InAir)
+		if (jump && !Drop && !InAir)
 		{
-			OnGround = false;
 			InAir = true;
+			Drop = false;
 			jumpspeed = 10;
+		}
+	}
+
+	void CMovement::SetJumpspeed(int jumpspeed)
+	{
+		this->jumpspeed = jumpspeed;
+	}
+
+	void CMovement::SetAnimationInvert(bool AnimationInvert)
+	{
+		this->AnimationInvert = AnimationInvert;
+	}
+
+	bool CMovement::GetAnimationInvert()
+	{
+		return AnimationInvert;
+	}
+
+	void CMovement::UpdateJumpUpwards()
+	{
+		position.y -= jumpspeed;
+		jumpspeed -= 1;
+		if (jumpspeed == 0)
+		{
+			InAir = false;
+			Drop = true;
 		}
 	}
 
@@ -64,16 +95,18 @@ namespace MOVEMENT
 	{
 		if (mode)
 		{
-			position.x = position.x + (int)(5.0f * timeDiff);
+			position.x = position.x - (int)(5.0f * timeDiff);
+			AnimationInvert = true;
 			AnimationCounter--;
-			if (AnimationCounter == 0)
-				AnimationCounter = 0;
+			if (AnimationCounter < 0)
+				AnimationCounter = 2;
 		}
 		else
 		{
-			position.x = position.x - (int)(5.0f * timeDiff);
+			position.x = position.x + (int)(5.0f * timeDiff);
+			AnimationInvert = false;
 			AnimationCounter++;
-			if (AnimationCounter > 0)
+			if (AnimationCounter > 2)
 				AnimationCounter = 0;
 		}
 	}
