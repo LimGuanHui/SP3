@@ -370,13 +370,13 @@ void SP3::Render()
 	{
 	case(First) :
 		modelStack.PushMatrix();
-		modelStack.Translate(30, 28, 0);
-		modelStack.Scale(10, 10, 10);
+		modelStack.Translate(30, 28, 1);
+		modelStack.Scale(8, 8, 8);
 		RenderMesh(meshList[GEO_SELECT], false);
 		modelStack.PopMatrix();
 		break;
 	case(Second) :
-		modelStack.PushMatrix();
+		modelStack.PushMatrix();	
 		modelStack.Translate(30, 23, 0);
 		modelStack.Scale(5, 5, 5);
 		RenderMesh(meshList[GEO_SELECT], false);
@@ -384,11 +384,10 @@ void SP3::Render()
 		break;
 	}
 
-
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(65.f, 50.f, 0.f);
+		modelStack.Translate(65.f, 50.f, -1.f);
 		modelStack.Scale(140, 107, 0);
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
