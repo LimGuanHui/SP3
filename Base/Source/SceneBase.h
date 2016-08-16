@@ -46,7 +46,15 @@ public:
 		GEO_AXES,
 		GEO_TEXT,
 		GEO_UI,
+<<<<<<< HEAD
+
+		GEO_BACKGROUND,
+		GEO_CHARACTER,
+		GEO_CHARACTER2,
+
+=======
 		GEO_SELECT,
+>>>>>>> 9a23e32041febdbbb793d4ea1d17a04e16e69ff1
 		NUM_GEOMETRY,
 
 	};
@@ -62,6 +70,7 @@ public:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderMesh(Mesh *mesh, bool enableLight);
+	void Render2DMesh(Mesh *mesh, const bool enableLight, const float size = 1.0f, const float x = 0.0f, const float y = 0.0f, const bool rotate = false, const bool flip = false);
 	void RenderGO(GameObject *go);
 
 	GameObject* FetchGO();

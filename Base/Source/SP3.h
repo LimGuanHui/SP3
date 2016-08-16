@@ -1,14 +1,22 @@
 #ifndef SP3_H
 #define SP3_H
 
-#include "GameObject.h"
+//#include "GameObject.h"
 #include <vector>
 #include "SceneBase.h"
 #include <map>;
 
+#include "GameObject.h"
 #include "Mob.h"
+<<<<<<< HEAD
+#include "Movement.h"
+using namespace MOVEMENT;
+//#include "Panel.h"
+//#include "Boss_Battle.h"
+=======
 #include "Boss_Battle.h"
 
+>>>>>>> 9a23e32041febdbbb793d4ea1d17a04e16e69ff1
 
 class SP3 : public SceneBase
 {
@@ -22,6 +30,7 @@ public:
     virtual void Exit();
 
     void RenderGO(GameObject *go);
+	void CharacterAnimation();
 
     GameObject* FetchGO();
 
@@ -83,12 +92,14 @@ public:
 	bool editLevel;
 	bool pauseGame;
 
+	CMovement* Character;
+
 protected:
 
     float m_speed;
     float m_worldWidth;
     float m_worldHeight;
-    GameObject *m_ghost;
+    GameObject* m_ghost;
 
 
     //Auditing
