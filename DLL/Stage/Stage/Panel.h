@@ -6,7 +6,7 @@
 #define PANEL_API __declspec(dllimport) 
 #endif
 
-//#include "Vector3.h"
+#include "Vector3.h"
 
 namespace Panels
 {
@@ -35,14 +35,14 @@ namespace Panels
 
         Panel();
         ~Panel();
-        void Init(int panelNo, /*Vector3 startpos,*/ float offset, PanelType panel_type);
+        void Init(int panelNo, Vector3 startpos, float offset, PanelType panel_type);
         void update(int *playerhp);
 
         PanelPos panel_pos;
         PanelType panel_type;
         PanelState panel_state;
     private:
-        //Vector3 Pos;
+        Vector3 Pos;
         int PanelNo;
         float offset;
         

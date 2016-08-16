@@ -25,7 +25,7 @@ public:
 
     State state;
     float ReactDist;
-    //Vector3 Position;
+    Vector3 Position;
 
         
     void Init();

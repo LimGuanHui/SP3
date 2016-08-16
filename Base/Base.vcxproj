@@ -48,9 +48,6 @@
     <ProjectReference Include="..\DLL\AI\AI\AI.vcxproj">
       <Project>{f31bad1b-8e2e-4446-9d68-5ab351f6a16d}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DLL\Character\Character.vcxproj">
-      <Project>{9266c747-5bb5-40e4-b066-4bd27c400935}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\DLL\Stage\Stage\BossStage.vcxproj">
       <Project>{13d3f928-14ab-43cf-bc68-55a92ba7d1ef}</Project>
     </ProjectReference>
@@ -98,7 +95,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\DLL\AI\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;$(SolutionDir)\DLL\Stage\Stage;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\DLL\AI\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;$(SolutionDir)\DLL\Stage\Stage;$(SolutionDir)\DLL\Player\Player;$(SolutionDir)\MapEditor\Map_Editor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
