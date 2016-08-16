@@ -59,6 +59,7 @@ public:
     GameState gameState;
 	string StartOption[NUM];
     Game_Stage gameStage;
+	int startScreenArrow = 0;
 
 protected:
 

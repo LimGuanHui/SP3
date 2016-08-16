@@ -34,9 +34,13 @@ void SP3::Init()
 
     m_ghost = new GameObject(GameObject::GO_BALL);
 
+	quitGame = false;
+
     gameState = Menu;
     gameStage = Normal;
-    
+	
+	StartOption[Start] = "Start Game";
+	StartOption[Quit] = "Quit Game";
 }
 
 
@@ -121,42 +125,35 @@ void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
 
-    if (Application::IsKeyPressed('9'))
-    {
-        m_speed = Math::Max(0.f, m_speed - 0.1f);
-    }
-    if (Application::IsKeyPressed('0'))
-    {
-        m_speed += 0.1f;
-    }
-    //Mouse Section
-    static bool bLButtonState = false;
-    if (Application::IsMousePressed(0) && !bLButtonState)
-    {
-        bLButtonState = true;
-        std::cout << "LBUTTON DOWN" << std::endl;
-
-    }
-    else if (bLButtonState && !Application::IsMousePressed(0))
-    {
-        bLButtonState = false;
-        std::cout << "LBUTTON UP" << std::endl;
-
-    }
-    static bool bRButtonState = false;
-    if (!bRButtonState && Application::IsMousePressed(1))
-    {
-        bRButtonState = true;
-        std::cout << "RBUTTON DOWN" << std::endl;
-
-       
-    }
-    else if (bRButtonState && !Application::IsMousePressed(1))
-    {
-        bRButtonState = false;
-        std::cout << "RBUTTON UP" << std::endl;
-
-    }
+	if (gameState == Menu)
+	{
+		if (Application::IsKeyPressed(VK_DOWN))
+		{
+			if (startScreenArrow != (NUM - 1))
+				startScreenArrow++;
+			else
+				startScreenArrow = 0;
+		}
+		if (Application::IsKeyPressed(VK_UP))
+		{
+			if (startScreenArrow != 0)
+				startScreenArrow--;
+			else
+				startScreenArrow = NUM - 1;
+		}
+		if (Application::IsKeyPressed(VK_RETURN))
+		{
+			switch (startScreenArrow)
+			{
+			case(Start) :
+				gameState = Game;
+				break;
+			case(Quit) :
+				quitGame = true;
+				break;
+			}
+		}
+	}
 
     //Physics Simulation Section
 
@@ -303,8 +300,9 @@ void SP3::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 25, 50);
 		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 35, 45);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 8, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 20, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 22, 15);
+		//RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 20, 20);
+		//RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 22, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], StartOption[startScreenArrow], Color(1, 0, 0), 4, 22.5, 15);
 		modelStack.PopMatrix();
 	}
 
