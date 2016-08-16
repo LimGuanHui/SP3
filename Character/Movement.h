@@ -15,9 +15,11 @@ namespace MOVEMENT
 
 		int GetPos_X();
 		int GetPos_Y();
+		int GetAnimationCounter();
 
 		void SetPos_X(int pos_X);
 		void SetPos_Y(int pos_Y);
+		void SetAnimationCounter(int AnimationCounter);
 
 		void SetToJump(bool jump);
 
@@ -29,6 +31,7 @@ namespace MOVEMENT
 		bool OnGround;
 		bool InAir;
 
+		int AnimationCounter;
 		int jumpspeed;
 	};
 

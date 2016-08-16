@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include "Boss_Battle.h"
 
     Boss_Battle::Boss_Battle()

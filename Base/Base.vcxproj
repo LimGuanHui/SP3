@@ -45,11 +45,14 @@
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLL\AI\AI\AI.vcxproj">
-      <Project>{f31bad1b-8e2e-4446-9d68-5ab351f6a16d}</Project>
+    <ProjectReference Include="..\AI\AI.vcxproj">
+      <Project>{611353ad-3c23-4c93-a69e-b2638c9f8e4e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DLL\Stage\Stage\BossStage.vcxproj">
-      <Project>{13d3f928-14ab-43cf-bc68-55a92ba7d1ef}</Project>
+    <ProjectReference Include="..\Character\Character.vcxproj">
+      <Project>{38e2e4d0-088c-41c9-9a96-96835fd9f5c2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Stage\Stage.vcxproj">
+      <Project>{4676f9e4-df7d-4213-ad3c-94744faa919c}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -95,7 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\DLL\AI\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;$(SolutionDir)\DLL\Stage\Stage;$(SolutionDir)\DLL\Player\Player;$(SolutionDir)\MapEditor\Map_Editor;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Stage;$(SolutionDir)\Character;$(SolutionDir)\AI;$(SolutionDir)/Common/Source;$(SolutionDir)/glew/include;$(SolutionDir)/glfw/include;$(SolutionDir)\Base\irrKlang-1.5.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

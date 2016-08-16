@@ -4,6 +4,7 @@ namespace MOVEMENT
 {
 	CMovement::CMovement()
 		: jumpspeed(0)
+		, AnimationCounter(0)
 		, OnGround(true)
 		, InAir(false)
 	{
@@ -29,6 +30,11 @@ namespace MOVEMENT
 		return position.y;
 	}
 
+	int CMovement::GetAnimationCounter()
+	{
+		return AnimationCounter;
+	}
+
 	void CMovement::SetPos_X(int pos_X)
 	{
 		this->position.x = pos_X;
@@ -37,6 +43,11 @@ namespace MOVEMENT
 	void CMovement::SetPos_Y(int pos_Y)
 	{
 		this->position.y = pos_Y;
+	}
+
+	void CMovement::SetAnimationCounter(int AnimationCounter)
+	{
+		this->AnimationCounter = AnimationCounter;
 	}
 
 	void CMovement::SetToJump(bool jump)
@@ -54,10 +65,16 @@ namespace MOVEMENT
 		if (mode)
 		{
 			position.x = position.x + (int)(5.0f * timeDiff);
+			AnimationCounter--;
+			if (AnimationCounter == 0)
+				AnimationCounter = 0;
 		}
 		else
 		{
 			position.x = position.x - (int)(5.0f * timeDiff);
+			AnimationCounter++;
+			if (AnimationCounter > 0)
+				AnimationCounter = 0;
 		}
 	}
 
