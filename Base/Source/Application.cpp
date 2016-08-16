@@ -148,7 +148,7 @@ void Application::Run()
     //theSoundEngine->play2D(BGM, true, false);
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-    while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+    while (!glfwWindowShouldClose(m_window) && !scene->quitGame)//&& !IsKeyPressed(VK_ESCAPE))
     {
         // Get the elapsed time
         m_dElapsedTime = m_timer.getElapsedTime();

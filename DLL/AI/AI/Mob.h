@@ -1,6 +1,7 @@
-#pragma once
+#ifndef MOB_H_
+#define MOB_H_
 
-#ifdef MOB_AI_EXPORTS
+#ifndef MOB_AI_EXPORTS
 #define MOB_AI_API __declspec(dllexport) 
 #else
 #define MOB_AI_API __declspec(dllimport) 
@@ -8,29 +9,30 @@
 
 #include "Vector3.h"
 
-namespace Mob_AI
+class MOB_AI_API Mob
 {
-
-    class MOB_AI_API Mob
-    {
-    public:
-        Mob(float reactionDistance);
-        ~Mob();
+public:
+    Mob(float reactionDistance);
+    ~Mob();
         
-        enum State
-        {
-            Spawn,
-            Idle,
-            Attack,
-            Die,
-        };
-
-        State state;
-        float ReactDist;
-        Vector3 Position;
-
-
-        void Init();
-        void update();
+    enum State
+    {
+        Spawn,
+        Idle,
+        Attack,
+        Die,
     };
-}
+
+    State state;
+    float ReactDist;
+    //Vector3 Position;
+
+        
+    void Init();
+    void update();
+};
+
+MOB_AI_API Mob* CreateMob(float reactionDistance);
+
+
+#endif

@@ -5,9 +5,10 @@
 #include <vector>
 #include "SceneBase.h"
 #include <map>;
-#include "Panel.h"
+
 #include "Mob.h"
 
+//#include "Boss_Battle.h"
 
 class SP3 : public SceneBase
 {
@@ -30,7 +31,6 @@ public:
 
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
-    std::vector<Panel *> PanelList;
     //Physics
 
     enum GameState
@@ -46,8 +46,17 @@ public:
 	enum StartOption
 	{
 		Start,
+		Edit,
+		Load,
 		Quit,
 		NUM
+	};
+
+	enum PauseOption
+	{
+		Resume,
+		Quit2,
+		NUM2
 	};
 
     enum Game_Stage
@@ -58,7 +67,11 @@ public:
 
     GameState gameState;
 	string StartOption[NUM];
+	string PauseOption[NUM2];
     Game_Stage gameStage;
+	int startScreenArrow = 0;
+	bool editLevel;
+	bool pauseGame;
 
 protected:
 
@@ -77,8 +90,10 @@ protected:
     float initialKE, finalKE;
 
     //Mob
-    std::vector<Mob_AI::Mob *> mob_list;
+    std::vector<Mob *> mob_list;
 
+    //Boss Battle
+    //BossBattle::Boss_Battle *B_battle;
 };
 
 #endif
