@@ -7,8 +7,8 @@
 #include <map>;
 
 #include "Mob.h"
+#include "Boss_Battle.h"
 
-//#include "Boss_Battle.h"
 
 class SP3 : public SceneBase
 {
@@ -92,7 +92,7 @@ protected:
 
     //Boss Battle
     //BossBattle::Boss_Battle *B_battle;
-
+    
     //Menu
     float InputDelayTimer;
 };

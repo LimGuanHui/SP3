@@ -48,10 +48,10 @@ void SP3::Init()
     gameStage = Normal;
 	
 	StartOption[Start] = "Start Game";
-	StartOption[Quit] = "Quit Game";
+	StartOption[Quit] = " Quit Game";
 	StartOption[Edit] = "Edit Level";
 	StartOption[Load] = "Load Level";
-	PauseOption[Resume] = " Resume";
+	PauseOption[Resume] = "  Resume";
 	PauseOption[Quit2] = "Quit Game";
 
 	//B_battle = new BossBattle::Boss_Battle();
@@ -218,7 +218,8 @@ void SP3::Update(double dt)
 					pauseGame = false;
 					break;
 				case(Quit2) :
-					quitGame = true;
+					gameState = Menu;
+					pauseGame = false;
 					break;
 				}
 			}
@@ -243,7 +244,6 @@ void SP3::Update(double dt)
             
         }
     }
-
     
     switch (gameState)
     {
@@ -323,8 +323,6 @@ void SP3::Render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
     // Projection matrix : Orthographic Projection
     Mtx44 projection;
     projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
@@ -342,7 +340,6 @@ void SP3::Render()
 
     RenderMesh(meshList[GEO_AXES], false);
 
-
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
     {
         GameObject *go = (GameObject *)*it;
@@ -356,23 +353,21 @@ void SP3::Render()
     ss.str(string());
     ss.precision(5);
     ss << "FPS: " << fps;
-    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+   // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(65.f, 50.f, 0.f);
-		modelStack.Scale(115, 90, 0);
+		modelStack.Scale(140, 107, 0);
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 25, 50);
-		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 35, 45);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 8, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "^", Color(1, 0, 0), 4, 38.5, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], "v", Color(1, 0, 0), 4, 38.5, 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], StartOption[startScreenArrow], Color(1, 0, 0), 4, 22.5, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], StartOption[startScreenArrow], Color(1, 0, 0), 4, 27, 15);
 		modelStack.PopMatrix();
 	}
 
@@ -380,15 +375,13 @@ void SP3::Render()
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(65.f, 50.f, 0.f);
-		modelStack.Scale(115, 90, 0);
+		modelStack.Scale(140, 107, 0);
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(1, 0, 0), 4, 19, 30);
-		RenderTextOnScreen(meshList[GEO_TEXT], "^", Color(1, 0, 0), 4, 38.5, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], "v", Color(1, 0, 0), 4, 38.5, 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], PauseOption[startScreenArrow], Color(1, 0, 0), 4, 23, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(1, 0, 0), 4, 26, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], PauseOption[startScreenArrow], Color(1, 0, 0), 4, 28, 15);
 		modelStack.PopMatrix();
 	}
 
