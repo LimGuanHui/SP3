@@ -44,14 +44,15 @@ void SP3::Init()
 	pauseGame = false;
 
 	option = First;
+	option2 = First2;
     gameState = Menu;
     gameStage = Normal;
 	
 	StartOption[Start] = "Start Game";
-	StartOption[Quit] = " Quit Game";
+	StartOption[Quit] = "Quit Game";
 	StartOption[Edit] = "Edit Level";
 	StartOption[Load] = "Load Level";
-	PauseOption[Resume] = "  Resume";
+	PauseOption[Resume] = "Resume";
 	PauseOption[Quit2] = "Quit Game";
 
 	//B_battle = new BossBattle::Boss_Battle();
@@ -147,37 +148,28 @@ void SP3::Update(double dt)
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
-	if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
-	{
-		InputDelayTimer = InputDelay;
-		if (selectArrow != (NUM3 - 1))
-			selectArrow++;
-		else
-			selectArrow = 0;
-	}
-
 	if (gameState == Menu)
 	{
-        if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+		if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
 		{
-            InputDelayTimer = InputDelay;
-			if (startScreenArrow != (NUM - 1))
-				startScreenArrow++;
+			InputDelayTimer = InputDelay;
+			if (selectArrow != (NUM3 - 1))
+				selectArrow++;
 			else
-				startScreenArrow = 0;
+				selectArrow = 0;
 		}
-        if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+		if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 		{
-            InputDelayTimer = InputDelay;
-			if (startScreenArrow != 0)
-				startScreenArrow--;
+			InputDelayTimer = InputDelay;
+			if (selectArrow != 0)
+				selectArrow--;
 			else
-				startScreenArrow = NUM - 1;
+				selectArrow = NUM3 - 1;
 		}
 		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 		{
 			InputDelayTimer = InputDelay;
-			switch (startScreenArrow)
+			switch (selectArrow)
 			{
 			case(Start) :
 				gameState = Game;
@@ -206,31 +198,34 @@ void SP3::Update(double dt)
 			if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
 			{
 				InputDelayTimer = InputDelay;
-				if (startScreenArrow != (NUM2 - 1))
-					startScreenArrow++;
+				if (selectArrow2 != (NUM4 - 1))
+					selectArrow2++;
 				else
-					startScreenArrow = 0;
+					selectArrow2 = 0;
 			}
 			if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 			{
 				InputDelayTimer = InputDelay;
-				if (startScreenArrow != 0)
-					startScreenArrow--;
+				if (selectArrow2 != 0)
+					selectArrow2--;
 				else
-					startScreenArrow = NUM2 - 1;
+					selectArrow2 = NUM4 - 1;
 			}
 			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 			{
 				InputDelayTimer = InputDelay;
-				switch (startScreenArrow)
+				switch (selectArrow2)
 				{
 				case(Resume) :
 					gameState = Game;
 					pauseGame = false;
 					break;
-				case(Quit2) :
+				case(Menu2) :
 					gameState = Menu;
 					pauseGame = false;
+					break;
+				case(Quit2) :
+					quitGame = true;
 					break;
 				}
 			}
@@ -378,8 +373,59 @@ void SP3::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
 		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], StartOption[startScreenArrow], Color(1, 0, 0), 4, 27, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
 		modelStack.PopMatrix();
+
+		switch (selectArrow)
+		{
+		case(First) :
+			modelStack.PushMatrix();
+			modelStack.Translate(38, 36.5, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(0, 1, 0), 4, 27, 20);
+			modelStack.PopMatrix();
+			break;
+		case(Second) :
+			modelStack.PushMatrix();
+			modelStack.Translate(38, 30, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(0, 1, 0), 4, 27.5, 16);
+			modelStack.PopMatrix();
+			break;
+		case(Third) :
+			modelStack.PushMatrix();
+			modelStack.Translate(38, 23.5, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(0, 1, 0), 4, 27.5, 12);
+			modelStack.PopMatrix();
+			break;
+		case(Fourth) :
+			modelStack.PushMatrix();
+			modelStack.Translate(38, 17, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(0, 1, 0), 4, 28, 8.5);
+			modelStack.PopMatrix();
+			break;
+		}
 	}
 
 	if (pauseGame == true)
@@ -391,27 +437,48 @@ void SP3::Render()
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(1, 0, 0), 4, 26, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], PauseOption[startScreenArrow], Color(1, 0, 0), 4, 28, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(0, 0, 1), 4, 26, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Resume", Color(1, 0, 0), 4, 33, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Main Menu", Color(1, 0, 0), 4, 29, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 29, 12);
 		modelStack.PopMatrix();
-	}
 
-	switch (selectArrow)
-	{
-	case(First) :
-		modelStack.PushMatrix();
-		modelStack.Translate(30, 28, 1);
-		modelStack.Scale(10, 10, 10);
-		RenderMesh(meshList[GEO_SELECT], false);
-		modelStack.PopMatrix();
-		break;
-	case(Second) :
-		modelStack.PushMatrix();
-		modelStack.Translate(30, 23, 1);
-		modelStack.Scale(10, 10, 10);
-		RenderMesh(meshList[GEO_SELECT], false);
-		modelStack.PopMatrix();
-		break;
+		switch (selectArrow2)
+		{
+		case(First2) :
+			modelStack.PushMatrix();
+			modelStack.Translate(47, 36.5, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Resume", Color(0, 1, 0), 4, 33, 20);
+			modelStack.PopMatrix();
+			break;
+		case(Second2) :
+			modelStack.PushMatrix();
+			modelStack.Translate(42, 30, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Main Menu", Color(0, 1, 0), 4, 29, 16);
+			modelStack.PopMatrix();
+			break;
+		case(Third2) :
+			modelStack.PushMatrix();
+			modelStack.Translate(42, 23.5, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_SELECT], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(0, 1, 0), 4, 29, 12);
+			modelStack.PopMatrix();
+			break;
+		}
 	}
 
 }

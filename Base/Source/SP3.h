@@ -60,6 +60,7 @@ public:
 	enum PauseOption
 	{
 		Resume,
+		Menu2,
 		Quit2,
 		NUM2
 	};
@@ -70,16 +71,31 @@ public:
         Boss,
     };
 
-	enum Select
+	enum SelectMain
 	{
 		First,
 		Second,
+		Third,
+		Fourth,
 		NUM3
 	};
 
+	enum SelectPause
+	{
+		First2,
+		Second2,
+		Third2,
+		NUM4,
+	};
 
-	Select option;
+	// Main Menu
+	SelectMain option;
 	int selectArrow = 0;
+
+	// Pause Menu
+	SelectPause option2;
+	int selectArrow2 = 0;
+
     GameState gameState;
 	string StartOption[NUM];
 	string PauseOption[NUM2];
