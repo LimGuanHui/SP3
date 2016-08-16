@@ -1,6 +1,12 @@
-// Map_Editor.cpp : Defines the exported functions for the DLL application.
-//
 
-#include "stdafx.h"
+#include "Map_Editor.h"
 
 
+Map_Editor::Map_Editor()
+{
+}
+
+
+Map_Editor::~Map_Editor()
+{
+}
