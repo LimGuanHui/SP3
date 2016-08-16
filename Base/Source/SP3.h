@@ -46,8 +46,17 @@ public:
 	enum StartOption
 	{
 		Start,
+		Edit,
+		Load,
 		Quit,
 		NUM
+	};
+
+	enum PauseOption
+	{
+		Resume,
+		Quit2,
+		NUM2
 	};
 
     enum Game_Stage
@@ -58,8 +67,11 @@ public:
 
     GameState gameState;
 	string StartOption[NUM];
+	string PauseOption[NUM2];
     Game_Stage gameStage;
 	int startScreenArrow = 0;
+	bool editLevel;
+	bool pauseGame;
 
 protected:
 

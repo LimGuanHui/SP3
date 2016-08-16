@@ -35,12 +35,18 @@ void SP3::Init()
     m_ghost = new GameObject(GameObject::GO_BALL);
 
 	quitGame = false;
+	editLevel = false;
+	pauseGame = false;
 
     gameState = Menu;
     gameStage = Normal;
 	
 	StartOption[Start] = "Start Game";
 	StartOption[Quit] = "Quit Game";
+	StartOption[Edit] = "Edit Level";
+	StartOption[Load] = "Load Level";
+	PauseOption[Resume] = " Resume";
+	PauseOption[Quit2] = "Quit Game";
 
 	//B_battle = new BossBattle::Boss_Battle();
 	//B_battle->Init();
@@ -152,9 +158,53 @@ void SP3::Update(double dt)
 			case(Start) :
 				gameState = Game;
 				break;
+			case(Edit) :
+				gameState = EditMode;
+				break;
+			case(Load) :
+				
+				break;
 			case(Quit) :
 				quitGame = true;
 				break;
+			}
+		}
+	}
+
+	if (gameState == Game)
+	{
+		if (Application::IsKeyPressed('P'))
+		{
+			pauseGame = true;
+		}
+		if (pauseGame == true)
+		{
+			if (Application::IsKeyPressed(VK_DOWN))
+			{
+				if (startScreenArrow != (NUM2 - 1))
+					startScreenArrow++;
+				else
+					startScreenArrow = 0;
+			}
+			if (Application::IsKeyPressed(VK_UP))
+			{
+				if (startScreenArrow != 0)
+					startScreenArrow--;
+				else
+					startScreenArrow = NUM2 - 1;
+			}
+			if (Application::IsKeyPressed(VK_RETURN))
+			{
+				switch (startScreenArrow)
+				{
+				case(Resume) :
+					gameState = Game;
+					pauseGame = false;
+					break;
+				case(Quit2) :
+					quitGame = true;
+					break;
+				}
 			}
 		}
 	}
@@ -304,9 +354,25 @@ void SP3::Render()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 25, 50);
 		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 35, 45);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 8, 40);
-		//RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 20, 20);
-		//RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 22, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "^", Color(1, 0, 0), 4, 38.5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "v", Color(1, 0, 0), 4, 38.5, 10);
 		RenderTextOnScreen(meshList[GEO_TEXT], StartOption[startScreenArrow], Color(1, 0, 0), 4, 22.5, 15);
+		modelStack.PopMatrix();
+	}
+
+	if (pauseGame == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(65.f, 50.f, 0.f);
+		modelStack.Scale(115, 90, 0);
+		RenderMesh(meshList[GEO_UI], false);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Game Paused", Color(1, 0, 0), 4, 19, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "^", Color(1, 0, 0), 4, 38.5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "v", Color(1, 0, 0), 4, 38.5, 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], PauseOption[startScreenArrow], Color(1, 0, 0), 4, 23, 15);
 		modelStack.PopMatrix();
 	}
 
