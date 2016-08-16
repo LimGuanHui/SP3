@@ -44,6 +44,11 @@
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DLL\AI\AI\AI.vcxproj">
+      <Project>{f31bad1b-8e2e-4446-9d68-5ab351f6a16d}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9B172635-4E2B-46F1-A403-08F4194D00F5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
