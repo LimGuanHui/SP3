@@ -75,8 +75,6 @@ public:
 
 protected:
 
-
-
     float m_speed;
     float m_worldWidth;
     float m_worldHeight;
@@ -94,6 +92,9 @@ protected:
 
     //Boss Battle
     //BossBattle::Boss_Battle *B_battle;
+
+    //Menu
+    float InputDelayTimer;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include "GL\glew.h"
 #include "Application.h"
 #include <sstream>
+#define InputDelay 0.4f
 
 SP3::SP3()
 {
@@ -55,6 +56,9 @@ void SP3::Init()
 
 	//B_battle = new BossBattle::Boss_Battle();
 	//B_battle->Init();
+
+    //Menu
+    InputDelayTimer = 0;
 
 }
 
@@ -140,17 +144,22 @@ void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
 
+    if (InputDelayTimer > 0)
+        InputDelayTimer -= dt;
+
 	if (gameState == Menu)
 	{
-		if (Application::IsKeyPressed(VK_DOWN))
+        if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
 		{
+            InputDelayTimer = InputDelay;
 			if (startScreenArrow != (NUM - 1))
 				startScreenArrow++;
 			else
 				startScreenArrow = 0;
 		}
-		if (Application::IsKeyPressed(VK_UP))
+        if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 		{
+            InputDelayTimer = InputDelay;
 			if (startScreenArrow != 0)
 				startScreenArrow--;
 			else
