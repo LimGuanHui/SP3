@@ -21,4 +21,3 @@ private:
     Vector3 pos;
     Vector3 scale;
 };
-

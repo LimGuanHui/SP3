@@ -83,29 +83,8 @@ std::string Map_Editor::getState()
 
 void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
 {
-    /*unsigned short key = ((GetAsyncKeyState(key) & 0x8001) != 0);
-
     Vector3 platformpos = selected_platform->getpos();
 
 
-
-    switch (key)
-        switch (key)
-    {
-    case VK_UP:
-        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y + dt * 5.f, 0));
-        break;
-    case VK_DOWN:
-        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y - dt * 5.f, 0));
-        break;
-    case VK_LEFT:
-        selected_platform->Setpos(Vector3(platformpos.x - dt * 5.f, platformpos.y, 0));
-        break;
-    case VK_RIGHT:
-        selected_platform->Setpos(Vector3(platformpos.x + dt * 5.f, platformpos.y, 0));
-        break;
-
-    default:
-        break;
-    }*/
+    
 }

@@ -10,7 +10,7 @@
 #include <vector>
 
 
-    class Boss_Battle
+class BOSS_BATTLE_API Boss_Battle
     {
     public:
         enum BattleState
@@ -20,11 +20,11 @@
             End,
         };
 
-        BOSS_BATTLE_API Boss_Battle();
-        BOSS_BATTLE_API ~Boss_Battle();
-        void BOSS_BATTLE_API Init();
-        void BOSS_BATTLE_API update();
-        void  BOSS_BATTLE_API exit();
+        Boss_Battle();
+        ~Boss_Battle();
+        void Init(Vector3 PanelStartpos);
+        void update();
+        void exit();
 
         BattleState battle_state;
 
@@ -32,3 +32,6 @@
         std::vector<Panels::Panel *> E_Panel_List;
     private:
     };
+
+
+BOSS_BATTLE_API Boss_Battle* CreateBossBattleInstance();

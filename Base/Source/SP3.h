@@ -10,8 +10,6 @@
 #include "Mob.h"
 #include "Movement.h"
 using namespace MOVEMENT;
-//#include "Panel.h"
-//#include "Boss_Battle.h"
 #include "Boss_Battle.h"
 
 class SP3 : public SceneBase
@@ -33,9 +31,11 @@ public:
     bool CheckCollision(GameObject *go1, GameObject *go2, float dt);
     float CheckCollision2(GameObject *go1, GameObject *go2);
     void CollisionResponse(GameObject *go1, GameObject *go2);
+    void RenderFromList(Boss_Battle* b_battle);
 
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
+    
     //Physics
 
     enum GameState
@@ -124,10 +124,11 @@ protected:
     std::vector<Mob *> mob_list;
 
     //Boss Battle
-    //BossBattle::Boss_Battle *B_battle;
+    Boss_Battle* test_B_battle;
     
     //Menu
     float InputDelayTimer;
+
 };
 
 #endif
