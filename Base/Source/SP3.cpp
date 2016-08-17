@@ -198,9 +198,17 @@ void SP3::Update(double dt)
 
 	if (gameState == Game)
 	{
-		if (Application::IsKeyPressed(' '))
+		if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
 		{
 			playerDead = true;
+			if (playerDead == true)
+			{
+				if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+				{
+					gameState = Menu;
+					playerDead = false;
+				}
+			}
 		}
 		if (Application::IsKeyPressed('P'))
 		{
