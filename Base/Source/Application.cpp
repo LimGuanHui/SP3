@@ -63,15 +63,15 @@ int Application::GetWindowHeight()
 
 Application::Application() 
 {
-    //theSoundEngine = NULL;
+   // theSoundEngine = NULL;
 }
 
 Application::~Application()
 {
-    /*if (theSoundEngine != NULL)
-    {
-        theSoundEngine->drop();
-    }*/
+   // if (theSoundEngine != NULL)
+   // {
+   //    theSoundEngine->drop();
+   // }
 }
 
 void Application::Init()
