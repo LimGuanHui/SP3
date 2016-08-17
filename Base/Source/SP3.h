@@ -14,6 +14,9 @@ using namespace MOVEMENT;
 //#include "Boss_Battle.h"
 #include "Boss_Battle.h"
 
+#include <irrKlang.h>
+using namespace irrklang;
+
 class SP3 : public SceneBase
 {
 public:
@@ -105,6 +108,7 @@ public:
 	bool pauseGame;
 
 	CMovement* Character;
+	ISoundEngine* sceneSoundEngine;
 
 protected:
 

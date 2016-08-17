@@ -23,8 +23,8 @@ public:
 	static int GetWindowWidth();
 	static int GetWindowHeight();
 
-    /*ISoundEngine* theSoundEngine;
-    ISoundSource* BGM;*/
+    //ISoundEngine* theSoundEngine;
+   // ISoundSource* BGM;
 
 private:
 	Application();
