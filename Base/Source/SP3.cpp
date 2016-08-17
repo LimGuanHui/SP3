@@ -6,15 +6,15 @@
 
 SP3::SP3()
 {
-    //sceneSoundEngine = NULL;
+   // sceneSoundEngine = NULL;
 }
 
 SP3::~SP3()
 {
-    /*if (sceneSoundEngine != NULL)
-    {
-        sceneSoundEngine->drop();
-    }*/
+   // if (sceneSoundEngine != NULL)
+   // {
+   //     sceneSoundEngine->drop();
+   // }
 }
 
 void SP3::Init()
@@ -64,6 +64,7 @@ void SP3::Init()
     //Menu
     InputDelayTimer = 0;
 
+	sceneSoundEngine = createIrrKlangDevice();
 }
 
 
@@ -160,6 +161,7 @@ void SP3::Update(double dt)
 				selectArrow++;
 			else
 				selectArrow = 0;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 		}
 		if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 		{
@@ -168,6 +170,7 @@ void SP3::Update(double dt)
 				selectArrow--;
 			else
 				selectArrow = NUM3 - 1;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 		}
 		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 		{
@@ -187,6 +190,7 @@ void SP3::Update(double dt)
 				quitGame = true;
 				break;
 			}
+			sceneSoundEngine->play2D("Sound/menu_enter.ogg");
 		}
 	}
 
@@ -205,6 +209,7 @@ void SP3::Update(double dt)
 					selectArrow2++;
 				else
 					selectArrow2 = 0;
+				sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 			}
 			if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
 			{
@@ -213,6 +218,7 @@ void SP3::Update(double dt)
 					selectArrow2--;
 				else
 					selectArrow2 = NUM4 - 1;
+				sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 			}
 			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
 			{
@@ -231,6 +237,7 @@ void SP3::Update(double dt)
 					quitGame = true;
 					break;
 				}
+				sceneSoundEngine->play2D("Sound/menu_enter.ogg");
 			}
 		}
 	}
