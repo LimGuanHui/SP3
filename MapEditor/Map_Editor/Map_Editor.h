@@ -41,6 +41,7 @@ public:
     std::string getState();
     static bool IsKeyPressed(unsigned short key);
     Platform* CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
+    std::string TextForDisplay();
 
     std::vector<Platform* > Platform_List;
 
@@ -49,3 +50,4 @@ private:
     Platform* curr;
 };
 
+Map_Editor* MAP_EDITOR_API CreateNewMapEditorInstance();

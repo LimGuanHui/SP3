@@ -23,6 +23,8 @@ using namespace ATTRIBUTE;
 #include <irrKlang.h>
 using namespace irrklang;
 
+#include "Map_Editor.h"
+
 class SP3 : public SceneBase
 {
 public:
@@ -140,6 +142,9 @@ protected:
 
     //Boss Battle
     Boss_Battle* test_B_battle;
+
+    //Map Editor
+    Map_Editor* mapEditor;
     
     //Menu
     float InputDelayTimer;

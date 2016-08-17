@@ -19,6 +19,7 @@ void Map_Editor::Init()
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
+    this->mousepos = mousepos;
     switch (edit_state)
     {
     case Map_Editor::START:
@@ -117,3 +118,34 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
     }
 }
 
+std::string Map_Editor::TextForDisplay()
+{
+    switch (edit_state) 
+    {
+    case Map_Editor::START:
+        return "Start Mode: (1)go to creation";
+        break;
+    case Map_Editor::SAVE:
+        break;
+    case Map_Editor::LOAD:
+        break;
+    case Map_Editor::CREATE:
+        return "Create Mode:(2)create basic platform";
+        break;
+    case Map_Editor::MANAGE:
+        return "ManageMode:(ESC) to gtfo, arrow keys to move the platform";
+        break;
+    case Map_Editor::DESTROY:
+        break;
+    case Map_Editor::END:
+        return "Go to game?";
+        break;
+    default:
+        break;
+    }
+}
+
+Map_Editor* CreateNewMapEditorInstance()
+{
+    return new Map_Editor();
+}

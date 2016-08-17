@@ -61,6 +61,9 @@ void SP3::Init()
 
 	//B_battle = new BossBattle::Boss_Battle();
 	//B_battle->Init();
+    mapEditor = CreateNewMapEditorInstance();
+    mapEditor->Init();
+
 
     //Menu
 	InputDelayTimer = 0;
@@ -322,6 +325,9 @@ void SP3::Update(double dt)
     default:
         break;
     }
+
+    //map editor update
+    //mapEditor->Update();
 }
 
 
@@ -533,6 +539,18 @@ void SP3::RenderFromList(Boss_Battle* b_battle)
         modelStack.PopMatrix();
     }
     modelStack.PopMatrix();
+
+    for (std::vector<Platform *>::iterator it = mapEditor->Platform_List.begin(); it != mapEditor->Platform_List.end(); ++it)
+    {
+        Platform* go = (Platform*)*it;
+        Vector3 temp = go->getpos();
+        modelStack.PushMatrix();
+        modelStack.Translate(temp.x, temp.y, temp.z);
+        temp = go->getscale();
+        modelStack.Scale(temp.x, temp.y, temp.z);
+
+        modelStack.PopMatrix();
+    }
 }
 
 
