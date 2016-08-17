@@ -7,12 +7,17 @@
 #include <map>;
 
 #include "GameObject.h"
-#include "Mob.h"
+//#include "Panel.h"
+#include "Boss_Battle.h"
+
+#include "Character.h"
+using namespace CHARACTER;
 #include "Movement.h"
 using namespace MOVEMENT;
-//#include "Panel.h"
-//#include "Boss_Battle.h"
-#include "Boss_Battle.h"
+#include "Skills.h"
+using namespace SKILLS;
+#include "Attribute.h"
+using namespace ATTRIBUTE;
 
 class SP3 : public SceneBase
 {
@@ -104,7 +109,7 @@ public:
 	bool editLevel;
 	bool pauseGame;
 
-	CMovement* Character;
+	CCharacter* Character;
 
 protected:
 
@@ -121,7 +126,7 @@ protected:
     float initialKE, finalKE;
 
     //Mob
-    std::vector<Mob *> mob_list;
+    //std::vector<Mob *> mob_list;
 
     //Boss Battle
     //BossBattle::Boss_Battle *B_battle;
