@@ -98,7 +98,7 @@ void Application::Init()
 	m_width = 800;
 	m_height = 600;
 	m_window = glfwCreateWindow(m_width, m_height, "Physics", NULL, NULL);
-    //m_window = glfwCreateWindow(mode->width, mode->height, "Physics", NULL, NULL);
+    //m_window = glfwCreateWindow(mode->width, mode->height, "Physics", glfwGetPrimaryMonitor(), NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
