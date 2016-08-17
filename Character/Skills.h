@@ -2,6 +2,7 @@
 
 #include "SkillsExport.h"
 #include "Attribute.h"
+#include <string>
 
 namespace SKILLS
 {
@@ -18,14 +19,17 @@ namespace SKILLS
 		CSkills();
 		~CSkills();
 
-		void SetSkill(int Skillnum);
-		int GetSkill();
+		void SetSkillName(std::string Name);
+		std::string GetSkillName();
 
-		void SkillEffect(int SkillEffect);
+		void SetSkillEffect(int SkillEffect);
 		int GetSkillEffect();
 
-		void SetSkillGuageC(int SGCap);
-		void SetRefillspd(int SGSpeed);
+		void SetSkillInfo(std::string Info);
+		std::string GetSkillInfo();
+
+		void SetSkillGuageC(int SkillGuageC);
+		void SetRefillspd(int SkillCharge);
 
 		int GetSkillGuage();
 		int GetRefillspd();
@@ -33,8 +37,9 @@ namespace SKILLS
 		ATTRIBUTE::CAttribute *Attribute;
 
 	private:
-		int skillnum;
-		int skilleffect;
+
+		int SkillEffect;
+
 		int SkillGuageC;
 		int SkillCharge;
 

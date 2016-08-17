@@ -64,7 +64,6 @@ void SP3::Init()
     //Menu
 	InputDelayTimer = 0;
 	Character = N_Character();
-    InputDelayTimer = 0;
 
 	sceneSoundEngine = createIrrKlangDevice();
 }

@@ -10,17 +10,7 @@ namespace SKILLS
 
 	CSkills::~CSkills(){}
 
-	void CSkills::SetSkill(int Skillnum)
-	{
-		this->skillnum = Skillnum;
-	}
-
-	int CSkills::GetSkill()
-	{
-		return skillnum;
-	}
-
-	void CSkills::SkillEffect(int SkillEffect)
+	void CSkills::SetSkillEffect(int SkillEffect)
 	{
 		switch (SkillEffect)
 		{

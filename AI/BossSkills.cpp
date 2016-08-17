@@ -1,6 +1,6 @@
 #include "BossSkills.h"
 
-namespace BOSSSKILL
+namespace BOSS_SKILL
 {
 	CBossSkills::CBossSkills()
 	{
