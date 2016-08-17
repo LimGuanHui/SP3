@@ -1,11 +1,14 @@
 #include "BossSkills.h"
 
-
-CBossSkills::CBossSkills()
+namespace BOSSSKILL
 {
+	CBossSkills::CBossSkills()
+	{
+	}
+
+
+	CBossSkills::~CBossSkills()
+	{
+	}
 }
 
-
-CBossSkills::~CBossSkills()
-{
-}

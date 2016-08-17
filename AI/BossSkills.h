@@ -10,7 +10,6 @@ namespace BOSSSKILL
 		CBossSkills();
 		~CBossSkills();
 
-		void 
 	};
 }
 
