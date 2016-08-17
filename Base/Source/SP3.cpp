@@ -39,6 +39,9 @@ void SP3::Init()
     //Mob* testMob = CreateMob(5.0f);
     //testMob->Init();
 
+    test_B_battle = CreateBossBattleInstance();
+    test_B_battle->Init(Vector3(10.5,11.25f,0.f));
+
 	quitGame = false;
 	editLevel = false;
 	pauseGame = false;
@@ -361,7 +364,7 @@ void SP3::Render()
     modelStack.LoadIdentity();
 
     RenderMesh(meshList[GEO_AXES], false);
-
+    //rendering of stuffs
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
     {
         GameObject *go = (GameObject *)*it;
@@ -370,6 +373,8 @@ void SP3::Render()
             RenderGO(go);
         }
     }
+    RenderFromList(test_B_battle);
+
 
     std::ostringstream ss;
     ss.str(string());
@@ -498,6 +503,38 @@ void SP3::Render()
 	}
 
 }
+void SP3::RenderFromList(Boss_Battle* b_battle)
+{
+    modelStack.PushMatrix();
+    
+    for (std::vector<Panels::Panel *>::iterator it = b_battle->P_Panel_List.begin(); it != b_battle->P_Panel_List.end(); ++it)
+    {
+        Panels::Panel *go = (Panels::Panel *)*it;
+        Vector3 temp = go->getpos();
+        modelStack.PushMatrix();
+        modelStack.Translate(temp.x, temp.y, temp.z);
+        temp = go->getscale();
+        modelStack.Scale(temp.x, temp.y, temp.z);
+
+        switch (go->panel_pos)
+        {
+        case Panels::Panel::Bottom:
+            RenderMesh(meshList[GEO_B_PANEL], false);
+            break;
+        case Panels::Panel::Middle:
+            RenderMesh(meshList[GEO_M_PANEL], false);
+            break;
+        case Panels::Panel::Top:
+            RenderMesh(meshList[GEO_T_PANEL], false);
+            break;
+        default:
+            break;
+        }
+        modelStack.PopMatrix();
+    }
+    modelStack.PopMatrix();
+}
+
 
 void SP3::Exit()
 {

@@ -50,6 +50,10 @@ public:
 		GEO_CHARACTER,
 		GEO_CHARACTER2,
 		GEO_SELECT,
+        //panel
+        GEO_B_PANEL,
+        GEO_M_PANEL,
+        GEO_T_PANEL,
 		NUM_GEOMETRY,
 
 	};
