@@ -40,7 +40,7 @@ void SP3::Init()
     //testMob->Init();
 
     test_B_battle = CreateBossBattleInstance();
-    test_B_battle->Init(Vector3(10.5,11.25f,0.f));
+    //test_B_battle->Init(Vector3(10.5,11.25f,0.f));
 
 	quitGame = false;
 	editLevel = false;
