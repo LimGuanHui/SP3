@@ -132,6 +132,8 @@ void SceneBase::Init()
     meshList[GEO_T_PANEL] = MeshBuilder::GenerateQuad("Panel", Color(0, 1, 0), 1.f);
     meshList[GEO_T_PANEL]->textureID = LoadTGA("Image//panels//tPanel.tga");
 
+	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateQuad("DeathSCreen", Color(1, 1, 1), 1.f);
+	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//gameover.tga");
 
 
 	bLightEnabled = false;

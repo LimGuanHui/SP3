@@ -50,6 +50,7 @@ public:
 		GEO_CHARACTER,
 		GEO_CHARACTER2,
 		GEO_SELECT,
+		GEO_DEATHSCREEN,
         //panel
         GEO_B_PANEL,
         GEO_M_PANEL,
