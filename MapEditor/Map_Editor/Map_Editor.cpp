@@ -40,12 +40,16 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         break;
     case Map_Editor::MANAGE:
         PlatformHandler(curr, dt);
+        if (IsKeyPressed(VK_ESCAPE))
+            edit_state = END;
+        else if (IsKeyPressed('1'))
+            edit_state = CREATE;
         break;
     case Map_Editor::DESTROY:
 
         break;
     case Map_Editor::END:
-
+        
         break;
     default:
         break;
@@ -112,3 +116,4 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
         selected_platform->Setpos(Vector3(platformpos.x - dt * 5.f, platformpos.y, platformpos.z));
     }
 }
+

@@ -27,6 +27,12 @@ public:
         END,
     };
 
+	enum BLOCK
+	{
+		GRASS,
+		END_BLOCKS,
+	};
+
     EDIT_STATE edit_state;
 
     void Init();

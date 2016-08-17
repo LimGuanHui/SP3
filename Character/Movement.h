@@ -43,9 +43,9 @@ namespace MOVEMENT
 		bool AnimationInvert;
 		int AnimationCounter;
 		int jumpspeed;
+
 	};
 
-	MOVEMENT_API CMovement* N_Character();
 }
 
 

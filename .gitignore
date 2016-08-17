@@ -20,4 +20,8 @@ ipch/ai-fc7dd3f5/ai-27c54176.ipch
 >>>>>>> f7bd94dc2e4bb6bc47687b63b07fab04719ecc57
 Debug/
 *.ipch
+<<<<<<< HEAD
 *.tlog
+=======
+glfw/COPYING.txt
+>>>>>>> 627bbd2a22fcbf0a644f268b20902428438cbaaa

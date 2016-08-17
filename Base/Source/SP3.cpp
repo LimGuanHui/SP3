@@ -36,8 +36,8 @@ void SP3::Init()
     m_ghost = new GameObject(GameObject::GO_BALL);
 
 
-    Mob* testMob = CreateMob(5.0f);
-    testMob->Init();
+    //Mob* testMob = CreateMob(5.0f);
+    //testMob->Init();
 
     test_B_battle = CreateBossBattleInstance();
     test_B_battle->Init(Vector3(10.5,11.25f,0.f));
@@ -62,6 +62,8 @@ void SP3::Init()
 	//B_battle->Init();
 
     //Menu
+	InputDelayTimer = 0;
+	Character = N_Character();
     InputDelayTimer = 0;
 
 	sceneSoundEngine = createIrrKlangDevice();

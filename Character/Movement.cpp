@@ -110,9 +110,4 @@ namespace MOVEMENT
 				AnimationCounter = 0;
 		}
 	}
-
-	CMovement* N_Character()
-	{
-		return new CMovement();
-	}
 }

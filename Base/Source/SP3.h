@@ -12,6 +12,14 @@
 using namespace MOVEMENT;
 #include "Boss_Battle.h"
 
+#include "Character.h"
+using namespace CHARACTER;
+#include "Movement.h"
+using namespace MOVEMENT;
+#include "Skills.h"
+using namespace SKILLS;
+#include "Attribute.h"
+using namespace ATTRIBUTE;
 #include <irrKlang.h>
 using namespace irrklang;
 
@@ -107,7 +115,8 @@ public:
 	bool editLevel;
 	bool pauseGame;
 
-	CMovement* Character;
+	CCharacter* Character;
+	//CMovement* Character;
 	ISoundEngine* sceneSoundEngine;
 
 protected:
@@ -125,7 +134,7 @@ protected:
     float initialKE, finalKE;
 
     //Mob
-    std::vector<Mob *> mob_list;
+    //std::vector<Mob *> mob_list;
 
     //Boss Battle
     Boss_Battle* test_B_battle;
