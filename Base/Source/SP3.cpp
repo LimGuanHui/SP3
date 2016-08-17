@@ -42,6 +42,7 @@ void SP3::Init()
 	quitGame = false;
 	editLevel = false;
 	pauseGame = false;
+	playerDead = false;
 
 	option = First;
 	option2 = First2;
@@ -237,6 +238,13 @@ void SP3::Update(double dt)
 				}
 				sceneSoundEngine->play2D("Sound/menu_enter.ogg");
 			}
+		}
+		if (Character->Attribute->GetCurrentHP() <= 0)
+		{
+			playerDead = true;
+			/*
+			Totally not done, need player.
+			*/
 		}
 	}
 

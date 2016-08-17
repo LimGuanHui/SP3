@@ -115,6 +115,8 @@ public:
 	//CMovement* Character;
 	ISoundEngine* sceneSoundEngine;
 
+	bool playerDead;
+
 protected:
 
     float m_speed;
