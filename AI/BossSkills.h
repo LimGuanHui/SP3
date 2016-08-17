@@ -2,7 +2,7 @@
 
 #include "BossSkillsExports.h"
 
-namespace BOSSSKILL
+namespace BOSS_SKILL
 {
 	class BOSS_SKILL_API CBossSkills
 	{
