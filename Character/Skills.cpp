@@ -7,14 +7,55 @@ namespace SKILLS
 		Attribute = new ATTRIBUTE::CAttribute();
 	}
 
-
 	CSkills::~CSkills(){}
+
+	void CSkills::Skill(int Skill)
+	{
+		switch (Skill)
+		{
+		case HEALING:
+			SetSkillName(Skill);
+			SetSkillEffect(Skill);
+			SetSkillInfo(Skill);
+			break;
+		}
+	}
+
+	void CSkills::SetSkillName(int Name)
+	{
+		switch (Name)
+		{
+		case HEALING:
+			this->Name = "HEAL";
+			break;
+		}
+	}
+
+	std::string CSkills::GetSkillName()
+	{
+		return Name;
+	}
 
 	void CSkills::SetSkillEffect(int SkillEffect)
 	{
 		switch (SkillEffect)
 		{
 		case HEALING:
+			break;
+		}
+	}
+
+	int CSkills::GetSkillEffect()
+	{
+		return SkillEffect;
+	}
+
+	void CSkills::SetSkillInfo(int Info)
+	{
+		switch (Info)
+		{
+		case HEALING:
+			this->SkillInfo = "Heal Character by 30HP";
 			break;
 		}
 	}

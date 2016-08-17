@@ -11,7 +11,7 @@ namespace SKILLS
 
 		enum SKILLS
 		{
-			HEALING,
+			HEALING = 1,
 		};
 
 
@@ -19,13 +19,15 @@ namespace SKILLS
 		CSkills();
 		~CSkills();
 
-		void SetSkillName(std::string Name);
+		void Skill(int Skill);
+
+		void SetSkillName(int Name);
 		std::string GetSkillName();
 
 		void SetSkillEffect(int SkillEffect);
 		int GetSkillEffect();
 
-		void SetSkillInfo(std::string Info);
+		void SetSkillInfo(int Info);
 		std::string GetSkillInfo();
 
 		void SetSkillGuageC(int SkillGuageC);
@@ -38,7 +40,9 @@ namespace SKILLS
 
 	private:
 
+		std::string Name;
 		int SkillEffect;
+		std::string SkillInfo;
 
 		int SkillGuageC;
 		int SkillCharge;
