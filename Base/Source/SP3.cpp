@@ -201,6 +201,18 @@ void SP3::Update(double dt)
 
 	if (gameState == Game)
 	{
+		if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+		{
+			playerDead = true;
+			if (playerDead == true)
+			{
+				if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+				{
+					gameState = Menu;
+					playerDead = false;
+				}
+			}
+		}
 		if (Application::IsKeyPressed('P'))
 		{
 			pauseGame = true;
@@ -387,6 +399,18 @@ void SP3::Render()
     ss.precision(5);
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+	if (gameState == Game)
+	{
+		if (playerDead == true)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(66.f, 50.f, 0);
+			modelStack.Scale(140, 107, 0);
+			RenderMesh(meshList[GEO_DEATHSCREEN], false);
+			modelStack.PopMatrix();
+		}
+	}
 
 	if (gameState == Menu)
 	{
