@@ -59,9 +59,14 @@ void SP3::Init()
 	//B_battle->Init();
 
     //Menu
+<<<<<<< HEAD
+	InputDelayTimer = 0;
+	Character = N_Character();
+=======
     InputDelayTimer = 0;
 
 	sceneSoundEngine = createIrrKlangDevice();
+>>>>>>> 4a48b7dcf40c615004bc621efe93e72e62e673ec
 }
 
 

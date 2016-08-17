@@ -7,15 +7,22 @@
 #include <map>;
 
 #include "GameObject.h"
-#include "Mob.h"
-#include "Movement.h"
-using namespace MOVEMENT;
 //#include "Panel.h"
-//#include "Boss_Battle.h"
 #include "Boss_Battle.h"
 
+<<<<<<< HEAD
+#include "Character.h"
+using namespace CHARACTER;
+#include "Movement.h"
+using namespace MOVEMENT;
+#include "Skills.h"
+using namespace SKILLS;
+#include "Attribute.h"
+using namespace ATTRIBUTE;
+=======
 #include <irrKlang.h>
 using namespace irrklang;
+>>>>>>> 4a48b7dcf40c615004bc621efe93e72e62e673ec
 
 class SP3 : public SceneBase
 {
@@ -107,8 +114,12 @@ public:
 	bool editLevel;
 	bool pauseGame;
 
+<<<<<<< HEAD
+	CCharacter* Character;
+=======
 	CMovement* Character;
 	ISoundEngine* sceneSoundEngine;
+>>>>>>> 4a48b7dcf40c615004bc621efe93e72e62e673ec
 
 protected:
 
@@ -125,7 +136,7 @@ protected:
     float initialKE, finalKE;
 
     //Mob
-    std::vector<Mob *> mob_list;
+    //std::vector<Mob *> mob_list;
 
     //Boss Battle
     //BossBattle::Boss_Battle *B_battle;

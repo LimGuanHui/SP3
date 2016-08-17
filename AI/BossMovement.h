@@ -1,15 +1,15 @@
 #pragma once
 
-#include "MonsterMovementExport.h"
+#include "BossMovementExports.h"
 #include "Vector3.h"
 
-namespace MONSTER_MOVEMENT
+namespace BOSS_MOVEMENT
 {
-	class MONSTER_MOVEMENT_API MMovement
+	class BOSS_MOVEMENT_API BMovement
 	{
 	public:
-		MMovement();
-		~MMovement();
+		BMovement();
+		~BMovement();
 
 		void Init();
 
@@ -23,5 +23,5 @@ namespace MONSTER_MOVEMENT
 		Vector3 position;
 	};
 
-	MONSTER_MOVEMENT_API MMovement* N_Monster();
+	BOSS_MOVEMENT_API BMovement* N_Boss();
 }

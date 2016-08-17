@@ -1,4 +1,16 @@
-// AI.cpp : Defines the exported functions for the DLL application.
-//
+#include "AI.h"
 
-#include "Mob.h"
+namespace AI
+{
+	CAI::CAI()
+	{
+	}
+
+
+	CAI::~CAI()
+	{
+	}
+
+
+}
+
