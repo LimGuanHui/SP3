@@ -22,6 +22,7 @@ public:
         SAVE,
         LOAD,
         CREATE,
+        MANAGE,
         DESTROY,
         END,
     };
@@ -36,7 +37,9 @@ public:
     Platform* CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
 
     std::vector<Platform* > Platform_List;
+
 private:
     Vector3 mousepos;
+    Platform* curr;
 };
 

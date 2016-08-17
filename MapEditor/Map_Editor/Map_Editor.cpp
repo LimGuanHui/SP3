@@ -15,6 +15,7 @@ void Map_Editor::Init()
 {
     edit_state = START;
     mousepos = Vector3(0, 0, 0);
+    curr = NULL;
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
@@ -31,7 +32,14 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
 
         break;
     case Map_Editor::CREATE:
-
+        if (Map_Editor::IsKeyPressed('2'))
+        {
+            Platform* curr = CreateNewPlatform(mousepos, Vector3(1, 1, 1), Platform::Normal);
+            edit_state = MANAGE;
+        }
+        break;
+    case Map_Editor::MANAGE:
+        PlatformHandler(curr, dt);
         break;
     case Map_Editor::DESTROY:
 
@@ -45,8 +53,9 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
 }
 Platform* Map_Editor::CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type)
 {
-
-    return new Platform(pos,scale,type);
+    Platform* Newplatform = new Platform(pos, scale, type);
+    Platform_List.push_back(Newplatform);
+    return Newplatform;
 }
 
 bool Map_Editor::IsKeyPressed(unsigned short key)
@@ -86,5 +95,20 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
     Vector3 platformpos = selected_platform->getpos();
 
 
-    
+    if (IsKeyPressed(VK_UP))
+    {
+        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y + dt * 5.f, platformpos.z));
+    }
+    else if (IsKeyPressed(VK_DOWN))
+    {
+        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y - dt * 5.f, platformpos.z));
+    }
+    else if (IsKeyPressed(VK_LEFT))
+    {
+        selected_platform->Setpos(Vector3(platformpos.x + dt * 5.f, platformpos.y, platformpos.z));
+    }
+    else if (IsKeyPressed(VK_RIGHT))
+    {
+        selected_platform->Setpos(Vector3(platformpos.x - dt * 5.f, platformpos.y, platformpos.z));
+    }
 }
