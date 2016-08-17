@@ -135,6 +135,11 @@ void SceneBase::Init()
 	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateQuad("DeathSCreen", Color(1, 1, 1), 1.f);
 	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//gameover.tga");
 
+    //platforms
+    meshList[GEO_PLAT_NORMAL] = MeshBuilder::GenerateQuad("Normal platform", Color(0, 1, 0), 1.f);
+    meshList[GEO_PLAT_NORMAL]->textureID = LoadTGA("Image//platform//normal.tga");
+
+
 
 	bLightEnabled = false;
 }

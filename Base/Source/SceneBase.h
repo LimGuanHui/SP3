@@ -55,6 +55,8 @@ public:
         GEO_B_PANEL,
         GEO_M_PANEL,
         GEO_T_PANEL,
+        //platform
+        GEO_PLAT_NORMAL,
 		NUM_GEOMETRY,
 
 	};

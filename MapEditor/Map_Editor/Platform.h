@@ -1,6 +1,12 @@
+#ifndef PLATFORM_EXPORTS
+#define PLATFORM_API __declspec(dllexport) 
+#else
+#define PLATFORM_API __declspec(dllimport) 
+#endif
+
 #include "Vector3.h"
 
-class Platform
+class PLATFORM_API Platform
 {
 public:
     enum PLATFORM_TYPE

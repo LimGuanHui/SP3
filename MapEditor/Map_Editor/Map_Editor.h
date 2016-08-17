@@ -50,4 +50,4 @@ private:
     Platform* curr;
 };
 
-Map_Editor* MAP_EDITOR_API CreateNewMapEditorInstance();
+MAP_EDITOR_API Map_Editor* CreateNewMapEditorInstance();

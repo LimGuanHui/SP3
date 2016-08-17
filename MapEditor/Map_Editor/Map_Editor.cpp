@@ -35,7 +35,7 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
     case Map_Editor::CREATE:
         if (Map_Editor::IsKeyPressed('2'))
         {
-            Platform* curr = CreateNewPlatform(mousepos, Vector3(1, 1, 1), Platform::Normal);
+            curr = CreateNewPlatform(mousepos, Vector3(1, 1, 1), Platform::Normal);
             edit_state = MANAGE;
         }
         break;
@@ -97,25 +97,58 @@ std::string Map_Editor::getState()
 
 void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
 {
-    Vector3 platformpos = selected_platform->getpos();
+    Vector3 platform;
 
+
+    platform = selected_platform->getscale();
+
+
+    if (IsKeyPressed(VK_UP) && IsKeyPressed(VK_SHIFT))
+    {
+        selected_platform->Setscale(Vector3(platform.x, platform.y + dt * 5.f, platform.z));
+        
+    }
+    else if (IsKeyPressed(VK_DOWN) && IsKeyPressed(VK_SHIFT))
+    {
+        selected_platform->Setscale(Vector3(platform.x, platform.y - dt * 5.f, platform.z));
+        
+    }
+     if (IsKeyPressed(VK_LEFT) && IsKeyPressed(VK_SHIFT))
+    {
+        selected_platform->Setscale(Vector3(platform.x - dt * 5.f, platform.y, platform.z));
+        
+    }
+    else if (IsKeyPressed(VK_RIGHT) && IsKeyPressed(VK_SHIFT))
+    {
+        selected_platform->Setscale(Vector3(platform.x + dt * 5.f, platform.y, platform.z));
+        
+    }
+
+    platform = selected_platform->getpos();
 
     if (IsKeyPressed(VK_UP))
     {
-        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y + dt * 5.f, platformpos.z));
+        selected_platform->Setpos(Vector3(platform.x, platform.y + dt * 5.f, platform.z));
+        
     }
     else if (IsKeyPressed(VK_DOWN))
     {
-        selected_platform->Setpos(Vector3(platformpos.x, platformpos.y - dt * 5.f, platformpos.z));
+        selected_platform->Setpos(Vector3(platform.x, platform.y - dt * 5.f, platform.z));
+        
     }
-    else if (IsKeyPressed(VK_LEFT))
+    if (IsKeyPressed(VK_LEFT))
     {
-        selected_platform->Setpos(Vector3(platformpos.x + dt * 5.f, platformpos.y, platformpos.z));
+        selected_platform->Setpos(Vector3(platform.x - dt * 5.f, platform.y, platform.z));
+        
     }
     else if (IsKeyPressed(VK_RIGHT))
     {
-        selected_platform->Setpos(Vector3(platformpos.x - dt * 5.f, platformpos.y, platformpos.z));
+        selected_platform->Setpos(Vector3(platform.x + dt * 5.f, platform.y, platform.z));
+        
     }
+
+    
+
 }
 
 std::string Map_Editor::TextForDisplay()
@@ -133,7 +166,7 @@ std::string Map_Editor::TextForDisplay()
         return "Create Mode:(2)create basic platform";
         break;
     case Map_Editor::MANAGE:
-        return "ManageMode:(ESC) to gtfo, arrow keys to move the platform";
+        return "ManageMode:(ESC) to gtfo,(1)to go create again, arrow keys to move the platform, hold shift for scale";
         break;
     case Map_Editor::DESTROY:
         break;
@@ -149,3 +182,4 @@ Map_Editor* CreateNewMapEditorInstance()
 {
     return new Map_Editor();
 }
+
