@@ -43,21 +43,14 @@ void SP3::Init()
     //test_B_battle->Init(Vector3(10.5,11.25f,0.f));
 
 	quitGame = false;
-	editLevel = false;
-	pauseGame = false;
 	playerDead = false;
 
 	option = First;
 	option2 = First2;
+	option3 = First3;
+
     gameState = Menu;
     gameStage = Normal;
-	
-	StartOption[Start] = "Start Game";
-	StartOption[Quit] = "Quit Game";
-	StartOption[Edit] = "Edit Level";
-	StartOption[Load] = "Load Level";
-	PauseOption[Resume] = "Resume";
-	PauseOption[Quit2] = "Quit Game";
 
 	//B_battle = new BossBattle::Boss_Battle();
 	//B_battle->Init();
@@ -191,7 +184,6 @@ void SP3::Update(double dt)
 	{
         
 	}
-
     //Physics Simulation Section
 
     /*
@@ -214,166 +206,208 @@ void SP3::Update(double dt)
     switch (gameState)
     {
     case SP3::EditMode:
-    {
-                          //map editor update
-                          mapEditor->Update(dt, CheckMousepos());
-    }
+        //map editor update
+        mapEditor->Update(dt, CheckMousepos());
         break;
-    case SP3::Menu:
-    {
-                      if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          if (selectArrow != (NUM3 - 1))
-                              selectArrow++;
-                          else
-                              selectArrow = 0;
-                          sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                      }
-                      if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          if (selectArrow != 0)
-                              selectArrow--;
-                          else
-                              selectArrow = NUM3 - 1;
-                          sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                      }
-                      if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          switch (selectArrow)
-                          {
-                          case(Start) :
-                              gameState = Game;
-                              break;
-                          case(Edit) :
-                              gameState = EditMode;
-                              break;
-                          case(Load) :
 
-                              break;
-                          case(Quit) :
-                              quitGame = true;
-                              break;
-                          }
-                          sceneSoundEngine->play2D("Sound/menu_enter.ogg");
-                      }
-                      if (Application::IsKeyPressed('0') && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          gameState = EditMode;
-                      }
-    }
-        break;
+	case SP3::Menu:
+		if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow != (NUM3 - 1))
+				selectArrow++;
+			else
+				selectArrow = 0;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+		}
+		if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow != 0)
+				selectArrow--;
+			else
+				selectArrow = NUM3 - 1;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+		}
+		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			switch (selectArrow)
+			{
+			case(Start) :
+				gameState = Game;
+				break;
+			case(Load) :
+				
+				break;
+			case(Edit) :
+				gameState = EditMode;
+				break;
+			case(Quit) :
+				quitGame = true;
+				break;
+			}
+			sceneSoundEngine->play2D("Sound/menu_enter.ogg");
+		}
+		if (Application::IsKeyPressed('0') && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			gameState = EditMode;
+		}
+		break;
+
     case SP3::Pause:
-    {
+		if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow2 != (NUM4 - 1))
+				selectArrow2++;
+			else
+				selectArrow2 = 0;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+		}
+		if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow2 != 0)
+				selectArrow2--;
+			else
+				selectArrow2 = NUM4 - 1;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+		}
+		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			switch (selectArrow2)
+			{
+			case(Resume) :
+				gameState = Game;
+				break;
+			case(Menu2) :
+				gameState = Menu;
+				break;
+			case(Quit2) :
+				quitGame = true;
+				break;
+			}
+			sceneSoundEngine->play2D("Sound/menu_enter.ogg");
+		}
+		break;
 
+	case SP3::Game:
+		if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+		{
+			playerDead = true;
+		}
+		if (playerDead == true)
+		{
+			if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+			{
+				InputDelayTimer = InputDelay;
+				if (selectArrow3 != (NUM5 - 1))
+					selectArrow3++;
+				else
+					selectArrow3 = 0;
+				sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+			}
+			if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+			{
+				InputDelayTimer = InputDelay;
+				if (selectArrow3 != 0)
+					selectArrow3--;
+				else
+					selectArrow3 = NUM5 - 1;
+				sceneSoundEngine->play2D("Sound/menu_updown.gg");
+			
+			}
+			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
+				{
+					InputDelayTimer = InputDelay;
+					switch (selectArrow3)
+					{
+					case(Restart) :
+						playerDead = false;
+						gameState = Game;
+						break;
+					case(Menu3) :
+						playerDead = false;
+						gameState = Menu;
+						break;
+					case(Quit3) :
+						quitGame = true;
+						break;
+					}
+					sceneSoundEngine->play2D("Sound/menu_enter.ogg");
+				}
+			}
+
+			if (Application::IsKeyPressed('P'))
+			{
+				gameState = Pause;
+			}
+
+			if (Application::IsKeyPressed('O'))
+			{
+				gameState = End;
+			}
+
+			break;
+	case SP3::Transition:
+		//Transition here
+		break;
+
+	case SP3::End:
+		if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow4 != (NUM7 - 1))
+				selectArrow4++;
+			else
+				selectArrow4 = 0;
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+		}
+		if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			if (selectArrow4 != 0)
+				selectArrow4--;
+			else
+				selectArrow4 = NUM7 - 1;
+			sceneSoundEngine->play2D("Sound/menu_updown.gg");
+
+		}
+		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
+		{
+			InputDelayTimer = InputDelay;
+			switch (selectArrow4)
+			{
+			case(Menu4) :
+				gameState = Menu;
+				break;
+				
+			case(Quit4) :
+				quitGame = true;
+				break;
+			}
+			sceneSoundEngine->play2D("Sound/menu_enter.ogg");
+		}
+		break;
+
+	default:
+		break;
+
+	}
+	switch (gameStage)
+	{
+	case SP3::Normal:
+		break;
+
+	case SP3::Boss:
+		break;
+
+	default:
+		break;
     }
-        break;
-    case SP3::Game:
-    {
-                      if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
-                      {
-                          playerDead = true;
-                          if (playerDead == true)
-                          {
-                              if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
-                              {
-                                  gameState = Menu;
-                                  playerDead = false;
-                              }
-                          }
-                      }
-                      if (Application::IsKeyPressed('P'))
-                      {
-                          pauseGame = true;
-                      }
-                      if (pauseGame == true)
-                      {
-                          if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
-                          {
-                              InputDelayTimer = InputDelay;
-                              if (selectArrow2 != (NUM4 - 1))
-                                  selectArrow2++;
-                              else
-                                  selectArrow2 = 0;
-                              sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                          }
-                          if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
-                          {
-                              InputDelayTimer = InputDelay;
-                              if (selectArrow2 != 0)
-                                  selectArrow2--;
-                              else
-                                  selectArrow2 = NUM4 - 1;
-                              sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                          }
-                          if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
-                          {
-                              InputDelayTimer = InputDelay;
-                              switch (selectArrow2)
-                              {
-                              case(Resume) :
-                                  gameState = Game;
-                                  pauseGame = false;
-                                  break;
-                              case(Menu2) :
-                                  gameState = Menu;
-                                  pauseGame = false;
-                                  break;
-                              case(Quit2) :
-                                  quitGame = true;
-                                  break;
-                              }
-                              sceneSoundEngine->play2D("Sound/menu_enter.ogg");
-                          }
-                      }
-                      if (Character->Attribute->GetCurrentHP() <= 0)
-                      {
-                          playerDead = true;
-                          /*
-                          Totally not done, need player.
-                          */
-                      }
-
-        switch (gameStage)
-        {
-        case SP3::Normal:
-        {
-
-        }
-            break;
-        case SP3::Boss:
-        {
-
-        }
-            break;
-        default:
-            break;
-        }
-    }
-        break;
-    case SP3::Transition:
-    {
-        //Transition here
-
-
-        gameState = Game;
-    }
-        break;
-    case SP3::End:
-    {
-
-    }
-        break;
-    default:
-        break;
-    }
-
-
-
-    
 }
 
 
@@ -395,8 +429,7 @@ void SP3::RenderGO(GameObject *go)
 
 }
 
-
-void SP3::Render()
+void SP3::RenderUI()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -440,14 +473,47 @@ void SP3::Render()
 
 	if (gameState == Game)
 	{
-        if (playerDead == true)
-        {
-            modelStack.PushMatrix();
-            modelStack.Translate(66.f, 50.f, 0);
-            modelStack.Scale(140, 107, 0);
-            RenderMesh(meshList[GEO_DEATHSCREEN], false);
-            modelStack.PopMatrix();
-        }
+		if (playerDead == true)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(66.f, 50.f, 0);
+			modelStack.Scale(140, 107, 0);
+			RenderMesh(meshList[GEO_DEATHSCREEN], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Restart", Color(1, 1, 1), 4, 29, 16);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Main Menu", Color(1, 1, 1), 4, 26, 12);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 1, 1), 4, 26, 8);
+			modelStack.PopMatrix();
+
+			switch (selectArrow3)
+			{
+			case(First3) :
+				modelStack.PushMatrix();
+				modelStack.Translate(42, 30.5, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_RESTARTCURSOR], false);
+				modelStack.PopMatrix();
+				break;
+
+			case(Second3) :
+				modelStack.PushMatrix();
+				modelStack.Translate(38, 24, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_MENUCURSOR], false);
+				modelStack.PopMatrix();
+				break;
+
+			case(Third3) :
+				modelStack.PushMatrix();
+				modelStack.Translate(38, 17, 1);
+				modelStack.Scale(10, 10, 10);
+				RenderMesh(meshList[GEO_QUITCURSOR], false);
+				modelStack.PopMatrix();
+				break;
+			}
+		}
 	}
 
 	if (gameState == Menu)
@@ -458,7 +524,15 @@ void SP3::Render()
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
-		
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
+		modelStack.PopMatrix();
 
 		switch (selectArrow)
 		{
@@ -509,7 +583,7 @@ void SP3::Render()
 		}
 	}
 
-	if (pauseGame == true)
+	if (gameState == Pause)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(65.f, 50.f, 0.f);
@@ -561,6 +635,98 @@ void SP3::Render()
 			break;
 		}
 	}
+
+	if (gameState == End)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(67.f, 50.f, -1.f);
+		modelStack.Scale(140, 107, 0);
+		RenderMesh(meshList[GEO_VICTORY], false);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Main Menu", Color(1, 0, 0), 4, 29, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 29, 12);
+		modelStack.PopMatrix();
+
+		switch (selectArrow4)
+		{
+		case(First4) :
+			modelStack.PushMatrix();
+			modelStack.Translate(40, 30, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MENUCURSOR2], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Main Menu", Color(0, 1, 0), 4, 29, 16);
+			modelStack.PopMatrix();
+			break;
+
+		case(Second4) :
+			modelStack.PushMatrix();
+			modelStack.Translate(40, 23.5, 1);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_QUITCURSOR2], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(0, 1, 0), 4, 29, 12);
+			modelStack.PopMatrix();
+			break;
+		}
+	}
+
+	if (gameState == EditMode)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(66.5f, 50.f, 0);
+		modelStack.Scale(135, 100, 0);
+		RenderMesh(meshList[GEO_EDITBACKGROUND], false);
+		modelStack.PopMatrix();
+	}
+}
+
+void SP3::Render()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Projection matrix : Orthographic Projection
+    Mtx44 projection;
+    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+    projectionStack.LoadMatrix(projection);
+
+    // Camera matrix
+    viewStack.LoadIdentity();
+    viewStack.LookAt(
+        camera.position.x, camera.position.y, camera.position.z,
+        camera.target.x, camera.target.y, camera.target.z,
+        camera.up.x, camera.up.y, camera.up.z
+        );
+    // Model matrix : an identity matrix (model will be at the origin)
+    modelStack.LoadIdentity();
+
+    RenderMesh(meshList[GEO_AXES], false);
+    //rendering of stuffs
+    for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+    {
+        GameObject *go = (GameObject *)*it;
+        if (go->active)
+        {
+            RenderGO(go);
+        }
+    }
+    RenderFromList(test_B_battle,mapEditor);
+
+
+    std::ostringstream ss;
+    ss.str(string());
+    ss.precision(5);
+    ss << "FPS: " << fps;
+   // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+	RenderUI();
+    RenderText();
 
 }
 
@@ -636,18 +802,10 @@ void SP3::RenderText()
     switch (gameState)
     {
     case SP3::EditMode:
-        RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(1, 1, 1), 2.f, 0, 2);
+        RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(0, 0, 1), 2.f, 0, 2);
         break;
-    case SP3::Menu:
-        modelStack.PushMatrix();
-        RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
-        RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
-        modelStack.PopMatrix();
+	case SP3::Menu:
+        
         break;
     case SP3::Pause:
         break;

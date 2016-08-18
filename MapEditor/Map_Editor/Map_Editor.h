@@ -27,11 +27,7 @@ public:
         END,
     };
 
-	enum BLOCK
-	{
-		GRASS,
-		END_BLOCKS,
-	};
+
 
     EDIT_STATE edit_state;
 
@@ -42,9 +38,11 @@ public:
     static bool IsKeyPressed(unsigned short key);
     Platform* CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
     std::string TextForDisplay();
+    std::string getfilename(std::string fileDir);
+    void DisplayAvailablePlatforms(Vector3 topofScreen);
 
     std::vector<Platform* > Platform_List;
-
+    std::vector<Platform* > Platform_Display_List;
 private:
     Vector3 mousepos;
     Platform* curr;

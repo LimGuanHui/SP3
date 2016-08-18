@@ -51,6 +51,7 @@ public:
     void RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor);
     void RenderText();
 	void RenderCharacter();
+	void RenderUI();
     Vector3 CheckMousepos();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
@@ -70,8 +71,8 @@ public:
 	enum StartOption
 	{
 		Start,
-		Edit,
 		Load,
+		Edit,
 		Quit,
 		NUM
 	};
@@ -82,6 +83,21 @@ public:
 		Menu2,
 		Quit2,
 		NUM2
+	};
+
+	enum DeathOption
+	{
+		Restart,
+		Menu3,
+		Quit3,
+		NUM6
+	};
+
+	enum WinOption
+	{
+		Menu4,
+		Quit4,
+		NUM8
 	};
 
     enum Game_Stage
@@ -107,6 +123,21 @@ public:
 		NUM4,
 	};
 
+	enum SelectDeath
+	{
+		First3,
+		Second3,
+		Third3,
+		NUM5,
+	};
+
+	enum SelectWin
+	{
+		First4,
+		Second4,
+		NUM7
+	};
+
 	// Main Menu
 	SelectMain option;
 	int selectArrow = 0;
@@ -115,13 +146,17 @@ public:
 	SelectPause option2;
 	int selectArrow2 = 0;
 
+	// Death Menu
+	SelectDeath option3;
+	int selectArrow3 = 0;
+
+	// Victory Menu
+	SelectWin option4;
+	int selectArrow4 = 0;
+
     GameState gameState;
-	string StartOption[NUM];
-	string PauseOption[NUM2];
     Game_Stage gameStage;
 	int startScreenArrow = 0;
-	bool editLevel;
-	bool pauseGame;
 
 	CCharacter* Character;
 	ArtInt* AI;
