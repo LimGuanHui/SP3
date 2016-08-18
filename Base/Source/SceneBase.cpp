@@ -110,9 +110,26 @@ void SceneBase::Init()
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//original bg.tga");
 
+	//selection cursors
 	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("select", Color(1, 1, 1), 1.f);
 	meshList[GEO_SELECT]->textureID = LoadTGA("Image//selectarrow.tga");
 
+	meshList[GEO_RESTARTCURSOR] = MeshBuilder::GenerateQuad("restartcursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_RESTARTCURSOR]->textureID = LoadTGA("Image//restartcursor.tga");
+
+	meshList[GEO_MENUCURSOR] = MeshBuilder::GenerateQuad("menucursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENUCURSOR]->textureID = LoadTGA("Image//menucursor.tga");
+
+	meshList[GEO_QUITCURSOR] = MeshBuilder::GenerateQuad("quitcursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_QUITCURSOR]->textureID = LoadTGA("Image//quitcursor.tga");
+
+	meshList[GEO_MENUCURSOR2] = MeshBuilder::GenerateQuad("menucursor2", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENUCURSOR2]->textureID = LoadTGA("Image//menucursor2.tga");
+
+	meshList[GEO_QUITCURSOR2] = MeshBuilder::GenerateQuad("quitcursor2", Color(1, 1, 1), 1.f);
+	meshList[GEO_QUITCURSOR2]->textureID = LoadTGA("Image//quitcursor2.tga");
+
+	// Character & background
 	meshList[GEO_CHARACTER] = MeshBuilder::Generate2DMesh("Character", Color(0, 0, 0), 0.0f, 0.0f, 25.0f, 25.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
 
@@ -121,6 +138,9 @@ void SceneBase::Init()
 
 	meshList[GEO_BACKGROUND] = MeshBuilder::Generate2DMesh("GEO_BACKGROUND", Color(1, 1, 1), 0.0f, 0.0f, 800.0f, 600.0f);
 	meshList[GEO_BACKGROUND]->textureID = LoadTGA("Image//heaven.tga");
+
+	meshList[GEO_EDITBACKGROUND] = MeshBuilder::GenerateQuad("GEO_EDITBACKGROUND", Color(1, 1, 1), 1.f);
+	meshList[GEO_EDITBACKGROUND]->textureID = LoadTGA("Image//editbg.tga");
 
     //panels
     meshList[GEO_B_PANEL] = MeshBuilder::GenerateQuad("Panel", Color(0, 1, 0), 1.f);
@@ -132,14 +152,16 @@ void SceneBase::Init()
     meshList[GEO_T_PANEL] = MeshBuilder::GenerateQuad("Panel", Color(0, 1, 0), 1.f);
     meshList[GEO_T_PANEL]->textureID = LoadTGA("Image//panels//tPanel.tga");
 
-	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateQuad("DeathSCreen", Color(1, 1, 1), 1.f);
-	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//gameover.tga");
-
     //platforms
     meshList[GEO_PLAT_NORMAL] = MeshBuilder::GenerateQuad("Normal platform", Color(0, 1, 0), 1.f);
     meshList[GEO_PLAT_NORMAL]->textureID = LoadTGA("Image//platform//normal.tga");
 
+	//Victory & death screen
+	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateQuad("DeathSCreen", Color(1, 1, 1), 1.f);
+	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//gameover.tga");
 
+	meshList[GEO_VICTORY] = MeshBuilder::GenerateQuad("VictoryScreen", Color(1, 1, 1), 1.f);
+	meshList[GEO_VICTORY]->textureID = LoadTGA("Image//victory.tga");
 
 	bLightEnabled = false;
 }
