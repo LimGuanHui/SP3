@@ -42,6 +42,7 @@ public:
     static bool IsKeyPressed(unsigned short key);
     Platform* CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
     std::string TextForDisplay();
+    std::string getfilename(std::string fileDir);
 
     std::vector<Platform* > Platform_List;
 

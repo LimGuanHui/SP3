@@ -178,6 +178,11 @@ std::string Map_Editor::TextForDisplay()
     }
 }
 
+std::string Map_Editor::getfilename(std::string fileDir)
+{
+    return "";
+}
+
 Map_Editor* CreateNewMapEditorInstance()
 {
     return new Map_Editor();
