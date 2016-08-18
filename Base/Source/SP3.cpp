@@ -601,6 +601,15 @@ void SP3::RenderUI()
 			break;
 		}
 	}
+
+	if (gameState == EditMode)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(66.5f, 50.f, 0);
+		modelStack.Scale(135, 100, 0);
+		RenderMesh(meshList[GEO_EDITBACKGROUND], false);
+		modelStack.PopMatrix();
+	}
 }
 
 void SP3::Render()
@@ -717,7 +726,7 @@ void SP3::RenderText()
     switch (gameState)
     {
     case SP3::EditMode:
-        RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(1, 1, 1), 2.f, 0, 2);
+        RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(0, 0, 1), 2.f, 0, 2);
         break;
 	case SP3::Menu:
         

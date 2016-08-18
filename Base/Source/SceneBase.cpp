@@ -139,6 +139,9 @@ void SceneBase::Init()
 	meshList[GEO_BACKGROUND] = MeshBuilder::Generate2DMesh("GEO_BACKGROUND", Color(1, 1, 1), 0.0f, 0.0f, 800.0f, 600.0f);
 	meshList[GEO_BACKGROUND]->textureID = LoadTGA("Image//heaven.tga");
 
+	meshList[GEO_EDITBACKGROUND] = MeshBuilder::GenerateQuad("GEO_EDITBACKGROUND", Color(1, 1, 1), 1.f);
+	meshList[GEO_EDITBACKGROUND]->textureID = LoadTGA("Image//editbg.tga");
+
     //panels
     meshList[GEO_B_PANEL] = MeshBuilder::GenerateQuad("Panel", Color(0, 1, 0), 1.f);
     meshList[GEO_B_PANEL]->textureID = LoadTGA("Image//panels//bPanel.tga");
