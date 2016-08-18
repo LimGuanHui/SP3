@@ -65,8 +65,8 @@ public:
 	enum StartOption
 	{
 		Start,
-		Edit,
 		Load,
+		Edit,
 		Quit,
 		NUM
 	};
@@ -133,7 +133,6 @@ public:
     GameState gameState;
     Game_Stage gameStage;
 	int startScreenArrow = 0;
-	bool editLevel;
 	bool pauseGame;
 
 	CCharacter* Character;

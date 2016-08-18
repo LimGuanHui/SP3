@@ -43,7 +43,6 @@ void SP3::Init()
     //test_B_battle->Init(Vector3(10.5,11.25f,0.f));
 
 	quitGame = false;
-	editLevel = false;
 	pauseGame = false;
 	playerDead = false;
 
@@ -204,10 +203,11 @@ void SP3::Update(double dt)
 			case(Start) :
 				gameState = Game;
 				break;
+			case(Load) :
+				
+				break;
 			case(Edit) :
 				gameState = EditMode;
-				break;
-			case(Load) :
 				break;
 			case(Quit) :
 				quitGame = true;
@@ -315,10 +315,6 @@ void SP3::Update(double dt)
 					}
 					sceneSoundEngine->play2D("Sound/menu_enter.ogg");
 				}
-			}
-			if (Character->Attribute->GetCurrentHP() <= 0)
-			{
-				playerDead = true;
 			}
 
 	case SP3::Transition:
