@@ -41,6 +41,8 @@ public:
     std::string getfilename(std::string fileDir);
     void DisplayAvailablePlatforms(Vector3 topofScreen);
     void MouseOverCreatePlatform();
+    void MouseOverSelectPlatform();
+    void DeleteSelected();
 
     std::vector<Platform* > Platform_List;
     std::vector<Platform* > Platform_Display_List;

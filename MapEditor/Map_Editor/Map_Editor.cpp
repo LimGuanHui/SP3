@@ -64,7 +64,6 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         }
         break;
     case Map_Editor::MANAGE:
-        PlatformHandler(curr, dt);
         if (IsKeyPressed(VK_ESCAPE))
             edit_state = END;
         else if (IsKeyPressed('1') && inputDelayTimer <= 0)
@@ -83,7 +82,17 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
             inputDelayTimer = inputTimer;
             MouseOverCreatePlatform();
         }
-        
+        else if ((GetKeyState(VK_LBUTTON) & 0x100) != 0 && IsKeyPressed(VK_SHIFT) && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            MouseOverSelectPlatform();
+        }
+        else if (IsKeyPressed(VK_DELETE) && curr != nullplat && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            DeleteSelected();
+        }
+        PlatformHandler(curr, dt);
         break;
     case Map_Editor::DESTROY:
 
@@ -267,8 +276,36 @@ void Map_Editor::MouseOverCreatePlatform()
             return;
         }
     }
-    
+}
 
+void Map_Editor::MouseOverSelectPlatform()
+{
+    for (std::vector<Platform *>::iterator it = Platform_List.begin(); it != Platform_List.end(); ++it)
+    {
+        Platform *go1 = (Platform *)*it;
+        float distanceSquared = ((go1->getpos()) - (mousepos)).LengthSquared();
+        float combinedRadiusSquared = (go1->getscale().x - 8.f) * (go1->getscale().x - 8.f);
+        Vector3 relativeDisplacement = mousepos - go1->getpos();
+        if (distanceSquared < combinedRadiusSquared)
+        {
+            curr = go1;
+            return;
+        }
+    }
+}
+
+void Map_Editor::DeleteSelected()
+{
+    for (std::vector<Platform *>::iterator it = Platform_List.begin(); it != Platform_List.end(); ++it)
+    {
+        Platform *p = (Platform *)*it;
+        if (curr == p)
+        {
+            Platform_List.erase(it);
+            curr = nullplat;
+            return;
+        }
+    }
 }
 
 Map_Editor* CreateNewMapEditorInstance()
