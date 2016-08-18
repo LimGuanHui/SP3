@@ -2,6 +2,8 @@
 #include <iostream>
 #include <Windows.h>
 
+#define inputTimer 0.3f
+
 Map_Editor::Map_Editor()
 {
 }
@@ -16,15 +18,24 @@ void Map_Editor::Init()
     edit_state = START;
     mousepos = Vector3(0, 0, 0);
     curr = NULL;
+    inputDelayTimer = inputTimer;
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
+    if (inputDelayTimer > 0)
+    {
+        inputDelayTimer -= dt;
+    }
     this->mousepos = mousepos;
     switch (edit_state)
     {
     case Map_Editor::START:
-        if (Map_Editor::IsKeyPressed('1'))
+        if (Map_Editor::IsKeyPressed('1') && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
             edit_state = CREATE;
+        }
+            
         break;
     case Map_Editor::SAVE:
 
@@ -33,8 +44,9 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
 
         break;
     case Map_Editor::CREATE:
-        if (Map_Editor::IsKeyPressed('2'))
+        if (Map_Editor::IsKeyPressed('2') && inputDelayTimer <= 0)
         {
+            inputDelayTimer = inputTimer;
             curr = CreateNewPlatform(mousepos, Vector3(1, 1, 1), Platform::Normal);
             edit_state = MANAGE;
         }
@@ -43,8 +55,17 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         PlatformHandler(curr, dt);
         if (IsKeyPressed(VK_ESCAPE))
             edit_state = END;
-        else if (IsKeyPressed('1'))
+        else if (IsKeyPressed('1') && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
             edit_state = CREATE;
+        }
+            
+        else if (IsKeyPressed(' ') && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            curr = CreateNewPlatform(curr->getpos(), curr->getscale(), curr->type);
+        }
         
         break;
     case Map_Editor::DESTROY:

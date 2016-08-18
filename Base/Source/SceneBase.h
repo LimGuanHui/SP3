@@ -65,6 +65,7 @@ public:
         GEO_T_PANEL,
         //platform
         GEO_PLAT_NORMAL,
+        GEO_PLAT_SELECTOR,
 		NUM_GEOMETRY,
 
 	};

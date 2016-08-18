@@ -156,6 +156,9 @@ void SceneBase::Init()
     meshList[GEO_PLAT_NORMAL] = MeshBuilder::GenerateQuad("Normal platform", Color(0, 1, 0), 1.f);
     meshList[GEO_PLAT_NORMAL]->textureID = LoadTGA("Image//platform//normal.tga");
 
+    meshList[GEO_PLAT_SELECTOR] = MeshBuilder::GenerateQuad("platform selector", Color(0, 1, 0), 1.f);
+    meshList[GEO_PLAT_SELECTOR]->textureID = LoadTGA("Image//platform//selector//ss1.tga");
+
 	//Victory & death screen
 	meshList[GEO_DEATHSCREEN] = MeshBuilder::GenerateQuad("DeathSCreen", Color(1, 1, 1), 1.f);
 	meshList[GEO_DEATHSCREEN]->textureID = LoadTGA("Image//gameover.tga");

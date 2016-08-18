@@ -703,6 +703,23 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
         }
         modelStack.PopMatrix();
     }
+
+    for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
+    {
+        GameObject *go = (GameObject *)*it;
+        modelStack.PushMatrix();
+        modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+        modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+        switch (go->type)
+        {
+        case Platform::Normal:
+            RenderMesh(meshList[GEO_PLAT_NORMAL], false);
+            break;
+        default:
+            break;
+        }
+        modelStack.PopMatrix();
+    }
 }
 
 Vector3 SP3::CheckMousepos()
@@ -744,6 +761,14 @@ void SP3::RenderText()
     }
 }
 
+void SP3::RenderEditorSelector()
+{
+    if (mapEditor->edit_state == Map_Editor::MANAGE)
+    {
+        
+    }
+}
+
 void SP3::Exit()
 {
     SceneBase::Exit();
@@ -765,4 +790,3 @@ void SP3::Exit()
         m_ghost = NULL;
     }
 }
-

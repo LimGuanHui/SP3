@@ -46,6 +46,7 @@ public:
 private:
     Vector3 mousepos;
     Platform* curr;
+    float inputDelayTimer;
 };
 
 MAP_EDITOR_API Map_Editor* CreateNewMapEditorInstance();

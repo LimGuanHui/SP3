@@ -48,6 +48,7 @@ public:
     void RenderText();
 	void RenderUI();
     Vector3 CheckMousepos();
+    void RenderEditorSelector();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
     
