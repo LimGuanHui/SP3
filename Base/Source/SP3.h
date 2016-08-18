@@ -88,6 +88,13 @@ public:
 		NUM6
 	};
 
+	enum WinOption
+	{
+		Menu4,
+		Quit4,
+		NUM8
+	};
+
     enum Game_Stage
     {
         Normal,
@@ -119,6 +126,13 @@ public:
 		NUM5,
 	};
 
+	enum SelectWin
+	{
+		First4,
+		Second4,
+		NUM7
+	};
+
 	// Main Menu
 	SelectMain option;
 	int selectArrow = 0;
@@ -131,10 +145,13 @@ public:
 	SelectDeath option3;
 	int selectArrow3 = 0;
 
+	// Victory Menu
+	SelectWin option4;
+	int selectArrow4 = 0;
+
     GameState gameState;
     Game_Stage gameStage;
 	int startScreenArrow = 0;
-	bool pauseGame;
 
 	CCharacter* Character;
 	//CMovement* Character;
