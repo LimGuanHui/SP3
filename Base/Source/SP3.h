@@ -20,6 +20,10 @@ using namespace MOVEMENT;
 using namespace SKILLS;
 #include "Attribute.h"
 using namespace ATTRIBUTE;
+
+#include "AI.h"
+using namespace AI;
+
 #include <irrKlang.h>
 using namespace irrklang;
 
@@ -46,6 +50,7 @@ public:
     void CollisionResponse(GameObject *go1, GameObject *go2);
     void RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor);
     void RenderText();
+	void RenderCharacter();
     Vector3 CheckMousepos();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
@@ -119,6 +124,7 @@ public:
 	bool pauseGame;
 
 	CCharacter* Character;
+	ArtInt* AI;
 	//CMovement* Character;
 	ISoundEngine* sceneSoundEngine;
 

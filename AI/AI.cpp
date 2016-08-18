@@ -2,15 +2,20 @@
 
 namespace AI
 {
-	CAI::CAI()
+	ArtInt::ArtInt()
 	{
+		Boss = new BOSS::Boss();
+		Monster = new MONSTER::Monster();
 	}
 
 
-	CAI::~CAI()
+	ArtInt::~ArtInt()
 	{
 	}
 
-
+	ArtInt *N_AI()
+	{
+		return new ArtInt();
+	}
 }
 

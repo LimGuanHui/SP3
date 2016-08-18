@@ -6,9 +6,9 @@ namespace CHARACTER
 	{
 		Movement = new MOVEMENT::CMovement();
 		Skill = new SKILLS::CSkills();
-		Attribute = new ATTRIBUTE::CAttribute();
+		Attribute = Skill->Attribute;
+		AI = new AI::ArtInt();
 
-//		Attribute->SetMaxHP(100);
 	}
 
 	CCharacter::~CCharacter()

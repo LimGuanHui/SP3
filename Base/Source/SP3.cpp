@@ -64,10 +64,16 @@ void SP3::Init()
     mapEditor = CreateNewMapEditorInstance();
     mapEditor->Init();
 
-
     //Menu
 	InputDelayTimer = 0;
+
 	Character = N_Character();
+	AI = N_AI();
+	
+
+	Character->Movement->SetAnimationCounter(0);
+	Character->Movement->SetPos_X(25);
+	Character->Movement->SetPos_Y(0);
 
 	sceneSoundEngine = createIrrKlangDevice();
 }
@@ -106,14 +112,14 @@ bool SP3::CheckCollision(GameObject *go1, GameObject *go2, float dt)
     {
     case GameObject::GO_BALL:
     {
-                                if (go1->type == GameObject::GO_BALL && go2->type == GameObject::GO_BALL)
-                                {
-                                    float distanceSquared = ((go1->pos + go1->vel * dt) - (go2->pos - go2->vel * dt)).LengthSquared();
-                                    float combinedRadiusSquared = (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
-                                    Vector3 relativeVelocity = go1->vel - go2->vel;
-                                    Vector3 relativeDisplacement = go2->pos - go1->pos;
-                                    return distanceSquared < combinedRadiusSquared && relativeVelocity.Dot(relativeDisplacement) > 0;
-                                }
+      if (go1->type == GameObject::GO_BALL && go2->type == GameObject::GO_BALL)
+      {
+          float distanceSquared = ((go1->pos + go1->vel * dt) - (go2->pos - go2->vel * dt)).LengthSquared();
+          float combinedRadiusSquared = (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
+          Vector3 relativeVelocity = go1->vel - go2->vel;
+          Vector3 relativeDisplacement = go2->pos - go1->pos;
+          return distanceSquared < combinedRadiusSquared && relativeVelocity.Dot(relativeDisplacement) > 0;
+      }
     }
 
 
@@ -156,6 +162,25 @@ void SP3::Update(double dt)
 
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
+
+	if (Application::IsKeyPressed('A'))
+	{
+		Character->Movement->MoveLeftRight(true, 2.f);
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		Character->Movement->MoveLeftRight(false, 2.f);
+	}
+
+	if (Application::IsKeyPressed(' '))
+	{
+		Character->Movement->SetToJump(true);
+	}
+
+	Character->Movement->AnimationUpdate(dt);
+
+	std::cout << Character->Movement->GetPos_Y() << std::endl;
 
 	if (gameState == Menu)
 	{
@@ -346,6 +371,8 @@ void SP3::Update(double dt)
         break;
     }
 
+
+
     
 }
 
@@ -408,6 +435,8 @@ void SP3::Render()
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderText();
+
+	RenderCharacter();
 
 	if (gameState == Game)
 	{
@@ -534,6 +563,7 @@ void SP3::Render()
 	}
 
 }
+
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
 {
     modelStack.PushMatrix();
@@ -630,6 +660,40 @@ void SP3::RenderText()
     default:
         break;
     }
+}
+
+void SP3::RenderCharacter()
+{
+	if (Character->Movement->GetAnimationInvert() == false)
+	{
+		if (Character->Movement->GetAnimationCounter() == 0)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+		if (Character->Movement->GetAnimationCounter() == 1)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+		if (Character->Movement->GetAnimationCounter() == 2)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+	}
+	else if (Character->Movement->GetAnimationInvert() == true)
+	{
+		if (Character->Movement->GetAnimationCounter() == 0)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+		if (Character->Movement->GetAnimationCounter() == 1)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+		if (Character->Movement->GetAnimationCounter() == 2)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+	}
 }
 
 void SP3::Exit()

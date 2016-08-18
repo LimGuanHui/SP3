@@ -57,7 +57,7 @@ namespace MOVEMENT
 
 	void CMovement::SetToJump(bool jump)
 	{
-		if (jump && !Drop && !InAir)
+		if (jump)
 		{
 			InAir = true;
 			Drop = false;
@@ -108,6 +108,36 @@ namespace MOVEMENT
 			AnimationCounter++;
 			if (AnimationCounter > 2)
 				AnimationCounter = 0;
+		}
+	}
+
+	void CMovement::AnimationUpdate(double dt) // Collision Check for Normal Stage
+	{
+		if (!InAir && !Drop)
+		{
+			//jumpspeed = 0;
+			//InAir = false;
+			//Drop = true;
+		}
+
+		else if (InAir && !Drop)
+		{
+			position.y += jumpspeed;
+			jumpspeed -= 1;
+			if (jumpspeed == 0)
+			{
+				InAir = false;
+				Drop = true;
+			}
+		}
+
+		else if (!InAir & Drop)
+		{
+			if (position.y > 10) // for moment until collision
+			{
+				position.y -= jumpspeed;
+				jumpspeed += 1;
+			}
 		}
 	}
 }

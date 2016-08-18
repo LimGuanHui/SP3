@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "SkillsExport.h"
@@ -25,7 +26,6 @@ namespace SKILLS
 		std::string GetSkillName();
 
 		void SetSkillEffect(int SkillEffect);
-		int GetSkillEffect();
 
 		void SetSkillInfo(int Info);
 		std::string GetSkillInfo();
@@ -41,11 +41,10 @@ namespace SKILLS
 	private:
 
 		std::string Name;
-		int SkillEffect;
 		std::string SkillInfo;
 
 		int SkillGuageC;
-		int SkillCharge;
+		int SkillRefill;
 
 		
 
