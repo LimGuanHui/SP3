@@ -1,25 +1,25 @@
 #pragma once
 
 #include "AIExports.h"
-#include "BossMovement.h"
-#include "MonsterMovement.h"
+#include "Boss.h"
+#include "Monster.h"
 
 namespace AI
 {
-	class AI_API CAI
+	class AI_API ArtInt
 	{
 	public:
-		CAI();
-		~CAI();
+		ArtInt();
+		~ArtInt();
 
-		BOSS_MOVEMENT::BMovement Boss;
-		MONSTER_MOVEMENT::MMovement Monster;
+		BOSS::Boss *Boss;
+		MONSTER::Monster *Monster;
 		
 	private:
 		
 	};
 
-
+	AI_API ArtInt* N_AI();
 }
 
 

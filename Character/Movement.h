@@ -30,8 +30,9 @@ namespace MOVEMENT
 		void UpdateJumpUpwards();
 
 		void SetAnimationInvert(bool AnimationInvert);
-
 		bool GetAnimationInvert();
+
+		void AnimationUpdate(double dt);
 
 	private:
 		Vector3 position;

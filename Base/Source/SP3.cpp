@@ -59,7 +59,14 @@ void SP3::Init()
 
     //Menu
 	InputDelayTimer = 0;
+
 	Character = N_Character();
+	AI = N_AI();
+	
+
+	Character->Movement->SetAnimationCounter(0);
+	Character->Movement->SetPos_X(25);
+	Character->Movement->SetPos_Y(0);
 
 	sceneSoundEngine = createIrrKlangDevice();
 }
@@ -98,14 +105,14 @@ bool SP3::CheckCollision(GameObject *go1, GameObject *go2, float dt)
     {
     case GameObject::GO_BALL:
     {
-                                if (go1->type == GameObject::GO_BALL && go2->type == GameObject::GO_BALL)
-                                {
-                                    float distanceSquared = ((go1->pos + go1->vel * dt) - (go2->pos - go2->vel * dt)).LengthSquared();
-                                    float combinedRadiusSquared = (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
-                                    Vector3 relativeVelocity = go1->vel - go2->vel;
-                                    Vector3 relativeDisplacement = go2->pos - go1->pos;
-                                    return distanceSquared < combinedRadiusSquared && relativeVelocity.Dot(relativeDisplacement) > 0;
-                                }
+      if (go1->type == GameObject::GO_BALL && go2->type == GameObject::GO_BALL)
+      {
+          float distanceSquared = ((go1->pos + go1->vel * dt) - (go2->pos - go2->vel * dt)).LengthSquared();
+          float combinedRadiusSquared = (go1->scale.x + go2->scale.x) * (go1->scale.x + go2->scale.x);
+          Vector3 relativeVelocity = go1->vel - go2->vel;
+          Vector3 relativeDisplacement = go2->pos - go1->pos;
+          return distanceSquared < combinedRadiusSquared && relativeVelocity.Dot(relativeDisplacement) > 0;
+      }
     }
 
 
@@ -149,6 +156,34 @@ void SP3::Update(double dt)
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
+	if (Application::IsKeyPressed('A'))
+	{
+		Character->Movement->MoveLeftRight(true, 2.f);
+	}
+
+	if (Application::IsKeyPressed('D'))
+	{
+		Character->Movement->MoveLeftRight(false, 2.f);
+	}
+
+	if (Application::IsKeyPressed(' '))
+	{
+		Character->Movement->SetToJump(true);
+	}
+
+	Character->Movement->AnimationUpdate(dt);
+
+	std::cout << Character->Movement->GetPos_Y() << std::endl;
+
+	if (gameState == Menu)
+	{
+		
+	}
+
+	if (gameState == Game)
+	{
+        
+	}
     //Physics Simulation Section
 
     /*
@@ -282,7 +317,7 @@ void SP3::Update(double dt)
 					selectArrow3--;
 				else
 					selectArrow3 = NUM5 - 1;
-				sceneSoundEngine->play2D("Sound/menu_updown.gg");
+				sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 			
 			}
 			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
@@ -306,13 +341,15 @@ void SP3::Update(double dt)
 				}
 			}
 
-			if (Application::IsKeyPressed('P'))
+			if (Application::IsKeyPressed('P') && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				gameState = Pause;
 			}
 
-			if (Application::IsKeyPressed('O'))
+			if (Application::IsKeyPressed('O') && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				gameState = End;
 			}
 
@@ -338,7 +375,7 @@ void SP3::Update(double dt)
 				selectArrow4--;
 			else
 				selectArrow4 = NUM7 - 1;
-			sceneSoundEngine->play2D("Sound/menu_updown.gg");
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 
 		}
 		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
@@ -396,6 +433,46 @@ void SP3::RenderGO(GameObject *go)
 
 void SP3::RenderUI()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Projection matrix : Orthographic Projection
+    Mtx44 projection;
+    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+    projectionStack.LoadMatrix(projection);
+
+    // Camera matrix
+    viewStack.LoadIdentity();
+    viewStack.LookAt(
+        camera.position.x, camera.position.y, camera.position.z,
+        camera.target.x, camera.target.y, camera.target.z,
+        camera.up.x, camera.up.y, camera.up.z
+        );
+    // Model matrix : an identity matrix (model will be at the origin)
+    modelStack.LoadIdentity();
+
+    RenderMesh(meshList[GEO_AXES], false);
+    //rendering of stuffs
+    for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+    {
+        GameObject *go = (GameObject *)*it;
+        if (go->active)
+        {
+            RenderGO(go);
+        }
+    }
+    RenderFromList(test_B_battle,mapEditor);
+
+
+    std::ostringstream ss;
+    ss.str(string());
+    ss.precision(5);
+    ss << "FPS: " << fps;
+   // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+    RenderText();
+
+	RenderCharacter();
+
 	if (gameState == Game)
 	{
 		if (playerDead == true)
@@ -654,6 +731,7 @@ void SP3::Render()
     RenderText();
 
 }
+
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
 {
     modelStack.PushMatrix();
@@ -765,8 +843,42 @@ void SP3::RenderEditorSelector()
 {
     if (mapEditor->edit_state == Map_Editor::MANAGE)
     {
-        
+
     }
+}
+
+void SP3::RenderCharacter()
+{
+	if (Character->Movement->GetAnimationInvert() == false)
+	{
+		if (Character->Movement->GetAnimationCounter() == 0)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+		if (Character->Movement->GetAnimationCounter() == 1)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+		if (Character->Movement->GetAnimationCounter() == 2)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+		}
+	}
+	else if (Character->Movement->GetAnimationInvert() == true)
+	{
+		if (Character->Movement->GetAnimationCounter() == 0)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+		if (Character->Movement->GetAnimationCounter() == 1)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+		if (Character->Movement->GetAnimationCounter() == 2)
+		{
+			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+		}
+	}
 }
 
 void SP3::Exit()

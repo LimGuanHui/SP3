@@ -41,13 +41,9 @@ namespace SKILLS
 		switch (SkillEffect)
 		{
 		case HEALING:
+			Attribute->SetRecovery(30);
 			break;
 		}
-	}
-
-	int CSkills::GetSkillEffect()
-	{
-		return SkillEffect;
 	}
 
 	void CSkills::SetSkillInfo(int Info)
@@ -67,7 +63,7 @@ namespace SKILLS
 
 	void CSkills::SetRefillspd(int SGSpeed)
 	{
-		this->SkillCharge = SGSpeed;
+		this->SkillRefill = SGSpeed;
 	}
 
 	int CSkills::GetSkillGuage()
@@ -77,7 +73,7 @@ namespace SKILLS
 
 	int CSkills::GetRefillspd()
 	{
-		return SkillCharge;
+		return SkillRefill;
 	}
 }
 
