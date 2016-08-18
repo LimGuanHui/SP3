@@ -12,6 +12,7 @@ public:
     enum PLATFORM_TYPE
     {
         Normal,
+        End_of_Type,
     };
 
     Platform(Vector3 pos, Vector3 scale, PLATFORM_TYPE type);

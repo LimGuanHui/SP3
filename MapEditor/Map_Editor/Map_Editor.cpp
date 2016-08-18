@@ -45,6 +45,7 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
             edit_state = END;
         else if (IsKeyPressed('1'))
             edit_state = CREATE;
+        
         break;
     case Map_Editor::DESTROY:
 
@@ -147,7 +148,12 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
         
     }
 
-    
+    if ((GetKeyState(VK_LBUTTON) & 0x100) != 0)
+    {
+        selected_platform->Setpos(Vector3(mousepos.x, mousepos.y, mousepos.z));
+    }
+
+
 
 }
 
@@ -176,6 +182,31 @@ std::string Map_Editor::TextForDisplay()
     default:
         break;
     }
+}
+
+void Map_Editor::DisplayAvailablePlatforms(Vector3 topofScreen)
+{
+    for (int i = 0; i<Platform::End_of_Type; i++)
+    {
+        Platform::PLATFORM_TYPE platType = (Platform::PLATFORM_TYPE)i;
+        Vector3 displaypos = Vector3(topofScreen.x + (i * 10), topofScreen.y,topofScreen.z);
+        Platform* NEW_display_platform = new Platform(displaypos, Vector3(10, 10, 10), platType);
+        Platform_Display_List.push_back(NEW_display_platform);
+    }
+    //example
+    /*enum enumType
+    {
+        A = 0,
+        B,
+        C,
+        enumTypeEnd
+    };
+
+    for (int i = 0; i<enumTypeEnd; i++)
+    {
+        enumType eCurrent = (enumType)i;
+    }
+*/
 }
 
 std::string Map_Editor::getfilename(std::string fileDir)
