@@ -110,8 +110,18 @@ void SceneBase::Init()
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//original bg.tga");
 
+	//selection cursors
 	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("select", Color(1, 1, 1), 1.f);
 	meshList[GEO_SELECT]->textureID = LoadTGA("Image//selectarrow.tga");
+
+	meshList[GEO_RESTARTCURSOR] = MeshBuilder::GenerateQuad("restartcursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_RESTARTCURSOR]->textureID = LoadTGA("Image//restartcursor.tga");
+
+	meshList[GEO_MENUCURSOR] = MeshBuilder::GenerateQuad("menucursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENUCURSOR]->textureID = LoadTGA("Image//menucursor.tga");
+
+	meshList[GEO_QUITCURSOR] = MeshBuilder::GenerateQuad("quitcursor", Color(1, 1, 1), 1.f);
+	meshList[GEO_QUITCURSOR]->textureID = LoadTGA("Image//quitcursor.tga");
 
 	meshList[GEO_CHARACTER] = MeshBuilder::Generate2DMesh("Character", Color(0, 0, 0), 0.0f, 0.0f, 25.0f, 25.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");

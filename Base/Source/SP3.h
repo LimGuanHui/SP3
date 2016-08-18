@@ -79,6 +79,14 @@ public:
 		NUM2
 	};
 
+	enum DeathOption
+	{
+		Restart,
+		Menu3,
+		Quit3,
+		NUM6
+	};
+
     enum Game_Stage
     {
         Normal,
@@ -102,6 +110,14 @@ public:
 		NUM4,
 	};
 
+	enum SelectDeath
+	{
+		First3,
+		Second3,
+		Third3,
+		NUM5,
+	};
+
 	// Main Menu
 	SelectMain option;
 	int selectArrow = 0;
@@ -110,9 +126,11 @@ public:
 	SelectPause option2;
 	int selectArrow2 = 0;
 
+	// Death Menu
+	SelectDeath option3;
+	int selectArrow3 = 0;
+
     GameState gameState;
-	string StartOption[NUM];
-	string PauseOption[NUM2];
     Game_Stage gameStage;
 	int startScreenArrow = 0;
 	bool editLevel;

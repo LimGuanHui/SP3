@@ -49,8 +49,12 @@ public:
 		GEO_BACKGROUND,
 		GEO_CHARACTER,
 		GEO_CHARACTER2,
-		GEO_SELECT,
 		GEO_DEATHSCREEN,
+		//selection cursors
+		GEO_SELECT,
+		GEO_RESTARTCURSOR,
+		GEO_MENUCURSOR,
+		GEO_QUITCURSOR,
         //panel
         GEO_B_PANEL,
         GEO_M_PANEL,
