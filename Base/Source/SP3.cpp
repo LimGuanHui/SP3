@@ -55,7 +55,7 @@ void SP3::Init()
 	//B_battle = new BossBattle::Boss_Battle();
 	//B_battle->Init();
     mapEditor = CreateNewMapEditorInstance();
-    mapEditor->Init();
+    mapEditor->Init(Vector3(10,90,0));
 
     //Menu
 	InputDelayTimer = 0;
@@ -719,7 +719,7 @@ void SP3::Render()
         }
     }
     RenderFromList(test_B_battle,mapEditor);
-
+    RenderEditorSelector();
 
     std::ostringstream ss;
     ss.str(string());
@@ -782,22 +782,26 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
         modelStack.PopMatrix();
     }
 
-    for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
+    if (gameState == EditMode)
     {
-        GameObject *go = (GameObject *)*it;
-        modelStack.PushMatrix();
-        modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
-        modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-        switch (go->type)
+        for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
         {
-        case Platform::Normal:
-            RenderMesh(meshList[GEO_PLAT_NORMAL], false);
-            break;
-        default:
-            break;
+            Platform *go = (Platform *)*it;
+            modelStack.PushMatrix();
+            modelStack.Translate(go->getpos().x, go->getpos().y, go->getpos().z);
+            modelStack.Scale(go->getscale().x, go->getscale().y, go->getscale().z);
+            switch (go->type)
+            {
+            case Platform::Normal:
+                RenderMesh(meshList[GEO_PLAT_NORMAL], false);
+                break;
+            default:
+                break;
+            }
+            modelStack.PopMatrix();
         }
-        modelStack.PopMatrix();
     }
+    
 }
 
 Vector3 SP3::CheckMousepos()
@@ -822,6 +826,14 @@ void SP3::RenderText()
     {
     case SP3::EditMode:
         RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(0, 0, 1), 2.f, 0, 2);
+        
+        {
+            std::ostringstream ss;
+            ss.str(string());
+            ss.precision(5);
+            ss << "mousepos: " << CheckMousepos();
+            RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 4);
+        }
         break;
 	case SP3::Menu:
         
@@ -843,7 +855,12 @@ void SP3::RenderEditorSelector()
 {
     if (mapEditor->edit_state == Map_Editor::MANAGE)
     {
-
+        modelStack.PushMatrix();
+        Vector3 temp = mapEditor->curr->getpos();
+        modelStack.Translate(temp.x, temp.y, temp.z);
+        modelStack.Scale(30, 30, 30);
+        RenderMesh(meshList[GEO_PLAT_SELECTOR], false);
+        modelStack.PopMatrix();
     }
 }
 
@@ -880,6 +897,8 @@ void SP3::RenderCharacter()
 		}
 	}
 }
+
+
 
 void SP3::Exit()
 {

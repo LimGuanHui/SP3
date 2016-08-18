@@ -13,15 +13,21 @@ Map_Editor::~Map_Editor()
 {
 }
 
-void Map_Editor::Init()
+void Map_Editor::Init(Vector3 topofScreen)
 {
-    edit_state = START;
+    edit_state = CREATE;
     mousepos = Vector3(0, 0, 0);
     curr = NULL;
+    nullplat = CreateNewPlatform(Vector3(0, 0, 0), Vector3(0, 0, 0), Platform::End_of_Type);
     inputDelayTimer = inputTimer;
+    DisplayAvailablePlatforms(topofScreen);
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
+    if (curr == NULL)
+    {
+        curr = nullplat;
+    }
     if (inputDelayTimer > 0)
     {
         inputDelayTimer -= dt;
@@ -35,7 +41,7 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
             inputDelayTimer = inputTimer;
             edit_state = CREATE;
         }
-            
+        
         break;
     case Map_Editor::SAVE:
 
@@ -48,6 +54,12 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         {
             inputDelayTimer = inputTimer;
             curr = CreateNewPlatform(mousepos, Vector3(1, 1, 1), Platform::Normal);
+            edit_state = MANAGE;
+        }
+        else if ((GetKeyState(VK_RBUTTON) & 0x100) != 0 && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            MouseOverCreatePlatform();
             edit_state = MANAGE;
         }
         break;
@@ -65,6 +77,11 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         {
             inputDelayTimer = inputTimer;
             curr = CreateNewPlatform(curr->getpos(), curr->getscale(), curr->type);
+        }
+        else if ((GetKeyState(VK_RBUTTON) & 0x100) != 0 && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            MouseOverCreatePlatform();
         }
         
         break;
@@ -207,11 +224,12 @@ std::string Map_Editor::TextForDisplay()
 
 void Map_Editor::DisplayAvailablePlatforms(Vector3 topofScreen)
 {
+    Platform_Display_List.clear();
     for (int i = 0; i<Platform::End_of_Type; i++)
     {
         Platform::PLATFORM_TYPE platType = (Platform::PLATFORM_TYPE)i;
         Vector3 displaypos = Vector3(topofScreen.x + (i * 10), topofScreen.y,topofScreen.z);
-        Platform* NEW_display_platform = new Platform(displaypos, Vector3(10, 10, 10), platType);
+        Platform* NEW_display_platform = new Platform(displaypos, Vector3(20, 20, 20), platType);
         Platform_Display_List.push_back(NEW_display_platform);
     }
     //example
@@ -233,6 +251,24 @@ void Map_Editor::DisplayAvailablePlatforms(Vector3 topofScreen)
 std::string Map_Editor::getfilename(std::string fileDir)
 {
     return "";
+}
+
+void Map_Editor::MouseOverCreatePlatform()
+{
+    for (std::vector<Platform *>::iterator it = Platform_Display_List.begin(); it != Platform_Display_List.end(); ++it)
+    {
+        Platform *go1 = (Platform *)*it;
+        float distanceSquared = ((go1->getpos()) - (mousepos)).LengthSquared();
+        float combinedRadiusSquared = (go1->getscale().x - 8.f) * (go1->getscale().x - 8.f);
+        Vector3 relativeDisplacement = mousepos - go1->getpos();
+        if (distanceSquared < combinedRadiusSquared)
+        {
+            curr = CreateNewPlatform(mousepos, go1->getscale(), go1->type);
+            return;
+        }
+    }
+    
+
 }
 
 Map_Editor* CreateNewMapEditorInstance()

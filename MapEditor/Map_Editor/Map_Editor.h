@@ -31,7 +31,7 @@ public:
 
     EDIT_STATE edit_state;
 
-    void Init();
+    void Init(Vector3 topofScreen);
     void Update(float dt, Vector3 mousepos);
     void PlatformHandler(Platform* selected_platform, float dt);
     std::string getState();
@@ -40,12 +40,14 @@ public:
     std::string TextForDisplay();
     std::string getfilename(std::string fileDir);
     void DisplayAvailablePlatforms(Vector3 topofScreen);
+    void MouseOverCreatePlatform();
 
     std::vector<Platform* > Platform_List;
     std::vector<Platform* > Platform_Display_List;
+    Platform* curr;
+    Platform* nullplat;
 private:
     Vector3 mousepos;
-    Platform* curr;
     float inputDelayTimer;
 };
 
