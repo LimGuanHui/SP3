@@ -51,7 +51,7 @@ void SP3::Init()
 	option2 = First2;
     gameState = Menu;
     gameStage = Normal;
-	
+
 	StartOption[Start] = "Start Game";
 	StartOption[Quit] = "Quit Game";
 	StartOption[Edit] = "Edit Level";
@@ -194,52 +194,52 @@ void SP3::Update(double dt)
                           mapEditor->Update(dt, CheckMousepos());
     }
         break;
-    case SP3::Menu:
-    {
-                      if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          if (selectArrow != (NUM3 - 1))
-                              selectArrow++;
-                          else
-                              selectArrow = 0;
-                          sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                      }
-                      if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          if (selectArrow != 0)
-                              selectArrow--;
-                          else
-                              selectArrow = NUM3 - 1;
-                          sceneSoundEngine->play2D("Sound/menu_updown.ogg");
-                      }
-                      if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          switch (selectArrow)
-                          {
-                          case(Start) :
-                              gameState = Game;
-                              break;
-                          case(Edit) :
-                              gameState = EditMode;
-                              break;
-                          case(Load) :
+	case SP3::Menu:
+	{
+					  if (Application::IsKeyPressed(VK_DOWN) && InputDelayTimer <= 0)
+					  {
+						  InputDelayTimer = InputDelay;
+						  if (selectArrow != (NUM3 - 1))
+							  selectArrow++;
+						  else
+							  selectArrow = 0;
+						  sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+					  }
+					  if (Application::IsKeyPressed(VK_UP) && InputDelayTimer <= 0)
+					  {
+						  InputDelayTimer = InputDelay;
+						  if (selectArrow != 0)
+							  selectArrow--;
+						  else
+							  selectArrow = NUM3 - 1;
+						  sceneSoundEngine->play2D("Sound/menu_updown.ogg");
+					  }
+					  if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
+					  {
+						  InputDelayTimer = InputDelay;
+						  switch (selectArrow)
+						  {
+						  case(Start) :
+							  gameState = Game;
+							  break;
+						  case(Edit) :
+							  gameState = EditMode;
+							  break;
+						  case(Load) :
 
-                              break;
-                          case(Quit) :
-                              quitGame = true;
-                              break;
-                          }
-                          sceneSoundEngine->play2D("Sound/menu_enter.ogg");
-                      }
-                      if (Application::IsKeyPressed('0') && InputDelayTimer <= 0)
-                      {
-                          InputDelayTimer = InputDelay;
-                          gameState = EditMode;
-                      }
-    }
+							  break;
+						  case(Quit) :
+							  quitGame = true;
+							  break;
+						  }
+						  sceneSoundEngine->play2D("Sound/menu_enter.ogg");
+					  }
+						if (Application::IsKeyPressed('0') && InputDelayTimer <= 0)
+						 {
+							 InputDelayTimer = InputDelay;
+							 gameState = EditMode;
+					     }
+	}
         break;
     case SP3::Pause:
     {
@@ -253,11 +253,6 @@ void SP3::Update(double dt)
                           playerDead = true;
                           if (playerDead == true)
                           {
-                              if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
-                              {
-                                  gameState = Menu;
-                                  playerDead = false;
-                              }
                           }
                       }
                       if (Application::IsKeyPressed('P'))
@@ -407,8 +402,6 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-    RenderText();
-
 	if (gameState == Game)
 	{
         if (playerDead == true)
@@ -429,7 +422,7 @@ void SP3::Render()
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
-		
+		RenderText();
 
 		switch (selectArrow)
 		{
@@ -608,7 +601,7 @@ void SP3::RenderText()
     case SP3::EditMode:
         RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(1, 1, 1), 2.f, 0, 2);
         break;
-    case SP3::Menu:
+	case SP3::Menu:
         modelStack.PushMatrix();
         RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
         RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
