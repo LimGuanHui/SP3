@@ -360,56 +360,17 @@ void SP3::RenderGO(GameObject *go)
 
 }
 
-
-void SP3::Render()
+void SP3::RenderUI()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // Projection matrix : Orthographic Projection
-    Mtx44 projection;
-    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
-    projectionStack.LoadMatrix(projection);
-
-    // Camera matrix
-    viewStack.LoadIdentity();
-    viewStack.LookAt(
-        camera.position.x, camera.position.y, camera.position.z,
-        camera.target.x, camera.target.y, camera.target.z,
-        camera.up.x, camera.up.y, camera.up.z
-        );
-    // Model matrix : an identity matrix (model will be at the origin)
-    modelStack.LoadIdentity();
-
-    RenderMesh(meshList[GEO_AXES], false);
-    //rendering of stuffs
-    for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
-    {
-        GameObject *go = (GameObject *)*it;
-        if (go->active)
-        {
-            RenderGO(go);
-        }
-    }
-    RenderFromList(test_B_battle,mapEditor);
-
-
-    std::ostringstream ss;
-    ss.str(string());
-    ss.precision(5);
-    ss << "FPS: " << fps;
-   // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
-
-    
-
 	if (gameState == Game)
 	{
-        if (playerDead == true)
-        {
-            modelStack.PushMatrix();
-            modelStack.Translate(66.f, 50.f, 0);
-            modelStack.Scale(140, 107, 0);
-            RenderMesh(meshList[GEO_DEATHSCREEN], false);
-            modelStack.PopMatrix();
+		if (playerDead == true)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(66.f, 50.f, 0);
+			modelStack.Scale(140, 107, 0);
+			RenderMesh(meshList[GEO_DEATHSCREEN], false);
+			modelStack.PopMatrix();
 
 			modelStack.PushMatrix();
 			RenderTextOnScreen(meshList[GEO_TEXT], "Restart", Color(1, 1, 1), 4, 29, 16);
@@ -443,7 +404,7 @@ void SP3::Render()
 				modelStack.PopMatrix();
 				break;
 			}
-        }
+		}
 	}
 
 	if (gameState == Menu)
@@ -454,15 +415,15 @@ void SP3::Render()
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
-        modelStack.PushMatrix();
-        RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
-        RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
-        modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
+		modelStack.PopMatrix();
 
 		switch (selectArrow)
 		{
@@ -512,8 +473,6 @@ void SP3::Render()
 			break;
 		}
 	}
-
-    RenderText();
 
 	if (pauseGame == true)
 	{
@@ -567,6 +526,48 @@ void SP3::Render()
 			break;
 		}
 	}
+}
+
+void SP3::Render()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // Projection matrix : Orthographic Projection
+    Mtx44 projection;
+    projection.SetToOrtho(0, m_worldWidth, 0, m_worldHeight, -10, 10);
+    projectionStack.LoadMatrix(projection);
+
+    // Camera matrix
+    viewStack.LoadIdentity();
+    viewStack.LookAt(
+        camera.position.x, camera.position.y, camera.position.z,
+        camera.target.x, camera.target.y, camera.target.z,
+        camera.up.x, camera.up.y, camera.up.z
+        );
+    // Model matrix : an identity matrix (model will be at the origin)
+    modelStack.LoadIdentity();
+
+    RenderMesh(meshList[GEO_AXES], false);
+    //rendering of stuffs
+    for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+    {
+        GameObject *go = (GameObject *)*it;
+        if (go->active)
+        {
+            RenderGO(go);
+        }
+    }
+    RenderFromList(test_B_battle,mapEditor);
+
+
+    std::ostringstream ss;
+    ss.str(string());
+    ss.precision(5);
+    ss << "FPS: " << fps;
+   // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+	RenderUI();
+    RenderText();
 
 }
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)

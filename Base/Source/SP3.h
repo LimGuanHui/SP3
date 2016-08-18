@@ -46,6 +46,7 @@ public:
     void CollisionResponse(GameObject *go1, GameObject *go2);
     void RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor);
     void RenderText();
+	void RenderUI();
     Vector3 CheckMousepos();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
