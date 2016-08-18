@@ -106,44 +106,44 @@ void Map_Editor::PlatformHandler(Platform* selected_platform , float dt)
     if (IsKeyPressed(VK_UP) && IsKeyPressed(VK_SHIFT))
     {
         selected_platform->Setscale(Vector3(platform.x, platform.y + dt * 5.f, platform.z));
-        
+        return;
     }
     else if (IsKeyPressed(VK_DOWN) && IsKeyPressed(VK_SHIFT))
     {
         selected_platform->Setscale(Vector3(platform.x, platform.y - dt * 5.f, platform.z));
-        
+        return;
     }
      if (IsKeyPressed(VK_LEFT) && IsKeyPressed(VK_SHIFT))
     {
         selected_platform->Setscale(Vector3(platform.x - dt * 5.f, platform.y, platform.z));
-        
+        return;
     }
     else if (IsKeyPressed(VK_RIGHT) && IsKeyPressed(VK_SHIFT))
     {
         selected_platform->Setscale(Vector3(platform.x + dt * 5.f, platform.y, platform.z));
-        
+        return;
     }
 
     platform = selected_platform->getpos();
 
     if (IsKeyPressed(VK_UP))
     {
-        selected_platform->Setpos(Vector3(platform.x, platform.y + dt * 5.f, platform.z));
+        selected_platform->Setpos(Vector3(platform.x, platform.y + dt * 35.f, platform.z));
         
     }
     else if (IsKeyPressed(VK_DOWN))
     {
-        selected_platform->Setpos(Vector3(platform.x, platform.y - dt * 5.f, platform.z));
+        selected_platform->Setpos(Vector3(platform.x, platform.y - dt * 35.f, platform.z));
         
     }
     if (IsKeyPressed(VK_LEFT))
     {
-        selected_platform->Setpos(Vector3(platform.x - dt * 5.f, platform.y, platform.z));
+        selected_platform->Setpos(Vector3(platform.x - dt * 35.f, platform.y, platform.z));
         
     }
     else if (IsKeyPressed(VK_RIGHT))
     {
-        selected_platform->Setpos(Vector3(platform.x + dt * 5.f, platform.y, platform.z));
+        selected_platform->Setpos(Vector3(platform.x + dt * 35.f, platform.y, platform.z));
         
     }
 

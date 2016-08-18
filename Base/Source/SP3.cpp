@@ -402,6 +402,8 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
+    
+
 	if (gameState == Game)
 	{
         if (playerDead == true)
@@ -422,7 +424,15 @@ void SP3::Render()
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
-		RenderText();
+        modelStack.PushMatrix();
+        RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
+        RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
+        RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
+        RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
+        RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
+        RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
+        RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
+        modelStack.PopMatrix();
 
 		switch (selectArrow)
 		{
@@ -472,6 +482,8 @@ void SP3::Render()
 			break;
 		}
 	}
+
+    RenderText();
 
 	if (pauseGame == true)
 	{
@@ -602,15 +614,7 @@ void SP3::RenderText()
         RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(1, 1, 1), 2.f, 0, 2);
         break;
 	case SP3::Menu:
-        modelStack.PushMatrix();
-        RenderTextOnScreen(meshList[GEO_TEXT], "Welcome", Color(0, 0, 1), 4, 31, 50);
-        RenderTextOnScreen(meshList[GEO_TEXT], "To", Color(0, 0, 1), 4, 38, 45);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Suk Malcolm Deek", Color(0, 0, 1), 4, 19, 40);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color(1, 0, 0), 4, 27, 20);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Load Level", Color(1, 0, 0), 4, 27.5, 16);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Edit Level", Color(1, 0, 0), 4, 27.5, 12);
-        RenderTextOnScreen(meshList[GEO_TEXT], "Quit Game", Color(1, 0, 0), 4, 28, 8.5);
-        modelStack.PopMatrix();
+        
         break;
     case SP3::Pause:
         break;
