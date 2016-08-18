@@ -303,8 +303,9 @@ void Map_Editor::DeleteSelected()
         {
             Platform_List.erase(it);
             curr = nullplat;
-            return;
+            return; // to prevent anymore interation
         }
+
     }
 }
 
