@@ -317,7 +317,7 @@ void SP3::Update(double dt)
 					selectArrow3--;
 				else
 					selectArrow3 = NUM5 - 1;
-				sceneSoundEngine->play2D("Sound/menu_updown.gg");
+				sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 			
 			}
 			if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
@@ -341,13 +341,15 @@ void SP3::Update(double dt)
 				}
 			}
 
-			if (Application::IsKeyPressed('P'))
+			if (Application::IsKeyPressed('P') && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				gameState = Pause;
 			}
 
-			if (Application::IsKeyPressed('O'))
+			if (Application::IsKeyPressed('O') && InputDelayTimer <= 0)
 			{
+				InputDelayTimer = InputDelay;
 				gameState = End;
 			}
 
@@ -373,7 +375,7 @@ void SP3::Update(double dt)
 				selectArrow4--;
 			else
 				selectArrow4 = NUM7 - 1;
-			sceneSoundEngine->play2D("Sound/menu_updown.gg");
+			sceneSoundEngine->play2D("Sound/menu_updown.ogg");
 
 		}
 		if (Application::IsKeyPressed(VK_RETURN) && InputDelayTimer <= 0)
