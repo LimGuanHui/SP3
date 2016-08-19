@@ -91,17 +91,28 @@
   <ItemGroup>
     <ClInclude Include="AI.h" />
     <ClInclude Include="AIExports.h" />
+    <ClInclude Include="Boss.h" />
+    <ClInclude Include="BossAttribute.h" />
+    <ClInclude Include="BossAttributeExports.h" />
+    <ClInclude Include="BossExports.h" />
     <ClInclude Include="BossMovement.h" />
     <ClInclude Include="BossMovementExports.h" />
     <ClInclude Include="BossSkills.h" />
     <ClInclude Include="BossSkillsExports.h" />
+    <ClInclude Include="Mob.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterExports.h" />
     <ClInclude Include="MonsterMovement.h" />
     <ClInclude Include="MonsterMovementExports.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="BossAttribute.cpp" />
     <ClCompile Include="BossMovement.cpp" />
     <ClCompile Include="BossSkills.cpp" />
+    <ClCompile Include="Mob.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterMovement.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
