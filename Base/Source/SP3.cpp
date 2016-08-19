@@ -169,11 +169,10 @@ void SP3::Update(double dt)
 	if (Application::IsKeyPressed(' '))
 	{
 		Character->Movement->SetToJump(true);
+		std::cout << Character->Movement->GetPos_Y() << std::endl;
 	}
 
 	Character->Movement->AnimationUpdate(dt);
-
-	std::cout << Character->Movement->GetPos_Y() << std::endl;
 
 	if (gameState == Menu)
 	{
