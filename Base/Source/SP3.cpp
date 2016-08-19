@@ -822,17 +822,24 @@ Vector3 SP3::CheckMousepos()
 
 void SP3::RenderText()
 {
+    std::ostringstream ss;
     switch (gameState)
     {
     case SP3::EditMode:
         RenderTextOnScreen(meshList[GEO_TEXT], mapEditor->TextForDisplay(), Color(0, 0, 1), 2.f, 0, 2);
         
         {
-            std::ostringstream ss;
             ss.str(string());
             ss.precision(5);
             ss << "mousepos: " << CheckMousepos();
             RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 4);
+        }
+        if (mapEditor->edit_state == mapEditor->SAVE)
+        {
+            ss.str(string());
+            ss.precision(5);
+            ss << "selected file: " << mapEditor->getSelectedFile();
+            RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 6);
         }
         break;
 	case SP3::Menu:

@@ -1,5 +1,7 @@
 #include "Map_Editor.h"
 #include <iostream>
+#include <fstream>
+#include <ostream>
 #include <io.h>
 #include <Windows.h>
 
@@ -19,12 +21,18 @@ void Map_Editor::Init(Vector3 topofScreen)
     edit_state = CREATE;
     mousepos = Vector3(0, 0, 0);
     curr = NULL;
-    nullplat = CreateNewPlatform(Vector3(0, 0, 0), Vector3(0, 0, 0), Platform::End_of_Type);
+    nullplat = CreatePlatform(Vector3(0, 0, 0), Vector3(0, 0, 0), Platform::End_of_Type);
     inputDelayTimer = inputTimer;
     DisplayAvailablePlatforms(topofScreen);
+    Fileselect = "";
+    pushedfilenames = false;
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
+    if (edit_state != SAVE)
+    {
+        Fileselect = "";
+    }
     if (curr == NULL)
     {
         curr = nullplat;
@@ -34,6 +42,8 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         inputDelayTimer -= dt;
     }
     this->mousepos = mousepos;
+    if (edit_state != SAVE)
+        pushedfilenames = false;
     switch (edit_state)
     {
     case Map_Editor::START:
@@ -45,7 +55,14 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
         
         break;
     case Map_Editor::SAVE:
-
+        if (!pushedfilenames)
+            PushFilenamesIntoStringVec();
+        FileSelection();
+        if (IsKeyPressed(VK_RETURN))
+        {
+            SaveToFile(Fileselect);
+            Fileselect = "SAVED";
+        }
         break;
     case Map_Editor::LOAD:
 
@@ -93,6 +110,11 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
             inputDelayTimer = inputTimer;
             DeleteSelected();
         }
+        else if (IsKeyPressed('S') && inputDelayTimer <= 0)
+        {
+            inputDelayTimer = inputTimer;
+            edit_state = SAVE;
+        }
         PlatformHandler(curr, dt);
         break;
     case Map_Editor::DESTROY:
@@ -109,6 +131,13 @@ Platform* Map_Editor::CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PL
 {
     Platform* Newplatform = new Platform(pos, scale, type);
     Platform_List.push_back(Newplatform);
+    return Newplatform;
+}
+
+Platform* Map_Editor::CreatePlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type)
+{
+    Platform* Newplatform = new Platform(pos, scale, type);
+    //Platform_List.push_back(Newplatform);
     return Newplatform;
 }
 
@@ -213,6 +242,7 @@ std::string Map_Editor::TextForDisplay()
         return "Start Mode: (1)go to creation";
         break;
     case Map_Editor::SAVE:
+        return "Save Mode: up and down arrow keys select file, enter to select";
         break;
     case Map_Editor::LOAD:
         break;
@@ -310,12 +340,22 @@ void Map_Editor::DeleteSelected()
     }
 }
 
-void Map_Editor::PushFilenamesIntoStringVec(std::string fileDir)
+void Map_Editor::PushFilenamesIntoStringVec()
 {
+    HMODULE hModule = GetModuleHandleW(NULL);
+    WCHAR path[MAX_PATH];
+    GetModuleFileNameW(hModule, path, MAX_PATH);
+    char ch[MAX_PATH];
+    char de = ' ';
+    WideCharToMultiByte(CP_ACP, 0, path, -1, ch, MAX_PATH, &de, NULL);
+    std::string dir = std::string(ch);
+    std::string actual_dir = dir.substr(0, dir.find("Deb"));
+    actual_dir += "Maps\\*.txt";
     _finddata_t data;
     std::string filename;
     SaveList.clear();
-    int check = _findfirst(fileDir.c_str(), &data);
+
+    int check = _findfirst(actual_dir.c_str(), &data);
     if (check != -1)
     {
         int check2 = 0;
@@ -325,13 +365,106 @@ void Map_Editor::PushFilenamesIntoStringVec(std::string fileDir)
             SaveList.push_back(filename);
             check2 = _findnext(check, &data);
         }
+        _findfirst(actual_dir.c_str(), &data);
+        Fileselect = data.name;
         _findclose(check);
+    }
+    pushedfilenames = true;
+    
+}
+
+void Map_Editor::FileSelection()
+{
+    if (IsKeyPressed(VK_UP) && inputDelayTimer <= 0)
+    {
+        inputDelayTimer = inputTimer;
+        for (std::vector<std::string>::iterator it = SaveList.begin(); it != SaveList.end(); ++it)
+        {
+            std::string p = (std::string )*it;
+            if (Fileselect == p)
+            {
+                if (it != SaveList.begin())
+                    Fileselect = (std::string)*--it;
+                else
+                {
+                    std::vector<std::string>::iterator it2 = SaveList.end();
+                    --it2;
+                    Fileselect = (std::string)*it2;
+                    return;
+                }
+                    
+            }
+        }
+    }
+    if (IsKeyPressed(VK_DOWN) && inputDelayTimer <= 0)
+    {
+        inputDelayTimer = inputTimer;
+        for (std::vector<std::string>::iterator it = SaveList.begin(); it != SaveList.end(); ++it)
+        {
+            std::string p = (std::string)*it;
+            if (Fileselect == p)
+            {
+                std::vector<std::string>::iterator it2 = SaveList.end();
+                --it2;
+                if (it != it2)
+                    Fileselect = (std::string)* ++it;
+                else
+                {
+                    Fileselect = (std::string)* SaveList.begin();
+                    return;
+                }
+                    
+            }
+        }
     }
 }
 
-std::string Map_Editor::FileSelection()
+void Map_Editor::SaveToFile(std::string Nfile)
 {
+    HMODULE hModule = GetModuleHandleW(NULL);
+    WCHAR path[MAX_PATH];
+    GetModuleFileNameW(hModule, path, MAX_PATH);
+    char ch[MAX_PATH];
+    char de = ' ';
+    WideCharToMultiByte(CP_ACP, 0, path, -1, ch, MAX_PATH, &de, NULL);
+    std::string dir = std::string(ch);
+    std::string actual_dir = dir.substr(0, dir.find("Deb"));
+    actual_dir += "Maps\\";
+    actual_dir += Nfile;
 
+    std::ofstream file(actual_dir.c_str());
+    if (file.is_open())
+    {
+        bool written = false;
+        while (file.good() && !written)
+        {
+            for (std::vector<Platform* >::iterator it = Platform_List.begin(); it != Platform_List.end(); ++it)
+            {
+                Platform* go = (Platform*)*it;
+                std::vector<Platform* >::iterator it2 = Platform_List.end();
+                --it2;
+                if (it == it2)
+                {
+                    file << go->type << "," << go->getpos().x << "," << go->getpos().y << "," << go->getpos().z << ","
+                        << go->getscale().x << "," << go->getscale().y << "," << go->getscale().z;
+
+                    written = true;
+                }
+                else
+                {
+                    file << go->type << "," << go->getpos().x << "," << go->getpos().y << "," << go->getpos().z << ","
+                        << go->getscale().x << "," << go->getscale().y << "," << go->getscale().z << "\n";
+
+                }
+            }
+        }
+    }
+    file.close();
+}
+
+std::string Map_Editor::getSelectedFile()
+{
+    return Fileselect;
 }
 
 Map_Editor* CreateNewMapEditorInstance()

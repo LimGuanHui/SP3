@@ -37,14 +37,17 @@ public:
     std::string getState();
     static bool IsKeyPressed(unsigned short key);
     Platform* CreateNewPlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
+    Platform* CreatePlatform(Vector3 pos, Vector3 scale, Platform::PLATFORM_TYPE type);
     std::string TextForDisplay();
     std::string getfilename(std::string fileDir);
     void DisplayAvailablePlatforms(Vector3 topofScreen);
     void MouseOverCreatePlatform();
     void MouseOverSelectPlatform();
     void DeleteSelected();
-    void PushFilenamesIntoStringVec(std::string fileDir);
-    std::string FileSelection();
+    void PushFilenamesIntoStringVec();
+    void FileSelection();
+    void SaveToFile(std::string file);
+    std::string getSelectedFile();
 
     std::vector<Platform* > Platform_List;
     std::vector<Platform* > Platform_Display_List;
@@ -55,6 +58,7 @@ private:
     Vector3 mousepos;
     float inputDelayTimer;
     std::string Fileselect;
+    bool pushedfilenames;
 };
 
 MAP_EDITOR_API Map_Editor* CreateNewMapEditorInstance();
