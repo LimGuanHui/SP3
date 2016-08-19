@@ -1,5 +1,6 @@
 #include "Map_Editor.h"
 #include <iostream>
+#include <io.h>
 #include <Windows.h>
 
 #define inputTimer 0.3f
@@ -307,6 +308,30 @@ void Map_Editor::DeleteSelected()
         }
 
     }
+}
+
+void Map_Editor::PushFilenamesIntoStringVec(std::string fileDir)
+{
+    _finddata_t data;
+    std::string filename;
+    SaveList.clear();
+    int check = _findfirst(fileDir.c_str(), &data);
+    if (check != -1)
+    {
+        int check2 = 0;
+        while (check2 != -1)
+        {
+            filename = data.name;
+            SaveList.push_back(filename);
+            check2 = _findnext(check, &data);
+        }
+        _findclose(check);
+    }
+}
+
+std::string Map_Editor::FileSelection()
+{
+
 }
 
 Map_Editor* CreateNewMapEditorInstance()

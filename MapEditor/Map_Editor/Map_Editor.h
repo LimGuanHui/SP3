@@ -43,14 +43,18 @@ public:
     void MouseOverCreatePlatform();
     void MouseOverSelectPlatform();
     void DeleteSelected();
+    void PushFilenamesIntoStringVec(std::string fileDir);
+    std::string FileSelection();
 
     std::vector<Platform* > Platform_List;
     std::vector<Platform* > Platform_Display_List;
+    std::vector<std::string> SaveList;
     Platform* curr;
     Platform* nullplat;
 private:
     Vector3 mousepos;
     float inputDelayTimer;
+    std::string Fileselect;
 };
 
 MAP_EDITOR_API Map_Editor* CreateNewMapEditorInstance();
