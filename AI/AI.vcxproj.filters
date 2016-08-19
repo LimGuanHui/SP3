@@ -54,6 +54,27 @@
     <ClInclude Include="BossSkillsExports.h">
       <Filter>Boss\Header</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterExports.h">
+      <Filter>Monster\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mob.h">
+      <Filter>Monster\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Boss\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttribute.h">
+      <Filter>Boss\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BossAttributeExports.h">
+      <Filter>Boss\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BossExports.h">
+      <Filter>Boss\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BossMovement.cpp">
@@ -67,6 +88,18 @@
     </ClCompile>
     <ClCompile Include="BossSkills.cpp">
       <Filter>Boss\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="BossAttribute.cpp">
+      <Filter>Boss\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Boss\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Mob.cpp">
+      <Filter>Monster\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster\CPP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
