@@ -401,13 +401,13 @@ void SP3::Update(double dt)
 
 void SP3::RenderGO(GameObject *go)
 {
-    /*
+    
     //rotate code
     modelStack.Rotate(Math::RadianToDegree(atan2(-go->vel.x, go->vel.y)), 0, 0, 1);
-    */
+    
 
-   // modelStack.PushMatrix();
-    /*Vector3 temp;
+   modelStack.PushMatrix();
+    Vector3 temp;
     switch (go->type)
     {
 	case(GameObject::GO_PLAY) :
@@ -509,8 +509,8 @@ void SP3::RenderGO(GameObject *go)
 
     default:
         break;
-    }*/
-   // modelStack.PopMatrix();
+    }
+    modelStack.PopMatrix();
 
 }
 
@@ -554,8 +554,6 @@ void SP3::RenderUI()
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderText();
-
-	
 
 	if (gameState == Menu)
 	{
@@ -687,14 +685,6 @@ void SP3::Render()
     RenderMesh(meshList[GEO_AXES], false);
 
     //rendering of stuffs
-	//for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
-	//{
-	//	GameObject *go = (GameObject *)*it;
-	//	if (go->active)
-	//	{
-	//		RenderGO(go);
-	//	}
-	//}
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
     {
         GameObject *go = (GameObject *)*it;
@@ -722,10 +712,10 @@ void SP3::Render()
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	RenderUI();
     RenderText();
 	RenderCharacter();
 	RenderProjectile();
+	RenderUI();
 
 }
 
