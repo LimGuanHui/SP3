@@ -265,7 +265,7 @@ void SP3::Update(double dt)
     {
     case SP3::EditMode:
         //map editor update
-        mapEditor->Update(dt, CheckMousepos());
+        mapEditor->Update(dt, CheckMousepos() + camera.position);
         if (Application::IsKeyPressed(VK_ESCAPE))
         {
             gameState = Game;
@@ -814,7 +814,7 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	//RenderUI();
+	RenderUI();
     //RenderText();
 	RenderCharacter();
 	RenderProjectile();

@@ -52,14 +52,7 @@ void Application::GetCursorPos(double *xpos, double *ypos)
 {
 	glfwGetCursorPos(m_window, xpos, ypos);
 }
-int Application::GetWindowWidth()
-{
-	return m_width;
-}
-int Application::GetWindowHeight()
-{
-	return m_height;
-}
+
 
 Application::Application() 
 {
@@ -94,11 +87,14 @@ void Application::Init()
 
     const GLFWvidmode * mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
+
 	//Create a window and create its OpenGL context
-	m_width = 800;
-	m_height = 600;
-	m_window = glfwCreateWindow(m_width, m_height, "Physics", NULL, NULL);
-    //m_window = glfwCreateWindow(mode->width, mode->height, "Physics", glfwGetPrimaryMonitor(), NULL);
+	/*m_width = 800;
+	m_height = 600;*/
+    m_width = mode->width;
+    m_height = mode->height;
+	//m_window = glfwCreateWindow(m_width, m_height, "Physics", NULL, NULL);
+    m_window = glfwCreateWindow(mode->width, mode->height, "Physics", glfwGetPrimaryMonitor(), NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -135,6 +131,15 @@ void Application::Init()
     m_dElapsedTime = 0.0;
     m_dAccumulatedTime_ThreadOne = 0.0;
     m_dAccumulatedTime_ThreadTwo = 0.0;
+}
+
+int Application::GetWindowWidth()
+{
+    return m_width;
+}
+int Application::GetWindowHeight()
+{
+    return m_height;
 }
 
 void Application::Run()

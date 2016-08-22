@@ -8,6 +8,7 @@
 
 class Application
 {
+    
 public:
 	static Application& GetInstance()
 	{
@@ -35,7 +36,7 @@ private:
     double m_dElapsedTime;
     double m_dAccumulatedTime_ThreadOne;
     double m_dAccumulatedTime_ThreadTwo;
-
+    
 };
 
 #endif
