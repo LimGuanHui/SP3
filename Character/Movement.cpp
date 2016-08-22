@@ -19,6 +19,7 @@ namespace MOVEMENT
 	void CMovement::Init()
 	{
 		position = Vector3(0, 0, 0);
+		scale = Vector3(10, 10, 1);
 	}
 
 	int CMovement::GetPos_X()
@@ -29,6 +30,16 @@ namespace MOVEMENT
 	int CMovement::GetPos_Y()
 	{
 		return position.y;
+	}
+
+	int CMovement::GetScale_X()
+	{
+		return scale.x;
+	}
+
+	int CMovement::GetScale_Y()
+	{
+		return scale.y;
 	}
 
 	int CMovement::GetAnimationCounter()
@@ -49,6 +60,16 @@ namespace MOVEMENT
 	void CMovement::SetPos_Y(int pos_Y)
 	{
 		this->position.y = pos_Y;
+	}
+
+	void CMovement::SetScale_X(int scale_X)
+	{
+		this->scale.x = scale_X;
+	}
+
+	void CMovement::SetScale_Y(int scale_Y)
+	{
+		this->scale.y = scale_Y;
 	}
 
 	void CMovement::SetAnimationCounter(int AnimationCounter)

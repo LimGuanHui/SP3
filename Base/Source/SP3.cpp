@@ -705,7 +705,6 @@ void SP3::Render()
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	//RenderProjectile();
     RenderText();
 	RenderUI();
 	RenderCharacter();
