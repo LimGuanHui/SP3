@@ -110,25 +110,6 @@ void SceneBase::Init()
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//original bg.tga");
 
-	//selection cursors
-	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("select", Color(1, 1, 1), 1.f);
-	meshList[GEO_SELECT]->textureID = LoadTGA("Image//selectarrow.tga");
-
-	meshList[GEO_RESTARTCURSOR] = MeshBuilder::GenerateQuad("restartcursor", Color(1, 1, 1), 1.f);
-	meshList[GEO_RESTARTCURSOR]->textureID = LoadTGA("Image//restartcursor.tga");
-
-	meshList[GEO_MENUCURSOR] = MeshBuilder::GenerateQuad("menucursor", Color(1, 1, 1), 1.f);
-	meshList[GEO_MENUCURSOR]->textureID = LoadTGA("Image//menucursor.tga");
-
-	meshList[GEO_QUITCURSOR] = MeshBuilder::GenerateQuad("quitcursor", Color(1, 1, 1), 1.f);
-	meshList[GEO_QUITCURSOR]->textureID = LoadTGA("Image//quitcursor.tga");
-
-	meshList[GEO_MENUCURSOR2] = MeshBuilder::GenerateQuad("menucursor2", Color(1, 1, 1), 1.f);
-	meshList[GEO_MENUCURSOR2]->textureID = LoadTGA("Image//menucursor2.tga");
-
-	meshList[GEO_QUITCURSOR2] = MeshBuilder::GenerateQuad("quitcursor2", Color(1, 1, 1), 1.f);
-	meshList[GEO_QUITCURSOR2]->textureID = LoadTGA("Image//quitcursor2.tga");
-
 	// Character & background
 	meshList[GEO_CHARACTER] = MeshBuilder::Generate2DMesh("Character", Color(0, 0, 0), 0.0f, 0.0f, 25.0f, 25.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
@@ -165,6 +146,48 @@ void SceneBase::Init()
 
 	meshList[GEO_VICTORY] = MeshBuilder::GenerateQuad("VictoryScreen", Color(1, 1, 1), 1.f);
 	meshList[GEO_VICTORY]->textureID = LoadTGA("Image//victory.tga");
+
+	// Buttons thing
+	meshList[GEO_PLAY] = MeshBuilder::GenerateQuad("Play Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_PLAY]->textureID = LoadTGA("Image//buttons//playbutton.tga");
+	meshList[GEO_PLAYHOVER] = MeshBuilder::GenerateQuad("Play Hover Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_PLAYHOVER]->textureID = LoadTGA("Image//buttons//playhoverbutton.tga");
+
+	meshList[GEO_MENU] = MeshBuilder::GenerateQuad("Menu Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENU]->textureID = LoadTGA("Image//buttons//menubutton.tga");
+	meshList[GEO_MENUHOVER] = MeshBuilder::GenerateQuad("Menu Hover Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENUHOVER]->textureID = LoadTGA("Image//buttons//menuhoverbutton.tga");
+
+	meshList[GEO_EDIT] = MeshBuilder::GenerateQuad("Edit Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_EDIT]->textureID = LoadTGA("Image//buttons//editbutton.tga");
+	meshList[GEO_EDITHOVER] = MeshBuilder::GenerateQuad("Edit Hover But", Color(1, 1, 1), 1.f);
+	meshList[GEO_EDITHOVER]->textureID = LoadTGA("Image//buttons//edithoverbutton.tga");
+
+	meshList[GEO_LOAD] = MeshBuilder::GenerateQuad("Load Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_LOAD]->textureID = LoadTGA("Image//buttons//loadbutton.tga");
+	meshList[GEO_LOADHOVER] = MeshBuilder::GenerateQuad("Load Hover But", Color(1, 1, 1), 1.f);
+	meshList[GEO_LOADHOVER]->textureID = LoadTGA("Image//buttons//loadhoverbutton.tga");
+
+	meshList[GEO_HIGHSCORE] = MeshBuilder::GenerateQuad("Highscore button", Color(1, 1, 1), 1.f);
+	meshList[GEO_HIGHSCORE]->textureID = LoadTGA("Image//buttons//highscorebutton.tga");
+	meshList[GEO_HIGHSCOREHOVER] = MeshBuilder::GenerateQuad("Highscore hover but", Color(1, 1, 1), 1.f);
+	meshList[GEO_HIGHSCOREHOVER]->textureID = LoadTGA("Image//buttons//highscorehoverbutton.tga");
+
+	meshList[GEO_SAVE] = MeshBuilder::GenerateQuad("save button", Color(1, 1, 1), 1.f);
+	meshList[GEO_SAVE]->textureID = LoadTGA("Image//buttons//savebutton.tga");
+	meshList[GEO_SAVEHOVER] = MeshBuilder::GenerateQuad("save hover button", Color(1, 1, 1), 1.f);
+	meshList[GEO_SAVEHOVER]->textureID = LoadTGA("Image//buttons//savehoverbutton.tga");
+
+	meshList[GEO_EXIT] = MeshBuilder::GenerateQuad("Exit Button", Color(1, 1, 1), 1.f);
+	meshList[GEO_EXIT]->textureID = LoadTGA("Image//buttons//exitbutton.tga");
+	meshList[GEO_EXITHOVER] = MeshBuilder::GenerateQuad("Exit Hover button", Color(1, 1, 1), 1.f);
+	meshList[GEO_EXITHOVER]->textureID = LoadTGA("Image//buttons//exithoverbutton.tga");
+
+	meshList[GEO_RESTART] = MeshBuilder::GenerateQuad("restart button", Color(1, 1, 1), 1.f);
+	meshList[GEO_RESTART]->textureID = LoadTGA("Image//buttons//restartbutton.tga");
+	meshList[GEO_RESTARTHOVER] = MeshBuilder::GenerateQuad("restart hover but", Color(1, 1, 1), 1.f);
+	meshList[GEO_RESTARTHOVER]->textureID = LoadTGA("Image//buttons//restarthoverbutton.tga");
+
 
 	bLightEnabled = false;
 }

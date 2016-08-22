@@ -29,6 +29,8 @@ using namespace irrklang;
 
 #include "Map_Editor.h"
 
+#include "Buttons.h"
+
 class SP3 : public SceneBase
 {
 public:
@@ -165,6 +167,8 @@ public:
 	ISoundEngine* sceneSoundEngine;
 
 	bool playerDead;
+
+	Buttons Play;
 
 protected:
 
