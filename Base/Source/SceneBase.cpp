@@ -171,6 +171,7 @@ void SceneBase::Init()
 
 void SceneBase::Update(double dt)
 {
+    camera.Update(dt);
 	//Keyboard Section
 	if(Application::IsKeyPressed('1'))
 		glEnable(GL_CULL_FACE);

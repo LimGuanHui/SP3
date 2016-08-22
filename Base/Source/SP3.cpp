@@ -152,6 +152,7 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
+    
 
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
@@ -825,7 +826,12 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
             modelStack.PopMatrix();
         }
     }
-    
+
+    std::ostringstream ss;
+    ss.str(string());
+    ss.precision(5);
+    ss << "cam pos: " << camera.position;
+    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 23);
 }
 
 Vector3 SP3::CheckMousepos()

@@ -308,7 +308,7 @@ void Map_Editor::MouseOverCreatePlatform()
     {
         Platform *go1 = (Platform *)*it;
         float distanceSquared = ((go1->getpos()) - (mousepos)).LengthSquared();
-        float combinedRadiusSquared = (go1->getscale().x - 8.f) * (go1->getscale().x - 8.f);
+        float combinedRadiusSquared = (go1->getscale().x - 1.f) * (go1->getscale().x - 1.f);
         Vector3 relativeDisplacement = mousepos - go1->getpos();
         if (distanceSquared < combinedRadiusSquared)
         {
@@ -324,7 +324,7 @@ void Map_Editor::MouseOverSelectPlatform()
     {
         Platform *go1 = (Platform *)*it;
         float distanceSquared = ((go1->getpos()) - (mousepos)).LengthSquared();
-        float combinedRadiusSquared = (go1->getscale().x - 8.f) * (go1->getscale().x - 8.f);
+        float combinedRadiusSquared = (go1->getscale().x - 1.f) * (go1->getscale().x - 1.f);
         Vector3 relativeDisplacement = mousepos - go1->getpos();
         if (distanceSquared < combinedRadiusSquared)
         {
