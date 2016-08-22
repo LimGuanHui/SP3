@@ -5,7 +5,6 @@ namespace MOVEMENT
 	CMovement::CMovement()
 		: jumpspeed(0)
 		, AnimationCounter(0)
-		, OnGround(true)
 		, InAir(false)
 		, velocity(5,0,0)
 	{
@@ -147,7 +146,7 @@ namespace MOVEMENT
 		}
 		else
 		{
-			position.x = position.x + (velocity.x * timeDiff);
+			position.x += (velocity.x * timeDiff);
 			AnimationInvert = false;
 			AnimationCounter++;
 			if (AnimationCounter > 2)
