@@ -47,6 +47,7 @@ public:
     void PushFilenamesIntoStringVec();
     void FileSelection();
     void SaveToFile(std::string file);
+    void LoadFromFile(std::string file);
     std::string getSelectedFile();
 
     std::vector<Platform* > Platform_List;

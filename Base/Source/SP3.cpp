@@ -207,6 +207,10 @@ void SP3::Update(double dt)
     case SP3::EditMode:
         //map editor update
         mapEditor->Update(dt, CheckMousepos());
+        if (Application::IsKeyPressed(VK_ESCAPE))
+        {
+            gameState = Game;
+        }
         break;
 
 	case SP3::Menu:
@@ -781,9 +785,30 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
         modelStack.PopMatrix();
     }
 
-    if (gameState == EditMode)
+    if (gameState == EditMode )
     {
         for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
+        {
+            Platform *go = (Platform *)*it;
+            modelStack.PushMatrix();
+            modelStack.Translate(go->getpos().x, go->getpos().y, go->getpos().z);
+            modelStack.Scale(go->getscale().x, go->getscale().y, go->getscale().z);
+            switch (go->type)
+            {
+            case Platform::Normal:
+                RenderMesh(meshList[GEO_PLAT_NORMAL], false);
+                break;
+            default:
+                break;
+            }
+            modelStack.PopMatrix();
+        }
+    
+
+    }
+    else if (gameState == Game)
+    {
+        for (std::vector<Platform *>::iterator it = mapEditor->Platform_List.begin(); it != mapEditor->Platform_List.end(); ++it)
         {
             Platform *go = (Platform *)*it;
             modelStack.PushMatrix();
@@ -833,7 +858,7 @@ void SP3::RenderText()
             ss << "mousepos: " << CheckMousepos();
             RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 4);
         }
-        if (mapEditor->edit_state == mapEditor->SAVE)
+        if (mapEditor->edit_state == mapEditor->SAVE || mapEditor->edit_state == mapEditor->LOAD)
         {
             ss.str(string());
             ss.precision(5);

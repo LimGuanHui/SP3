@@ -1,1 +1,9 @@
-0,54,59.1667,0,20,20,20
+type:0,pos:x:103.167,y:61.6667,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:22,y:61.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:90.3333,y:29.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:57.3333,y:35,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:21.5,y:24.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:118.167,y:33.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:47.5864,y:61.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:66.6279,y:61.5,z:0,scale:x:20,y:20,z:20
+type:0,pos:x:86.8589,y:61.5,z:0,scale:x:20,y:20,z:20
