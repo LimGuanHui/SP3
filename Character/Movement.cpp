@@ -20,7 +20,6 @@ namespace MOVEMENT
 	void CMovement::Init()
 	{
 		position = Vector3(0, 0, 0);
-		//velocity = Vector3(5, 0, 0);
 		scale = Vector3(10, 10, 1);
 	}
 

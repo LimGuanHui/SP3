@@ -19,6 +19,7 @@ public:
 
 	void CheckCollision();
     void Response(Platform* go);
+    void Response(Projectile* go);
     void Init(CHARACTER::CCharacter* C_CHARACTER, Map_Editor* map);
 };
 
