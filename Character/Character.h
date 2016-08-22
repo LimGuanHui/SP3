@@ -17,7 +17,6 @@ namespace CHARACTER
 		ATTRIBUTE::CAttribute *Attribute;
 		MOVEMENT::CMovement *Movement;
 		SKILLS::CSkills *Skill;
-
 		AI::ArtInt *AI;
 
 
