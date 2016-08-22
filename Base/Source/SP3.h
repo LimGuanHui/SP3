@@ -74,6 +74,12 @@ public:
         End,
     };
 
+    enum Game_Stage
+    {
+        Normal,
+        Boss,
+    };
+
 	enum StartOption
 	{
 		Start,
@@ -106,11 +112,7 @@ public:
 		NUM8
 	};
 
-    enum Game_Stage
-    {
-        Normal,
-        Boss,
-    };
+    
 
 	enum SelectMain
 	{

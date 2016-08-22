@@ -46,10 +46,10 @@ namespace MOVEMENT
 		PROJECTILE::Projectile* FetchProjectile();
 
 		std::vector<PROJECTILE::Projectile *>m_projectileList;
-
 	private:
 		Vector3 position;
 		Vector3 scale;
+
 
 		bool OnGround;
 		bool InAir;
