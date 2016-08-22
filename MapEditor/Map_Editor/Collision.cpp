@@ -33,7 +33,7 @@ void Collision::CheckCollision()
             Response(go);
         }
     }
-    for (std::vector<Projectile* >::iterator it = N_Character->Movement->m_projectileList.begin(); it != N_Character->Movement->m_projectileList.end(); ++it)
+    /*for (std::vector<Projectile* >::iterator it = N_Character->Movement->m_projectileList.begin(); it != N_Character->Movement->m_projectileList.end(); ++it)
     {
         Projectile* go = (Projectile*)*it;
         float distanceSquared = Vector3(go->GetPos().x - N_Character->Movement->GetPos_X(), go->GetPos().y - N_Character->Movement->GetPos_Y(), 0.f).LengthSquared();
@@ -45,7 +45,7 @@ void Collision::CheckCollision()
                 Response(go);
             }
         }
-    }
+    }*/
 	//int distanceApart = (N_Character->Movement->GetScale_Y() / 2) - (Platform->getscale().y / 2);
 }
 
@@ -61,8 +61,8 @@ void Collision::Response(Platform* go)
     }
 }
 
-void Collision::Response(Projectile* go)
-{
-    go->active = false;
-    N_Character->Attribute->SetCurrentHP(N_Character->Attribute->GetCurrentHP() - 10);
-}
+//void Collision::Response(Projectile* go)
+//{
+//    go->active = false;
+//    N_Character->Attribute->SetCurrentHP(N_Character->Attribute->GetCurrentHP() - 10);
+//}
