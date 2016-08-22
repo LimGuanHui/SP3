@@ -7,6 +7,7 @@ namespace MOVEMENT
 		, AnimationCounter(0)
 		, OnGround(true)
 		, InAir(false)
+		, velocity(5,0,0)
 	{
 		Projectile = new PROJECTILE::Projectile();
 	}
@@ -19,6 +20,7 @@ namespace MOVEMENT
 	void CMovement::Init()
 	{
 		position = Vector3(0, 0, 0);
+		//velocity = Vector3(5, 0, 0);
 		scale = Vector3(10, 10, 1);
 	}
 
@@ -40,6 +42,16 @@ namespace MOVEMENT
 	int CMovement::GetScale_Y()
 	{
 		return scale.y;
+	}
+
+	int CMovement::GetVel_X()
+	{
+		return velocity.x;
+	}
+
+	int CMovement::GetVel_Y()
+	{
+		return velocity.y;
 	}
 
 	int CMovement::GetAnimationCounter()
@@ -72,6 +84,16 @@ namespace MOVEMENT
 		this->scale.y = scale_Y;
 	}
 
+	void CMovement::SetVel_X(int vel_X)
+	{
+		this->velocity.x = vel_X;
+	}
+
+	void CMovement::SetVel_Y(int vel_Y)
+	{
+		this->velocity.y = vel_Y;
+	}
+
 	void CMovement::SetAnimationCounter(int AnimationCounter)
 	{
 		this->AnimationCounter = AnimationCounter;
@@ -79,7 +101,7 @@ namespace MOVEMENT
 
 	void CMovement::SetToJump(bool jump)
 	{
-		if (jump)
+		if (jump && InAir == false && Drop == false)
 		{
 			InAir = true;
 			Drop = false;
@@ -117,7 +139,7 @@ namespace MOVEMENT
 	{
 		if (mode)
 		{
-			position.x = position.x - (int)(5.0f * timeDiff);
+			position.x -= (velocity.x * timeDiff);
 			AnimationInvert = true;
 			AnimationCounter--;
 			if (AnimationCounter < 0)
@@ -125,7 +147,7 @@ namespace MOVEMENT
 		}
 		else
 		{
-			position.x = position.x + (int)(5.0f * timeDiff);
+			position.x = position.x + (velocity.x * timeDiff);
 			AnimationInvert = false;
 			AnimationCounter++;
 			if (AnimationCounter > 2)
@@ -155,10 +177,15 @@ namespace MOVEMENT
 
 		else if (!InAir & Drop)
 		{
-			if (position.y > 10) // for moment until collision
+			if (position.y > 6) // for moment until collision
 			{
 				position.y -= jumpspeed;
 				jumpspeed += 1;
+				
+			}
+			else if (position.y == 6)
+			{
+				Drop = false;
 			}
 		}
 	}

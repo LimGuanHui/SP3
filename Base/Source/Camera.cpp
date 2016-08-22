@@ -28,22 +28,22 @@ void Camera::Reset()
 
 void Camera::Update(double dt)
 {
-    if (Application::IsKeyPressed(VK_UP))
+    if (Application::IsKeyPressed(VK_UP) && Application::IsKeyPressed(VK_CONTROL))
     {
         position.y += dt * CAM_SPEED  ;
         target.y += dt * CAM_SPEED  ;
     }
-    if (Application::IsKeyPressed(VK_LEFT))
+    if (Application::IsKeyPressed(VK_LEFT) && Application::IsKeyPressed(VK_CONTROL))
     {
         position.x -= dt * CAM_SPEED  ;
         target.x -= dt * CAM_SPEED  ;
     }
-    if (Application::IsKeyPressed(VK_DOWN))
+    if (Application::IsKeyPressed(VK_DOWN) && Application::IsKeyPressed(VK_CONTROL))
     {
         position.y -= dt * CAM_SPEED  ;
         target.y -= dt * CAM_SPEED  ;
     }
-    if (Application::IsKeyPressed(VK_RIGHT))
+    if (Application::IsKeyPressed(VK_RIGHT) && Application::IsKeyPressed(VK_CONTROL))
     {
         position.x += dt * CAM_SPEED  ;
         target.x += dt * CAM_SPEED  ;

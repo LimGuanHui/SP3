@@ -36,7 +36,7 @@ void Map_Editor::Update(float dt, Vector3 mousepos)
     if (inputDelayTimer > 0)
         inputDelayTimer -= dt;
     this->mousepos = mousepos;
-    if (edit_state != SAVE || edit_state != LOAD)
+    if (edit_state != LOAD && edit_state != SAVE)
         pushedfilenames = false;
     switch (edit_state)
     {
@@ -374,6 +374,7 @@ void Map_Editor::PushFilenamesIntoStringVec()
             SaveList.push_back(filename);
             check2 = _findnext(check, &data);
         }
+        
         _findfirst(actual_dir.c_str(), &data);
         Fileselect = data.name;
         _findclose(check);
@@ -393,14 +394,19 @@ void Map_Editor::FileSelection()
             if (Fileselect == p)
             {
                 if (it != SaveList.begin())
-                    Fileselect = (std::string)*--it;
-                else
                 {
-                    std::vector<std::string>::iterator it2 = SaveList.end();
-                    --it2;
-                    Fileselect = (std::string)*it2;
+                    Fileselect = (std::string)* --it;
                     return;
                 }
+                //    
+
+                //else
+                //{
+                //    std::vector<std::string>::iterator it2 = SaveList.end();
+                //    --it2;
+                //    Fileselect = (std::string)*it2;
+                //    return;
+                //}
                     
             }
         }
@@ -416,12 +422,16 @@ void Map_Editor::FileSelection()
                 std::vector<std::string>::iterator it2 = SaveList.end();
                 --it2;
                 if (it != it2)
-                    Fileselect = (std::string)* ++it;
-                else
                 {
-                    Fileselect = (std::string)* SaveList.begin();
+                    Fileselect = (std::string)* ++it;
                     return;
                 }
+                    
+                //else
+                //{
+                //    Fileselect = (std::string)* SaveList.begin();
+                //    return;
+                //}
                     
             }
         }

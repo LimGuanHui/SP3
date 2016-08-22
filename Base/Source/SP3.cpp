@@ -220,7 +220,7 @@ void SP3::Update(double dt)
 		Character->Movement->ProjectileUpdate(2.f, dt, 7);
 	}
 
-	std::cout << chargeTime << " " << KeyDown << " " << check1 << " " << check2 << std::endl;
+	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
@@ -268,7 +268,7 @@ void SP3::Update(double dt)
     {
     case SP3::EditMode:
         //map editor update
-        mapEditor->Update(dt, CheckMousepos());
+        mapEditor->Update(dt, CheckMousepos() + camera.position);
         if (Application::IsKeyPressed(VK_ESCAPE))
         {
             gameState = Game;
@@ -554,7 +554,6 @@ void SP3::RenderUI()
     // Model matrix : an identity matrix (model will be at the origin)
     modelStack.LoadIdentity();
 
-    RenderMesh(meshList[GEO_AXES], false);
     //rendering of stuffs
     RenderFromList(test_B_battle,mapEditor);
 
@@ -623,6 +622,18 @@ void SP3::RenderUI()
 				RenderProjectile(projectile);
 			}
 		}
+        switch (gameStage)
+        {
+        case SP3::Normal:
+            mapEditor->LoadFromFile("Map1.txt");
+			 
+            break;
+        case SP3::Boss:
+
+            break;
+        default:
+            break;
+        }
 	}
 	if (gameState == Pause)
 	{
@@ -731,6 +742,17 @@ void SP3::Render()
     RenderText();
 	
 
+    RenderUI();
+    RenderCharacter();
+    RenderText();
+	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	{
+		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+		if (projectile->active)
+		{
+			RenderProjectile(projectile);
+		}
+	}
 }
 
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
@@ -824,11 +846,11 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
         }
     }
 
-    std::ostringstream ss;
+    /*std::ostringstream ss;
     ss.str(string());
     ss.precision(5);
     ss << "cam pos: " << camera.position;
-    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 23);
+    RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2.f, 0, 23);*/
 }
 
 Vector3 SP3::CheckMousepos()
