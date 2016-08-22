@@ -66,6 +66,8 @@ public:
         //platform
         GEO_PLAT_NORMAL,
         GEO_PLAT_SELECTOR,
+		//Character
+		GEO_PROJECTILE,
 		NUM_GEOMETRY,
 
 	};
