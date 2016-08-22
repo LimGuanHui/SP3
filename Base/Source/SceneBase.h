@@ -76,6 +76,8 @@ public:
 		GEO_EXITHOVER,
 		GEO_RESTART,
 		GEO_RESTARTHOVER,
+		//Character
+		GEO_PROJECTILE,
 		NUM_GEOMETRY,
 
 	};
