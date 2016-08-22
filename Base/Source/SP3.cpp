@@ -175,7 +175,6 @@ void SP3::Update(double dt)
 
 	Character->Movement->AnimationUpdate(dt);
 
-<<<<<<< HEAD
 	firingDebounce += (float)dt;
 	/*if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
 	{
@@ -224,9 +223,6 @@ void SP3::Update(double dt)
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
 	//std::cout << Character->Movement->GetPos_X() << Character->Movement->GetPos_Y() << std::endl;
-
-=======
->>>>>>> 9f31048c7d5ba740844eccbb25f893a0e9162f52
 	if (gameState == Menu)
 	{
 		
@@ -486,7 +482,7 @@ void SP3::RenderGO(GameObject *go)
     */
 
    // modelStack.PushMatrix();
-    Vector3 temp;
+    /*Vector3 temp;
     switch (go->type)
     {
 	case GameObject::GO_PROJECTILE:
@@ -497,7 +493,7 @@ void SP3::RenderGO(GameObject *go)
 		modelStack.PopMatrix();
     default:
         break;
-    }
+    }*/
    // modelStack.PopMatrix();
 
 }
