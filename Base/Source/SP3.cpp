@@ -59,10 +59,13 @@ void SP3::Init()
 
     //Menu
 	InputDelayTimer = 0;
+	firingDebounce = 0;
+	Fire = false;
+	chargeTime = 0;
+	chargeFire = false;
 
 	Character = N_Character();
 	AI = N_AI();
-	
 
 	Character->Movement->SetAnimationCounter(0);
 	Character->Movement->SetPos_X(25);
@@ -70,7 +73,6 @@ void SP3::Init()
 
 	sceneSoundEngine = createIrrKlangDevice();
 }
-
 
 GameObject* SP3::FetchGO()
 {
@@ -147,8 +149,6 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
     }
 }
 
-
-
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
@@ -159,12 +159,12 @@ void SP3::Update(double dt)
 
 	if (Application::IsKeyPressed('A'))
 	{
-		Character->Movement->MoveLeftRight(true, 2.f);
+		Character->Movement->MoveLeftRight(true, 0.5f);
 	}
 
 	if (Application::IsKeyPressed('D'))
 	{
-		Character->Movement->MoveLeftRight(false, 2.f);
+		Character->Movement->MoveLeftRight(false, 0.5f);
 	}
 
 	if (Application::IsKeyPressed(' '))
@@ -175,6 +175,58 @@ void SP3::Update(double dt)
 
 	Character->Movement->AnimationUpdate(dt);
 
+<<<<<<< HEAD
+	firingDebounce += (float)dt;
+	/*if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
+	{
+		Fire = true;
+		firingDebounce = 0;
+		Character->Movement->ProjectileUpdate(2.f, dt);
+	}
+	else
+	{
+		Fire = false;
+	}*/
+
+	bool KeyDown = false;
+	bool check1 = false;
+	bool check2 = false;
+	if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
+	{
+		KeyDown = false;
+		firingDebounce = 0;
+		Character->Movement->ProjectileUpdate(2.f, dt, 1);
+	}
+	if (Application::IsKeyPressed('X') && !KeyDown)
+	{
+		chargeTime += 2 * dt;
+		if (chargeTime > 1)
+		{
+			chargeFire = true;
+			KeyDown = true;
+		}
+	}
+	if (!Application::IsKeyPressed('X'))
+	{
+		chargeTime = 0;
+	}
+	if (KeyDown && chargeFire)
+	{
+		chargeFire = false;
+		KeyDown = false;
+		check2 = true; 
+		chargeTime = 0;
+		Character->Movement->ProjectileUpdate(2.f, dt, 7);
+	}
+
+	std::cout << chargeTime << " " << KeyDown << " " << check1 << " " << check2 << std::endl;
+
+
+	//std::cout << Character->Movement->Projectile->pos << std::endl;
+	//std::cout << Character->Movement->GetPos_X() << Character->Movement->GetPos_Y() << std::endl;
+
+=======
+>>>>>>> 9f31048c7d5ba740844eccbb25f893a0e9162f52
 	if (gameState == Menu)
 	{
 		
@@ -194,6 +246,7 @@ void SP3::Update(double dt)
     */
 
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
+
     {
         GameObject *go = (GameObject *)*it;
         if (go->active)
@@ -202,6 +255,15 @@ void SP3::Update(double dt)
             
         }
     }
+
+	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	{
+		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+		if (projectile->active)
+		{
+			projectile->pos += projectile->vel * dt;
+		}
+	}
     
     switch (gameState)
     {
@@ -416,7 +478,6 @@ void SP3::Update(double dt)
     }
 }
 
-
 void SP3::RenderGO(GameObject *go)
 {
     /*
@@ -424,15 +485,30 @@ void SP3::RenderGO(GameObject *go)
     modelStack.Rotate(Math::RadianToDegree(atan2(-go->vel.x, go->vel.y)), 0, 0, 1);
     */
 
-    modelStack.PushMatrix();
+   // modelStack.PushMatrix();
     Vector3 temp;
     switch (go->type)
     {
+	case GameObject::GO_PROJECTILE:
+		modelStack.PushMatrix();
+		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
+		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
+		RenderMesh(meshList[GEO_PROJECTILE], false);
+		modelStack.PopMatrix();
     default:
         break;
     }
-    modelStack.PopMatrix();
+   // modelStack.PopMatrix();
 
+}
+
+void SP3::RenderProjectile(PROJECTILE::Projectile *projectile)
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+	modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
+	RenderMesh(meshList[GEO_PROJECTILE], false);
+	modelStack.PopMatrix();
 }
 
 void SP3::RenderUI()
@@ -475,7 +551,7 @@ void SP3::RenderUI()
 
     RenderText();
 
-	RenderCharacter();
+	
 
 	if (gameState == Game)
 	{
@@ -713,6 +789,7 @@ void SP3::Render()
     modelStack.LoadIdentity();
 
     RenderMesh(meshList[GEO_AXES], false);
+
     //rendering of stuffs
     for (std::vector<GameObject *>::iterator it = m_goList.begin(); it != m_goList.end(); ++it)
     {
@@ -722,6 +799,16 @@ void SP3::Render()
             RenderGO(go);
         }
     }
+
+	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	{
+		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+		if (projectile->active)
+		{
+			RenderProjectile(projectile);
+		}
+	}
+
     RenderFromList(test_B_battle,mapEditor);
     RenderEditorSelector();
 
@@ -731,8 +818,10 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	RenderUI();
-    RenderText();
+	//RenderUI();
+    //RenderText();
+	RenderCharacter();
+	RenderProjectile();
 
 }
 
@@ -907,35 +996,96 @@ void SP3::RenderCharacter()
 	{
 		if (Character->Movement->GetAnimationCounter() == 0)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER], false);
+			modelStack.PopMatrix();
+
 		}
 		if (Character->Movement->GetAnimationCounter() == 1)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 2)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER], false);
+			modelStack.PopMatrix();
 		}
 	}
 	else if (Character->Movement->GetAnimationInvert() == true)
 	{
 		if (Character->Movement->GetAnimationCounter() == 0)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER2], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 1)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER2], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 2)
 		{
-			Render2DMesh(meshList[GEO_CHARACTER2], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), false, true);
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			//modelStack.Scale(0.1, 0.1, 0.1);
+			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
+			RenderMesh(meshList[GEO_CHARACTER2], false);
+			modelStack.PopMatrix();
 		}
 	}
 }
 
+void SP3::RenderProjectile()
+{
+	if (Character->Movement->GetAnimationInvert() == false)
+	{
+		if (Fire == true)
+		{
+			RenderMesh(meshList[GEO_PROJECTILE], false);
+		}
+		else
+		{
 
+		}
+	}
+	if (Character->Movement->GetAnimationInvert() == true)
+	{
+		if (Fire == true)
+		{
+			RenderMesh(meshList[GEO_PROJECTILE], false);
+		}
+		else
+		{
+
+		}
+	}
+}
 
 void SP3::Exit()
 {

@@ -130,11 +130,14 @@ void SceneBase::Init()
 	meshList[GEO_QUITCURSOR2]->textureID = LoadTGA("Image//quitcursor2.tga");
 
 	// Character & background
-	meshList[GEO_CHARACTER] = MeshBuilder::Generate2DMesh("Character", Color(0, 0, 0), 0.0f, 0.0f, 25.0f, 25.0f);
+	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
 
-	meshList[GEO_CHARACTER2] = MeshBuilder::Generate2DMesh("Character", Color(0, 0, 0), 0.0f, 0.0f, 25.0f, 25.0f);
+	meshList[GEO_CHARACTER2] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.f);
 	meshList[GEO_CHARACTER2]->textureID = LoadTGA("Image//ICharacterFrame0.tga");
+
+	meshList[GEO_PROJECTILE] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.f);
+	meshList[GEO_PROJECTILE]->textureID = LoadTGA("Image//Bullet.tga");
 
 	meshList[GEO_BACKGROUND] = MeshBuilder::Generate2DMesh("GEO_BACKGROUND", Color(1, 1, 1), 0.0f, 0.0f, 800.0f, 600.0f);
 	meshList[GEO_BACKGROUND]->textureID = LoadTGA("Image//heaven.tga");
