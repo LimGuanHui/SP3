@@ -20,8 +20,6 @@ namespace MOVEMENT
 	{
 		position = Vector3(0, 0, 0);
 		scale = Vector3(10, 10, 1);
-        vel = Vector3(0, 0, 0);
-        state = Ground;
 	}
 
 	int CMovement::GetPos_X()
