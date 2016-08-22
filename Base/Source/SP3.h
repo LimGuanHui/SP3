@@ -41,6 +41,7 @@ public:
     virtual void Exit();
 
     void RenderGO(GameObject *go);
+	void RenderProjectile(PROJECTILE::Projectile* projectile);
 	void CharacterAnimation();
 
     GameObject* FetchGO();
@@ -51,6 +52,7 @@ public:
     void RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor);
     void RenderText();
 	void RenderCharacter();
+	void RenderProjectile();
 	void RenderUI();
     Vector3 CheckMousepos();
     void RenderEditorSelector();
@@ -192,6 +194,11 @@ protected:
     //Menu
     float InputDelayTimer;
 
+	float firingDebounce;
+	static const int fireRate = 10;
+	bool Fire;
+	bool chargeFire;
+	float chargeTime;
 };
 
 #endif

@@ -1,7 +1,10 @@
 #pragma once
 
 #include "MovementExport.h"
+#include "Projectile.h"
+using namespace PROJECTILE;
 #include "Vector3.h"
+#include <vector>
 
 namespace MOVEMENT
 {
@@ -33,6 +36,12 @@ namespace MOVEMENT
 		bool GetAnimationInvert();
 
 		void AnimationUpdate(double dt);
+		void ProjectileUpdate(const float timeDiff, double dt, int scale);
+
+		PROJECTILE::Projectile* Projectile;
+		PROJECTILE::Projectile* FetchProjectile();
+
+		std::vector<PROJECTILE::Projectile *>m_projectileList;
 
 	private:
 		Vector3 position;

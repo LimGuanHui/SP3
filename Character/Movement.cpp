@@ -8,6 +8,7 @@ namespace MOVEMENT
 		, OnGround(true)
 		, InAir(false)
 	{
+		Projectile = new PROJECTILE::Projectile();
 	}
 
 
@@ -138,6 +139,49 @@ namespace MOVEMENT
 				position.y -= jumpspeed;
 				jumpspeed += 1;
 			}
+		}
+	}
+
+	Projectile* CMovement::FetchProjectile()
+	{
+		for (std::vector<PROJECTILE::Projectile *>::iterator it = m_projectileList.begin(); it != m_projectileList.end(); ++it)
+		{
+			PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+			std::vector<PROJECTILE::Projectile *>::iterator it2 = it;
+			if (!projectile->active)
+			{
+				projectile->Init();
+				projectile->active = true;
+
+				return projectile;
+			}
+		}
+		for (unsigned i = 0; i < 10; ++i)
+		{
+			PROJECTILE::Projectile *projectile = new PROJECTILE::Projectile();
+			m_projectileList.push_back(projectile);
+		}
+		PROJECTILE::Projectile *projectile = m_projectileList.back();
+		projectile->active = true;
+		return projectile;
+	}
+
+	void CMovement::ProjectileUpdate(const float timeDiff, double dt, int scale)
+	{
+		
+		if (AnimationInvert == false)
+		{
+			Projectile = FetchProjectile();
+			Projectile->pos.Set(position.x, position.y, 0);
+			Projectile->vel.Set(500, 0, 0);
+			Projectile->scale.Set(scale, scale, scale);
+		}
+		else
+		{
+			Projectile = FetchProjectile();
+			Projectile->pos.Set(position.x, position.y, 0);
+			Projectile->vel.Set(500, 0, 0);
+			Projectile->scale.Set(scale, scale, scale);
 		}
 	}
 }
