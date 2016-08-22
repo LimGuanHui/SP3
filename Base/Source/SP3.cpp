@@ -199,7 +199,7 @@ void SP3::Update(double dt)
 		firingDebounce = 0;
 		Character->Movement->ProjectileUpdate(2.f, dt, 1);
 	}
-	if (Application::IsKeyPressed('X')) //&& !KeyDown)
+	if (Application::IsKeyPressed('X') && !KeyDown)
 	{
 		chargeTime += 2 * dt;
 		if (chargeTime > 1)
@@ -216,7 +216,6 @@ void SP3::Update(double dt)
 	{
 		chargeFire = false;
 		KeyDown = false;
-		check2 = true; 
 		chargeTime = 0;
 		Character->Movement->ProjectileUpdate(2.f, dt, 7);
 	}
@@ -516,11 +515,24 @@ void SP3::RenderGO(GameObject *go)
 
 void SP3::RenderProjectile(PROJECTILE::Projectile *projectile)
 {
-	modelStack.PushMatrix();
-	modelStack.Translate(projectile->pos.x, projectile->pos.y, 0.f);
-	modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
-	RenderMesh(meshList[GEO_PROJECTILE], false);
-	modelStack.PopMatrix();
+	if (Character->Movement->GetAnimationInvert() == false)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+		modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
+		RenderMesh(meshList[GEO_PROJECTILE], false);
+		modelStack.PopMatrix();
+	}
+	else if (Character->Movement->GetAnimationInvert() == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+		modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
+		modelStack.Rotate(180, 0, 0, 1);
+		RenderMesh(meshList[GEO_PROJECTILE], false);
+		modelStack.PopMatrix();
+	}
+	
 }
 
 void SP3::RenderUI()
@@ -578,7 +590,6 @@ void SP3::RenderUI()
 	}
 	if (gameState == Game)
 	{
-
 		Play.PlayButton->active = false;
 		Play.MenuButton->active = false;
 		Play.EditButton->active = false;
@@ -600,6 +611,17 @@ void SP3::RenderUI()
 			modelStack.Scale(140, 107, 0);
 			RenderMesh(meshList[GEO_DEATHSCREEN], false);
 			modelStack.PopMatrix();
+		}
+
+		RenderCharacter();
+
+		for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+		{
+			PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+			if (projectile->active)
+			{
+				RenderProjectile(projectile);
+			}
 		}
 	}
 	if (gameState == Pause)
@@ -705,18 +727,9 @@ void SP3::Render()
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-    RenderText();
 	RenderUI();
-	RenderCharacter();
-
-	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
-	{
-		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
-		if (projectile->active)
-		{
-			RenderProjectile(projectile);
-		}
-	}
+    RenderText();
+	
 
 }
 
@@ -940,32 +953,6 @@ void SP3::RenderCharacter()
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
-		}
-	}
-}
-
-void SP3::RenderProjectile()
-{
-	if (Character->Movement->GetAnimationInvert() == false)
-	{
-		if (Fire == true)
-		{
-			RenderMesh(meshList[GEO_PROJECTILE], false);
-		}
-		else
-		{
-
-		}
-	}
-	if (Character->Movement->GetAnimationInvert() == true)
-	{
-		if (Fire == true)
-		{
-			RenderMesh(meshList[GEO_PROJECTILE], false);
-		}
-		else
-		{
-
 		}
 	}
 }

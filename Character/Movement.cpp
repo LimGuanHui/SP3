@@ -83,7 +83,7 @@ namespace MOVEMENT
 		{
 			InAir = true;
 			Drop = false;
-			jumpspeed = 10;
+			jumpspeed = 6;
 		}
 	}
 
@@ -197,11 +197,11 @@ namespace MOVEMENT
 			Projectile->vel.Set(500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
-		else
+		else if (AnimationInvert == true)
 		{
 			Projectile = FetchProjectile();
 			Projectile->pos.Set(position.x, position.y, 10);
-			Projectile->vel.Set(500, 0, 0);
+			Projectile->vel.Set(-500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
 	}
