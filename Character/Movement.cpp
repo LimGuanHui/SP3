@@ -172,14 +172,14 @@ namespace MOVEMENT
 		if (AnimationInvert == false)
 		{
 			Projectile = FetchProjectile();
-			Projectile->pos.Set(position.x, position.y, 0);
+			Projectile->pos.Set(position.x, position.y, 10);
 			Projectile->vel.Set(500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
 		else
 		{
 			Projectile = FetchProjectile();
-			Projectile->pos.Set(position.x, position.y, 0);
+			Projectile->pos.Set(position.x, position.y, 10);
 			Projectile->vel.Set(500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}

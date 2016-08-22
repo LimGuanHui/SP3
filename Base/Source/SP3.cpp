@@ -694,14 +694,6 @@ void SP3::Render()
         }
     }
 
-	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
-	{
-		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
-		if (projectile->active)
-		{
-			RenderProjectile(projectile);
-		}
-	}
 
     RenderFromList(test_B_battle,mapEditor);
     RenderEditorSelector();
@@ -712,10 +704,18 @@ void SP3::Render()
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
+	//RenderProjectile();
     RenderText();
-	RenderCharacter();
-	RenderProjectile();
 	RenderUI();
+	RenderCharacter();
+	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	{
+		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+		if (projectile->active)
+		{
+			RenderProjectile(projectile);
+		}
+	}
 
 }
 
