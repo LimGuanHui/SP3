@@ -18,11 +18,15 @@ namespace MOVEMENT
 
 		int GetPos_X();
 		int GetPos_Y();
+		int GetScale_X();
+		int GetScale_Y();
 		int GetAnimationCounter();
 		int GetJumpspeed(void);
 
 		void SetPos_X(int pos_X);
 		void SetPos_Y(int pos_Y);
+		void SetScale_X(int scale_X);
+		void SetScale_Y(int scale_Y);
 		void SetAnimationCounter(int AnimationCounter);
 
 		void SetToJump(bool jump);
@@ -45,6 +49,7 @@ namespace MOVEMENT
 
 	private:
 		Vector3 position;
+		Vector3 scale;
 
 		bool OnGround;
 		bool InAir;

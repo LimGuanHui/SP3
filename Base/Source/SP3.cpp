@@ -199,7 +199,7 @@ void SP3::Update(double dt)
 		firingDebounce = 0;
 		Character->Movement->ProjectileUpdate(2.f, dt, 1);
 	}
-	if (Application::IsKeyPressed('X') && !KeyDown)
+	if (Application::IsKeyPressed('X')) //&& !KeyDown)
 	{
 		chargeTime += 2 * dt;
 		if (chargeTime > 1)
@@ -517,7 +517,7 @@ void SP3::RenderGO(GameObject *go)
 void SP3::RenderProjectile(PROJECTILE::Projectile *projectile)
 {
 	modelStack.PushMatrix();
-	modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+	modelStack.Translate(projectile->pos.x, projectile->pos.y, 0.f);
 	modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
 	RenderMesh(meshList[GEO_PROJECTILE], false);
 	modelStack.PopMatrix();
@@ -577,6 +577,7 @@ void SP3::RenderUI()
 	}
 	if (gameState == Game)
 	{
+
 		Play.PlayButton->active = false;
 		Play.MenuButton->active = false;
 		Play.EditButton->active = false;
@@ -705,14 +706,6 @@ void SP3::Render()
         }
     }
 
-	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
-	{
-		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
-		if (projectile->active)
-		{
-			RenderProjectile(projectile);
-		}
-	}
 
     RenderFromList(test_B_battle,mapEditor);
     RenderEditorSelector();
@@ -726,7 +719,14 @@ void SP3::Render()
     RenderUI();
     RenderCharacter();
     RenderText();
-    
+	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	{
+		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+		if (projectile->active)
+		{
+			RenderProjectile(projectile);
+		}
+	}
 }
 
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
