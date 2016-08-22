@@ -174,7 +174,6 @@ void SP3::Update(double dt)
 
 	Character->Movement->AnimationUpdate(dt);
 
-<<<<<<< HEAD
 	firingDebounce += (float)dt;
 	/*if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
 	{
@@ -224,8 +223,6 @@ void SP3::Update(double dt)
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
 	//std::cout << Character->Movement->GetPos_X() << Character->Movement->GetPos_Y() << std::endl;
 
-=======
->>>>>>> 9f31048c7d5ba740844eccbb25f893a0e9162f52
 	if (gameState == Menu)
 	{
 		
@@ -488,12 +485,6 @@ void SP3::RenderGO(GameObject *go)
     Vector3 temp;
     switch (go->type)
     {
-	case GameObject::GO_PROJECTILE:
-		modelStack.PushMatrix();
-		modelStack.Translate(go->pos.x, go->pos.y, go->pos.z);
-		modelStack.Scale(go->scale.x, go->scale.y, go->scale.z);
-		RenderMesh(meshList[GEO_PROJECTILE], false);
-		modelStack.PopMatrix();
     default:
         break;
     }
@@ -817,8 +808,8 @@ void SP3::Render()
     ss << "FPS: " << fps;
    // RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	//RenderUI();
-    //RenderText();
+	RenderUI();
+    RenderText();
 	RenderCharacter();
 	RenderProjectile();
 
@@ -993,8 +984,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 
@@ -1004,8 +993,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 		}
@@ -1014,8 +1001,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 		}
@@ -1027,8 +1012,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
@@ -1037,8 +1020,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
@@ -1047,8 +1028,6 @@ void SP3::RenderCharacter()
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
-			//modelStack.Scale(0.1, 0.1, 0.1);
-			//Render2DMesh(meshList[GEO_CHARACTER], false, 1.f, Character->Movement->GetPos_X(), Character->Movement->GetPos_Y());
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
