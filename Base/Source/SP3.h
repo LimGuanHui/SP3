@@ -29,6 +29,8 @@ using namespace irrklang;
 
 #include "Map_Editor.h"
 
+#include "Buttons.h"
+
 class SP3 : public SceneBase
 {
 public:
@@ -56,6 +58,7 @@ public:
 	void RenderUI();
     Vector3 CheckMousepos();
     void RenderEditorSelector();
+    void loadmap();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
     
@@ -167,6 +170,8 @@ public:
 	ISoundEngine* sceneSoundEngine;
 
 	bool playerDead;
+
+	Buttons Play;
 
 protected:
 
