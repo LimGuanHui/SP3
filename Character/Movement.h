@@ -38,8 +38,6 @@ namespace MOVEMENT
 
 		void MoveLeftRight(const bool mode, const float timeDiff);
 
-		void UpdateJumpUpwards();
-
 		void SetAnimationInvert(bool AnimationInvert);
 		bool GetAnimationInvert();
 
@@ -51,13 +49,16 @@ namespace MOVEMENT
 
 		std::vector<PROJECTILE::Projectile *>m_projectileList;
 
-		bool InAir;
-		bool Drop;
+        bool InAir;
+        bool Drop;
 
 	private:
 		Vector3 position;
 		Vector3 scale;
 		Vector3 velocity;
+
+		
+		
 
 		bool AnimationInvert;
 		int AnimationCounter;

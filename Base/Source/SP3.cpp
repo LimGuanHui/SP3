@@ -52,7 +52,8 @@ void SP3::Init()
 	//B_battle->Init();
     mapEditor = CreateNewMapEditorInstance();
     mapEditor->Init(Vector3(10,90,0));
-
+    collision = CreateNewCollisionInstance();
+    
     //Menu
 	InputDelayTimer = 0;
 	firingDebounce = 0;
@@ -65,9 +66,11 @@ void SP3::Init()
 
 	Character->Movement->SetAnimationCounter(0);
 	Character->Movement->SetPos_X(25);
-	Character->Movement->SetPos_Y(0);
+	Character->Movement->SetPos_Y(20);
 
 	sceneSoundEngine = createIrrKlangDevice();
+
+    collision->Init(Character, mapEditor);
 
 	Play.Init(&m_goList);
 }
@@ -151,7 +154,7 @@ void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
     
-
+    collision->CheckCollision();
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
@@ -216,7 +219,7 @@ void SP3::Update(double dt)
 		Character->Movement->ProjectileUpdate(2.f, dt, 7);
 	}
 
-	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
+//	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
@@ -758,21 +761,18 @@ void SP3::Render()
 
 
     RenderFromList(test_B_battle,mapEditor);
-    RenderEditorSelector();
-
+    
     std::ostringstream ss;
     ss.str(string());
     ss.precision(5);
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	RenderUI();
-    RenderText();
-	
-
     RenderUI();
     RenderCharacter();
     RenderText();
+    RenderEditorSelector(mapEditor->curr);
+
 	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
 	{
 		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
@@ -935,14 +935,14 @@ void SP3::RenderText()
     }
 }
 
-void SP3::RenderEditorSelector()
+void SP3::RenderEditorSelector(Platform* curr)
 {
     if (mapEditor->edit_state == Map_Editor::MANAGE)
     {
         modelStack.PushMatrix();
         Vector3 temp = mapEditor->curr->getpos();
-        modelStack.Translate(temp.x, temp.y, temp.z);
-        modelStack.Scale(30, 30, 30);
+        modelStack.Translate(curr->getpos().x, curr->getpos().y, curr->getpos().z);
+        modelStack.Scale(curr->getscale().x + 8, curr->getscale().y + 8, curr->getscale().z + 8);
         RenderMesh(meshList[GEO_PLAT_SELECTOR], false);
         modelStack.PopMatrix();
     }

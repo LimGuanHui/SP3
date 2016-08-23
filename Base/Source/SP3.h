@@ -28,6 +28,7 @@ using namespace AI;
 using namespace irrklang;
 
 #include "Map_Editor.h"
+#include "Collision.h"
 
 #include "Buttons.h"
 
@@ -56,7 +57,7 @@ public:
 	void RenderCharacter();
 	void RenderUI();
     Vector3 CheckMousepos();
-    void RenderEditorSelector();
+    void RenderEditorSelector(Platform* curr);
     void loadmap();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
@@ -117,6 +118,9 @@ protected:
     
     //Menu
     float InputDelayTimer;
+
+    //collision
+    Collision* collision;
 
 	float firingDebounce;
 	static const int fireRate = 10;
