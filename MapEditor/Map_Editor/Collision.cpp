@@ -54,7 +54,7 @@ void Collision::Response(Platform* go)
     switch (go->type)
     {
     case Platform::Normal:
-        N_Character->Movement->GetVel_Y = 0;
+        N_Character->Movement->SetPos_Y(0);
         break;
     default:
         break;
