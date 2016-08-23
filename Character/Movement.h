@@ -53,6 +53,7 @@ namespace MOVEMENT
         void jumpUpdate(double dt);
         bool IsKeyPressed(unsigned short key);
 
+        void setground(bool ground);
 
 		PROJECTILE::Projectile* Projectile;
 		PROJECTILE::Projectile* FetchProjectile();

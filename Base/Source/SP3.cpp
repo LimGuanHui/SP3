@@ -73,6 +73,9 @@ void SP3::Init()
     collision->Init(Character, mapEditor);
 
 	Play.Init(&m_goList);
+
+    //mapEditor->LoadFromFile("Map1.csv");
+    mapEditor->LoadFromFile("Map1.csv");
 }
 
 GameObject* SP3::FetchGO()
@@ -153,9 +156,10 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
-    Character->Movement->jumpUpdate(dt);
     collision->CheckCollision();
 
+    Character->Movement->jumpUpdate(dt);
+    
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
@@ -163,11 +167,14 @@ void SP3::Update(double dt)
 	{
 		Character->Movement->MoveLeftRight(true, 0.5f);
 	}
-
-	if (Application::IsKeyPressed('D'))
+	else if (Application::IsKeyPressed('D'))
 	{
 		Character->Movement->MoveLeftRight(false, 0.5f);
 	}
+    else
+    {
+        Character->Movement->SetVel_X(0);
+    }
 
 	/*if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
 	{
@@ -309,6 +316,7 @@ void SP3::Update(double dt)
 		break;
 
 	case SP3::Game:
+        
 		if (Application::IsKeyPressed('I') && InputDelayTimer <= 0)
 		{
 			playerDead = true;
@@ -350,7 +358,7 @@ void SP3::Update(double dt)
 
 			
 			// Camera Panning to Character position & stuff
-			if (Character->Movement->GetPos_X() > 150 + camera.position.x)
+			/*if (Character->Movement->GetPos_X() > 150 + camera.position.x)
 			{
 				camera.position.x += dt * camera.CAM_SPEED;
 				camera.target.x += dt * camera.CAM_SPEED;
@@ -370,7 +378,7 @@ void SP3::Update(double dt)
 			{
 				camera.position.y -= dt * camera.CAM_SPEED;
 				camera.target.y -= dt * camera.CAM_SPEED;
-			}
+			}*/
 
 			break;
 	case SP3::Transition:
@@ -611,6 +619,7 @@ void SP3::RenderUI()
 	}
 	if (gameState == Game)
 	{
+        
 		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
@@ -658,7 +667,7 @@ void SP3::RenderUI()
         switch (gameStage)
         {
         case SP3::Normal:
-            mapEditor->LoadFromFile("Map3.txt");
+            
 			 
             break;
         case SP3::Boss:
@@ -851,8 +860,8 @@ void SP3::Render()
         }
     }
 
-
-    RenderFromList(test_B_battle,mapEditor);
+    
+        RenderFromList(test_B_battle,mapEditor);
     
     std::ostringstream ss;
     ss.str(string());
@@ -862,7 +871,7 @@ void SP3::Render()
 
     RenderUI();
 	RenderSpeechBubble();
-    RenderCharacter();
+    //RenderCharacter();
     RenderText();
     RenderEditorSelector(mapEditor->curr);
 
@@ -907,7 +916,7 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
     }
     modelStack.PopMatrix();
 
-    for (std::vector<Platform *>::iterator it = map_editor->Platform_List.begin(); it != map_editor->Platform_List.end(); ++it)
+    /*for (std::vector<Platform *>::iterator it = map_editor->Platform_List.begin(); it != map_editor->Platform_List.end(); ++it)
     {
         Platform* go = (Platform*)*it;
         Vector3 temp = go->getpos();
@@ -924,7 +933,36 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
             break;
         }
         modelStack.PopMatrix();
+    }*/
+    if (gameState == Game)
+    {
+        for (int i = 0; i < map_editor->Tilemap.size(); i++)//row
+        {
+            for (int i2 = 0; i2 < map_editor->Tilemap[i].size(); i2++)//col
+            {
+                modelStack.PushMatrix();
+                modelStack.Translate((i2) * (m_worldWidth / 44) ,
+                    (map_editor->Tilemap.size() - i) * (m_worldHeight / 25 ), 0);
+                modelStack.Scale(4,4,4);
+                switch (map_editor->Tilemap[i][i2])
+                {
+                case 0:
+
+                    break;
+                case 1:
+                    RenderMesh(meshList[GEO_PLAT_NORMAL], false);
+                    break;
+                default:
+                    break;
+                }
+                modelStack.PopMatrix();
+            }
+        }
     }
+    
+    
+
+
 
     if (gameState == EditMode )
     {
@@ -1049,7 +1087,7 @@ void SP3::RenderCharacter()
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 
@@ -1058,7 +1096,7 @@ void SP3::RenderCharacter()
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 		}
@@ -1066,8 +1104,8 @@ void SP3::RenderCharacter()
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_CHARACTER], false);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
+            RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 		}
 	}
@@ -1077,24 +1115,24 @@ void SP3::RenderCharacter()
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_CHARACTER2], false);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
+            RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 1)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_CHARACTER2], false);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
+            RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 2)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
-			modelStack.Scale(10, 10, 10);
-			RenderMesh(meshList[GEO_CHARACTER2], false);
+            modelStack.Scale(Character->Movement->GetScale_X(), Character->Movement->GetScale_Y(), 1);
+            RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
 		}
 	}

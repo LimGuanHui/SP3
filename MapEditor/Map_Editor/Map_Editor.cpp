@@ -1,6 +1,7 @@
 #include "Map_Editor.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <ostream>
 #include <io.h>
 #include <Windows.h>
@@ -27,6 +28,7 @@ void Map_Editor::Init(Vector3 topofScreen)
     Fileselect = "";
     pushedfilenames = false;
     playerspawn = Vector3(0, 0, 0);
+    row = col = tilesq = 0;
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {
@@ -294,8 +296,7 @@ void Map_Editor::DisplayAvailablePlatforms(Vector3 topofScreen)
     for (int i = 0; i<enumTypeEnd; i++)
     {
         enumType eCurrent = (enumType)i;
-    }
-*/
+    }*/
 }
 
 std::string Map_Editor::getfilename(std::string fileDir)
@@ -360,7 +361,7 @@ void Map_Editor::PushFilenamesIntoStringVec()
     WideCharToMultiByte(CP_ACP, 0, path, -1, ch, MAX_PATH, &de, NULL);
     std::string dir = std::string(ch);
     std::string actual_dir = dir.substr(0, dir.find("Deb"));
-    actual_dir += "Maps\\*.txt";
+    actual_dir += "Maps\\*.csv";
     _finddata_t data;
     std::string filename;
     SaveList.clear();
@@ -500,27 +501,90 @@ void Map_Editor::LoadFromFile(std::string Nfile)
     std::ifstream file(actual_dir.c_str());
     if (file.is_open())
     {
+        bool getcol = false;
         while (file.good())
         {
             std::string read_data;
             getline(file, read_data,'\n');
+
+            if (read_data == "")
+                break;
+
+            if (!getcol)
+            {
+                for (int i = 0; i < read_data.size(); i++)
+                {
+                    if (read_data[i] == ',')
+                        col++;
+                }
+                col++;
+                getcol = true;
+            }
             
-            std::string plat_type = read_data.substr(read_data.find(":") + 1, 1);
-            int l = read_data.find(",s") - read_data.find("pos:") + 3;
-            std::string plat_pos = read_data.substr(read_data.find("pos:") + 3, (read_data.find("scale") - 6) - read_data.find("pos:") + 3);
-            std::string plat_scale = read_data.substr(read_data.find("scale:") + 5);
+            //std::string plat_type = read_data.substr(read_data.find(":") + 1, 1);
+            //int l = read_data.find(",s") - read_data.find("pos:") + 3;
+            //std::string plat_pos = read_data.substr(read_data.find("pos:") + 3, (read_data.find("scale") - 6) - read_data.find("pos:") + 3);
+            //std::string plat_scale = read_data.substr(read_data.find("scale:") + 5);
 
-            int c_type = stoi(plat_type);
-            Vector3 c_pos = Vector3(stof(plat_pos.substr(plat_pos.find("x:") + 2/*, plat_pos.size() - plat_pos.find("y:") - 2*/)),
-                stof(plat_pos.substr(plat_pos.find("y:") + 2/*, plat_pos.size() - plat_pos.find("z:") - 2*/))
-                , stof(plat_pos.substr(plat_pos.find("z:") + 2/*, plat_pos.size() - plat_pos.find("scale:") - 6*/)));
+            //int c_type = stoi(plat_type);
+            //Vector3 c_pos = Vector3(stof(plat_pos.substr(plat_pos.find("x:") + 2/*, plat_pos.size() - plat_pos.find("y:") - 2*/)),
+            //    stof(plat_pos.substr(plat_pos.find("y:") + 2/*, plat_pos.size() - plat_pos.find("z:") - 2*/))
+            //    , stof(plat_pos.substr(plat_pos.find("z:") + 2/*, plat_pos.size() - plat_pos.find("scale:") - 6*/)));
 
-            Vector3 c_scale = Vector3(stof(plat_scale.substr(plat_scale.find("x:") + 2/*, plat_pos.size() - plat_pos.find("y:") - 2*/)),
-                stof(plat_scale.substr(plat_scale.find("y:") + 2/*, plat_pos.size() - plat_pos.find("z:") - 2*/))
-                , stof(plat_scale.substr(plat_scale.find("z:") + 2/*, plat_pos.size() - plat_pos.find("scale:") - 6*/)));
+            //Vector3 c_scale = Vector3(stof(plat_scale.substr(plat_scale.find("x:") + 2/*, plat_pos.size() - plat_pos.find("y:") - 2*/)),
+            //    stof(plat_scale.substr(plat_scale.find("y:") + 2/*, plat_pos.size() - plat_pos.find("z:") - 2*/))
+            //    , stof(plat_scale.substr(plat_scale.find("z:") + 2/*, plat_pos.size() - plat_pos.find("scale:") - 6*/)));
 
-            CreateNewPlatform(c_pos, c_scale, static_cast<Platform::PLATFORM_TYPE>(c_type));
+            //CreateNewPlatform(c_pos, c_scale, static_cast<Platform::PLATFORM_TYPE>(c_type));
+
+            row++;
         }
+
+        Tilemap.resize(row);
+        for (int i = 0; i < row; i++)
+            Tilemap[i].resize(col);
+
+        file.clear();
+        file.seekg(0, std::ios::beg);
+
+        int rowcount = 0;
+
+        while (file.good())
+        {
+            
+            std::string read_data;
+            getline(file, read_data, '\n');
+            if (read_data == "")
+                break;
+
+            int stringpos = 0;
+            std::string currstring = read_data;
+            //read line here
+            for ( int i = 0; i < col; i++)
+            {
+                std::string token;
+                /*std::istringstream iss(read_data);
+
+                if (i != col)
+                    getline(iss, token, ',');*/
+                if (i == 0)
+                {
+                    token = read_data;
+                }                    
+                else
+                {
+                    stringpos = currstring.find(',');
+                    currstring = currstring.substr(stringpos + 1);
+                    token = currstring;
+                    currstring = token;
+                }
+                    
+                Tilemap[rowcount][i] = stoi(token);
+            }
+            
+            rowcount++;
+        }
+
     }
     file.close();
 }

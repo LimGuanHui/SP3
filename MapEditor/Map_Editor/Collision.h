@@ -17,8 +17,12 @@ public:
 	Map_Editor* Map;
 	//Platform* Platform;
 
-	void CheckCollision();
-    void Response(Platform* go);
+    void CheckCollision();
+	void CheckCollisionX();
+    bool CheckCollisionY();
+
+    void Response_X(Platform* go, bool left);
+    void Response_Y(Platform* go, bool below);
     void Response(Projectile* go);
     void Init(CHARACTER::CCharacter* C_CHARACTER, Map_Editor* map);
 };

@@ -117,11 +117,11 @@ void SceneBase::Init()
 	meshList[GEO_PRINCESS]->textureID = LoadTGA("Image//princess.tga");
 
 	// Character & background
-	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.0f);
-	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
+	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(1, 0,1), 1.0f);
+	//meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
 
-	meshList[GEO_CHARACTER2] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.f);
-	meshList[GEO_CHARACTER2]->textureID = LoadTGA("Image//ICharacterFrame0.tga");
+    meshList[GEO_CHARACTER2] = MeshBuilder::GenerateQuad("Character", Color(1, 0, 1), 1.f);
+	//meshList[GEO_CHARACTER2]->textureID = LoadTGA("Image//ICharacterFrame0.tga");
 
 	meshList[GEO_PROJECTILE] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.f);
 	meshList[GEO_PROJECTILE]->textureID = LoadTGA("Image//Bullet.tga");

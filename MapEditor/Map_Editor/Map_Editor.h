@@ -50,6 +50,7 @@ public:
     void LoadFromFile(std::string file);
     std::string getSelectedFile();
 
+    std::vector<std::vector<int>> Tilemap;
     std::vector<Platform* > Platform_List;
     std::vector<Vector3> EnemySpawn_List;
     std::vector<Platform* > Platform_Display_List;
@@ -62,6 +63,8 @@ private:
     float inputDelayTimer;
     std::string Fileselect;
     bool pushedfilenames;
+
+    int row, col, tilesq;
 };
 
 MAP_EDITOR_API Map_Editor* CreateNewMapEditorInstance();

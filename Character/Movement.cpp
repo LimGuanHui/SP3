@@ -1,6 +1,7 @@
 #include "Movement.h"
 #include <Windows.h>
-
+#define VEL_MAX 40.f
+#define VEL_MIN -40.f
 namespace MOVEMENT
 {
     CMovement::CMovement()
@@ -10,6 +11,7 @@ namespace MOVEMENT
         , velocity(0, 0, 0)
         , scale(6, 6, 1)
         , gravity(100)
+        , ground(false)
 	{
 		Projectile = new PROJECTILE::Projectile();
 	}
@@ -112,7 +114,8 @@ namespace MOVEMENT
 
     void CMovement::jumpUpdate(double dt)
     {
-        if (jumpstate != ONGROUND)
+        velocity.y = Math::Clamp(velocity.y,VEL_MIN,VEL_MAX);
+        if (jumpstate != ONGROUND && !ground )
         {
             velocity.y -= gravity * (2 * dt);
         }
@@ -159,17 +162,17 @@ namespace MOVEMENT
 
 	void CMovement::MoveLeftRight(const bool mode, const float timeDiff)
 	{
-		if (mode)
+		if (mode) //left
 		{
-			position.x -= (velocity.x * timeDiff);
+            velocity.x = -30;
 			AnimationInvert = true;
 			AnimationCounter--;
 			if (AnimationCounter < 0)
 				AnimationCounter = 2;
 		}
-		else
+		else//right
 		{
-			position.x += (velocity.x * timeDiff);
+            velocity.x = 30;
 			AnimationInvert = false;
 			AnimationCounter++;
 			if (AnimationCounter > 2)
@@ -223,6 +226,11 @@ namespace MOVEMENT
     bool CMovement::IsKeyPressed(unsigned short key)
     {
         return ((GetAsyncKeyState(key) & 0x8001) != 0);
+    }
+
+    void CMovement::setground(bool ground)
+    {
+        this->ground = ground;
     }
 }
 

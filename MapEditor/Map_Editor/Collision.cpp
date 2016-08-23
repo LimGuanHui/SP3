@@ -21,20 +21,87 @@ void Collision::Init(CHARACTER::CCharacter* C_CHARACTER, Map_Editor* map)
     Map = map;
 }
 
-void Collision::CheckCollision()
+void Collision::CheckCollisionX()
 {
     for (std::vector<Platform* >::iterator it = Map->Platform_List.begin(); it != Map->Platform_List.end(); ++it)
     {
-        
+
         Platform* go = (Platform*)*it;
-        //if (go->getpos() < N_Character->Movement->)
-        float distanceSquared = Vector3(go->getpos().x - N_Character->Movement->GetPos_X(), go->getpos().y - N_Character->Movement->GetPos_Y(), 0.f).LengthSquared();
-        float combinedRadiusSquared = (go->getscale().x + N_Character->Movement->GetScale_X()) * (go->getscale().x + N_Character->Movement->GetScale_X());
-        if (distanceSquared < combinedRadiusSquared)
+        //x check
+        if ((abs(go->getpos().x - N_Character->Movement->GetPos_X()) * 2 < (go->getscale().x + N_Character->Movement->GetScale_X()) &&
+            (abs(go->getpos().y - N_Character->Movement->GetPos_Y()) * 2 < (go->getscale().y + N_Character->Movement->GetScale_Y()))))
         {
-            Response(go);
+            if (go->getpos().x < N_Character->Movement->GetPos_X())//left
+            {
+                Response_X(go, true);
+                return;
+            }
+            else if (go->getpos().x > N_Character->Movement->GetPos_X())//right
+            {
+                Response_X(go, false);
+                return;
+            }
+        }
+        
+    }
+    return;
+}
+bool Collision::CheckCollisionY()
+{
+    for (std::vector<Platform* >::iterator it = Map->Platform_List.begin(); it != Map->Platform_List.end(); ++it)
+    {
+
+        Platform* go = (Platform*)*it;
+        //y check
+        if (go->getpos().y < N_Character->Movement->GetPos_Y())
+        {
+            if ((abs(go->getpos().x - N_Character->Movement->GetPos_X()) * 2 < (go->getscale().x + N_Character->Movement->GetScale_X()) &&
+                (abs(go->getpos().y - N_Character->Movement->GetPos_Y()) * 2 < (go->getscale().y + N_Character->Movement->GetScale_Y()))))
+            {
+                Response_Y(go, true);                
+                return true;
+            }
+        }
+        else if (go->getpos().y > N_Character->Movement->GetPos_Y())
+        {
+            if ((abs(go->getpos().x - N_Character->Movement->GetPos_X()) * 2 < (go->getscale().x + N_Character->Movement->GetScale_X()) &&
+                (abs(go->getpos().y - N_Character->Movement->GetPos_Y()) * 2 < (go->getscale().y + N_Character->Movement->GetScale_Y()))))
+            {
+                Response_Y(go, false);                
+                return true;
+            }
         }
     }
+    return false;
+}
+
+void Collision::CheckCollision()
+{
+    CheckCollisionX();
+    if (!CheckCollisionY())
+    {
+        N_Character->Movement->setground(false);
+        N_Character->Movement->jumpstate = N_Character->Movement->DROP;
+    }
+        //x check
+       /* if (go->getpos().x < N_Character->Movement->GetPos_X())
+        {
+            if ((abs(go->getpos().x - N_Character->Movement->GetPos_X()) * 2 < (go->getscale().x + N_Character->Movement->GetScale_X())))
+            {
+                Response_X(go, true);
+                return;
+            }
+        }
+        else if (go->getpos().x > N_Character->Movement->GetPos_X())
+        {
+            if ((abs(go->getpos().x - N_Character->Movement->GetPos_X()) * 2 < (go->getscale().x + N_Character->Movement->GetScale_X())))
+            {
+                Response_X(go, false);
+                return;
+            }
+        }*/
+    
+    
     /*for (std::vector<Projectile* >::iterator it = N_Character->Movement->m_projectileList.begin(); it != N_Character->Movement->m_projectileList.end(); ++it)
     {
         Projectile* go = (Projectile*)*it;
@@ -51,22 +118,53 @@ void Collision::CheckCollision()
 	//int distanceApart = (N_Character->Movement->GetScale_Y() / 2) - (Platform->getscale().y / 2);
 }
 
-void Collision::Response(Platform* go)
+void Collision::Response_X(Platform* go, bool left)
 {
     switch (go->type)
     {
     case Platform::Normal:
-       /*  N_Character->Movement->SetJumpspeed(0);
-        N_Character->Movement->Drop = false;
-        N_Character->Movement->SetPos_Y(go->getpos().y + go->getscale().y + 2.f);*/
-        N_Character->Movement->SetVel_Y(0);
-        N_Character->Movement->jumpstate = N_Character->Movement->ONGROUND;
+
+        if (left)
+        {
+            if (N_Character->Movement->GetVel_X() < 0)
+                N_Character->Movement->SetVel_X(0);
+            
+        }
+        else
+        {
+            if (N_Character->Movement->GetVel_X() > 0)
+                N_Character->Movement->SetVel_X(0);
+        }
         break;
     default:
         break;
     }
 }
+void Collision::Response_Y(Platform* go, bool below)
+{
+    switch (go->type)
+    {
+    case Platform::Normal:
 
+        if (below)
+        {
+            N_Character->Movement->setground(true);
+            if (N_Character->Movement->jumpstate != N_Character->Movement->JUMP)
+                N_Character->Movement->SetVel_Y(0);
+            
+            N_Character->Movement->jumpstate = N_Character->Movement->ONGROUND;
+            N_Character->Movement->SetPos_Y(N_Character->Movement->GetPos_Y());
+        }
+        else
+        {
+            N_Character->Movement->SetVel_Y(0);
+            N_Character->Movement->jumpstate = N_Character->Movement->DROP;
+        }
+        break;
+    default:
+        break;
+    }
+}
 //void Collision::Response(Projectile* go)
 //{
 //    go->active = false;
