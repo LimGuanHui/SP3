@@ -220,7 +220,7 @@ void SP3::Update(double dt)
 		Character->Movement->ProjectileUpdate(2.f, dt, 7);
 	}
 
-	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
+//	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
