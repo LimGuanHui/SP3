@@ -199,7 +199,7 @@ void SP3::Update(double dt)
 		firingDebounce = 0;
 		Character->Movement->ProjectileUpdate(2.f, dt, 1);
 	}
-	if (Application::IsKeyPressed('X')) //&& !KeyDown)
+	if (Application::IsKeyPressed('X') && !KeyDown)
 	{
 		chargeTime += 2 * dt;
 		if (chargeTime > 1)
@@ -216,12 +216,11 @@ void SP3::Update(double dt)
 	{
 		chargeFire = false;
 		KeyDown = false;
-		check2 = true; 
 		chargeTime = 0;
 		Character->Movement->ProjectileUpdate(2.f, dt, 7);
 	}
 
-	std::cout << chargeTime << " " << KeyDown << " " << check1 << " " << check2 << std::endl;
+	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
@@ -516,11 +515,24 @@ void SP3::RenderGO(GameObject *go)
 
 void SP3::RenderProjectile(PROJECTILE::Projectile *projectile)
 {
-	modelStack.PushMatrix();
-	modelStack.Translate(projectile->pos.x, projectile->pos.y, 0.f);
-	modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
-	RenderMesh(meshList[GEO_PROJECTILE], false);
-	modelStack.PopMatrix();
+	if (Character->Movement->GetAnimationInvert() == false)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+		modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
+		RenderMesh(meshList[GEO_PROJECTILE], false);
+		modelStack.PopMatrix();
+	}
+	else if (Character->Movement->GetAnimationInvert() == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(projectile->pos.x, projectile->pos.y, 0);
+		modelStack.Scale(projectile->scale.x, projectile->scale.y, projectile->scale.z);
+		modelStack.Rotate(180, 0, 0, 1);
+		RenderMesh(meshList[GEO_PROJECTILE], false);
+		modelStack.PopMatrix();
+	}
+	
 }
 
 void SP3::RenderUI()
@@ -577,7 +589,6 @@ void SP3::RenderUI()
 	}
 	if (gameState == Game)
 	{
-
 		Play.PlayButton->active = false;
 		Play.MenuButton->active = false;
 		Play.EditButton->active = false;
@@ -605,10 +616,21 @@ void SP3::RenderUI()
 			Play.PlayButton->pos.Set(-20, -20, 1);
 		}
 
+		RenderCharacter();
+
+		for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+		{
+			PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
+			if (projectile->active)
+			{
+				RenderProjectile(projectile);
+			}
+		}
         switch (gameStage)
         {
         case SP3::Normal:
             mapEditor->LoadFromFile("Map1.txt");
+			 
             break;
         case SP3::Boss:
 
@@ -722,6 +744,10 @@ void SP3::Render()
     ss.precision(5);
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
+
+	RenderUI();
+    RenderText();
+	
 
     RenderUI();
     RenderCharacter();
@@ -958,54 +984,6 @@ void SP3::RenderCharacter()
 			modelStack.PopMatrix();
 		}
 	}
-}
-
-void SP3::RenderProjectile()
-{
-	if (Character->Movement->GetAnimationInvert() == false)
-	{
-		if (Fire == true)
-		{
-			RenderMesh(meshList[GEO_PROJECTILE], false);
-		}
-		else
-		{
-
-		}
-	}
-	if (Character->Movement->GetAnimationInvert() == true)
-	{
-		if (Fire == true)
-		{
-			RenderMesh(meshList[GEO_PROJECTILE], false);
-		}
-		else
-		{
-
-		}
-	}
-}
-
-void SP3::loadmap()
-{
-    for (std::vector<Platform *>::iterator it = mapEditor->Platform_List.begin(); it != mapEditor->Platform_List.end(); ++it)
-    {
-        Platform* go = (Platform*)*it;
-        Vector3 temp = go->getpos();
-        modelStack.PushMatrix();
-        modelStack.Translate(temp.x, temp.y, temp.z);
-        temp = go->getscale();
-        modelStack.Scale(temp.x, temp.y, temp.z);
-        switch (go->type)
-        {
-        case Platform::Normal:
-            RenderMesh(meshList[GEO_PLAT_NORMAL], false);
-            break;
-        default:
-            break;
-        }
-        modelStack.PopMatrix();
-    }
 }
 
 void SP3::Exit()

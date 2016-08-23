@@ -10,15 +10,16 @@
 class Collision
 {
 public:
-	Collision();
+    Collision();
 	~Collision();
 
 	CHARACTER::CCharacter* N_Character;
 	Map_Editor* Map;
-	Platform* Platform;
+	//Platform* Platform;
 
 	void CheckCollision();
-
-	void Init();
+    void Response(Platform* go);
+    void Response(Projectile* go);
+    void Init(CHARACTER::CCharacter* C_CHARACTER, Map_Editor* map);
 };
 

@@ -54,7 +54,6 @@ public:
     void RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor);
     void RenderText();
 	void RenderCharacter();
-	void RenderProjectile();
 	void RenderUI();
     Vector3 CheckMousepos();
     void RenderEditorSelector();
@@ -72,6 +71,12 @@ public:
         Game,
         Transition,
         End,
+    };
+
+    enum Game_Stage
+    {
+        Normal,
+        Boss,
     };
 
 	enum StartOption
@@ -106,11 +111,7 @@ public:
 		NUM8
 	};
 
-    enum Game_Stage
-    {
-        Normal,
-        Boss,
-    };
+    
 
 	enum SelectMain
 	{

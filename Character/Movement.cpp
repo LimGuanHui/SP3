@@ -5,8 +5,8 @@ namespace MOVEMENT
 	CMovement::CMovement()
 		: jumpspeed(0)
 		, AnimationCounter(0)
-		, OnGround(true)
 		, InAir(false)
+		, velocity(5,0,0)
 	{
 		Projectile = new PROJECTILE::Projectile();
 	}
@@ -42,6 +42,16 @@ namespace MOVEMENT
 		return scale.y;
 	}
 
+	int CMovement::GetVel_X()
+	{
+		return velocity.x;
+	}
+
+	int CMovement::GetVel_Y()
+	{
+		return velocity.y;
+	}
+
 	int CMovement::GetAnimationCounter()
 	{
 		return AnimationCounter;
@@ -72,6 +82,16 @@ namespace MOVEMENT
 		this->scale.y = scale_Y;
 	}
 
+	void CMovement::SetVel_X(int vel_X)
+	{
+		this->velocity.x = vel_X;
+	}
+
+	void CMovement::SetVel_Y(int vel_Y)
+	{
+		this->velocity.y = vel_Y;
+	}
+
 	void CMovement::SetAnimationCounter(int AnimationCounter)
 	{
 		this->AnimationCounter = AnimationCounter;
@@ -79,11 +99,11 @@ namespace MOVEMENT
 
 	void CMovement::SetToJump(bool jump)
 	{
-		if (jump)
+		if (jump && InAir == false && Drop == false)
 		{
 			InAir = true;
 			Drop = false;
-			jumpspeed = 10;
+			jumpspeed = 6;
 		}
 	}
 
@@ -117,7 +137,7 @@ namespace MOVEMENT
 	{
 		if (mode)
 		{
-			position.x = position.x - (int)(5.0f * timeDiff);
+			position.x -= (velocity.x * timeDiff);
 			AnimationInvert = true;
 			AnimationCounter--;
 			if (AnimationCounter < 0)
@@ -125,7 +145,7 @@ namespace MOVEMENT
 		}
 		else
 		{
-			position.x = position.x + (int)(5.0f * timeDiff);
+			position.x += (velocity.x * timeDiff);
 			AnimationInvert = false;
 			AnimationCounter++;
 			if (AnimationCounter > 2)
@@ -155,10 +175,15 @@ namespace MOVEMENT
 
 		else if (!InAir & Drop)
 		{
-			if (position.y > 10) // for moment until collision
+			if (position.y > 6) // for moment until collision
 			{
 				position.y -= jumpspeed;
 				jumpspeed += 1;
+				
+			}
+			else if (position.y == 6)
+			{
+				Drop = false;
 			}
 		}
 	}
@@ -197,12 +222,14 @@ namespace MOVEMENT
 			Projectile->vel.Set(500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
-		else
+		else if (AnimationInvert == true)
 		{
 			Projectile = FetchProjectile();
 			Projectile->pos.Set(position.x, position.y, 10);
-			Projectile->vel.Set(500, 0, 0);
+			Projectile->vel.Set(-500, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
 	}
 }
+
+
