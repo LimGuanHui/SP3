@@ -108,7 +108,7 @@ void SceneBase::Init()
 	meshList[GEO_TEXT]->material.kAmbient.Set(1, 0, 0);
 	
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
-	meshList[GEO_UI]->textureID = LoadTGA("Image//original bg.tga");
+	meshList[GEO_UI]->textureID = LoadTGA("Image//bg.tga");
 
 	// Character & background
 	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.0f);
