@@ -14,6 +14,13 @@ namespace MOVEMENT
 		CMovement();
 		~CMovement();
 
+        enum JUMPSTATE
+        {
+            ONGROUND,
+            JUMP,
+            DROP,
+        };
+
 		void Init();
 
 		int GetPos_X();
@@ -33,7 +40,7 @@ namespace MOVEMENT
 		void SetVel_Y(int vel_Y);
 		void SetAnimationCounter(int AnimationCounter);
 
-		void SetToJump(bool jump);
+		void SetToJump();
 		void SetJumpspeed(int jumpspeed);
 
 		void MoveLeftRight(const bool mode, const float timeDiff);
@@ -41,8 +48,11 @@ namespace MOVEMENT
 		void SetAnimationInvert(bool AnimationInvert);
 		bool GetAnimationInvert();
 
-		void AnimationUpdate(double dt);
 		void ProjectileUpdate(const float timeDiff, double dt, int scale);
+
+        void jumpUpdate(double dt);
+        bool IsKeyPressed(unsigned short key);
+
 
 		PROJECTILE::Projectile* Projectile;
 		PROJECTILE::Projectile* FetchProjectile();
@@ -52,14 +62,18 @@ namespace MOVEMENT
         bool InAir;
         bool Drop;
 
+        JUMPSTATE jumpstate;
+
+
+
 	private:
 		Vector3 position;
 		Vector3 scale;
 		Vector3 velocity;
-
+        float gravity;
 		
 		
-
+        bool ground;
 		bool AnimationInvert;
 		int AnimationCounter;
 		int jumpspeed;
