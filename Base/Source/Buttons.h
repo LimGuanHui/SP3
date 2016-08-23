@@ -3,6 +3,7 @@
 #include <vector>
 #include <Vector3.h>
 #include "GameObject.h"
+#include "Camera.h"
 
 using std::vector;
 
@@ -28,6 +29,8 @@ public:
 	GameObject* SaveButton;
 	GameObject* ExitButton;
 	GameObject* RestartButton;
+
+	Camera camera;
 private:
 
 };

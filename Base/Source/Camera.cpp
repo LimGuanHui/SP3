@@ -16,7 +16,7 @@ void Camera::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->position = pos;
 	this->target = target;
 	this->up = up;
-    CAM_SPEED = 20;
+    CAM_SPEED = 147;
 }
 
 void Camera::Reset()
