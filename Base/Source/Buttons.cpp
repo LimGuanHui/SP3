@@ -68,15 +68,6 @@ void Buttons::Init(vector<GameObject *>* buttonList)
 	RestartButton->scale.Set(20.f, 15.f, 20.f);
 	RestartButton->active = false;
 	buttonList->push_back(RestartButton);
-
-	isStart = false;
-	isMenu = false;
-	isEdit = false;
-	isLoad = false;
-	isHighscore = false;
-	isSave = false;
-	isExit = false;
-	isRestart = false;
 }
 
 void Buttons::Update(Vector3 mousepos, float dt, vector<GameObject *>* buttonList)
@@ -105,49 +96,41 @@ void Buttons::Update(Vector3 mousepos, float dt, vector<GameObject *>* buttonLis
 			case(GameObject::GO_PLAYHOVER) :
 				go1->type = GameObject::GO_PLAY;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isStart = false;
 				break;
 
 			case(GameObject::GO_MENUHOVER) :
 				go1->type = GameObject::GO_MENU;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isMenu = false;
 				break;
 
 			case(GameObject::GO_EDITHOVER) :
 				go1->type = GameObject::GO_EDIT;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isEdit = false;
 				break;
 
 			case(GameObject::GO_LOADHOVER) :
 				go1->type = GameObject::GO_LOAD;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isLoad = false;
 				break;
 
 			case(GameObject::GO_HIGHSCOREHOVER) :
 				go1->type = GameObject::GO_HIGHSCORE;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isHighscore = false;
 				break;
 
 			case(GameObject::GO_SAVEHOVER) :
 				go1->type = GameObject::GO_SAVE;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isSave = false;
 				break;
 
 			case(GameObject::GO_EXITHOVER) :
 				go1->type = GameObject::GO_EXIT;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isExit = false;
 				break;
 
 			case(GameObject::GO_RESTARTHOVER) :
 				go1->type = GameObject::GO_RESTART;
 				go1->scale.Set(20.f, 15.f, 20.f);
-				isRestart = false;
 				break;
 			}
 		}
@@ -161,49 +144,41 @@ void Buttons::MouseHover(GameObject* hover)
 	case(GameObject::GO_PLAY) :
 		hover->type = GameObject::GO_PLAYHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isStart = true;
 		break;
 
 	case(GameObject::GO_MENU) :
 		hover->type = GameObject::GO_MENUHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isMenu = true;
 		break;
 
 	case(GameObject::GO_EDIT) :
 		hover->type = GameObject::GO_EDITHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isEdit = true;
 		break;
 
 	case(GameObject::GO_LOAD) :
 		hover->type = GameObject::GO_LOADHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isLoad = true;
 		break;
 
 	case(GameObject::GO_HIGHSCORE) :
 		hover->type = GameObject::GO_HIGHSCOREHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isHighscore = true;
 		break;
 
 	case(GameObject::GO_SAVE) :
 		hover->type = GameObject::GO_SAVEHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isSave = true;
 		break;
 
 	case(GameObject::GO_EXIT) :
 		hover->type = GameObject::GO_EXITHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isExit = true;
 		break;
 
 	case(GameObject::GO_RESTART) :
 		hover->type = GameObject::GO_RESTARTHOVER;
 		hover->scale.Set(22.f, 17.f, 22.f);
-		isRestart = true;
 		break;
 	}
 }
