@@ -51,15 +51,13 @@ namespace MOVEMENT
 
 		std::vector<PROJECTILE::Projectile *>m_projectileList;
 
+		bool InAir;
+		bool Drop;
 
 	private:
 		Vector3 position;
 		Vector3 scale;
 		Vector3 velocity;
-
-		bool InAir;
-		bool Drop;
-		
 
 		bool AnimationInvert;
 		int AnimationCounter;
