@@ -113,6 +113,9 @@ void SceneBase::Init()
 	meshList[GEO_PAUSEUI] = MeshBuilder::GenerateQuad("PauseUI", Color(0, 1, 0), 1.f);
 	meshList[GEO_PAUSEUI]->textureID = LoadTGA("Image//pauseui.tga");
 
+	meshList[GEO_PRINCESS] = MeshBuilder::GenerateQuad("Princess", Color(0, 0, 0), 1.f);
+	meshList[GEO_PRINCESS]->textureID = LoadTGA("Image//princess.tga");
+
 	// Character & background
 	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
@@ -193,6 +196,31 @@ void SceneBase::Init()
 	meshList[GEO_RESTART]->textureID = LoadTGA("Image//buttons//restartbutton.tga");
 	meshList[GEO_RESTARTHOVER] = MeshBuilder::GenerateQuad("restart hover but", Color(1, 1, 1), 1.f);
 	meshList[GEO_RESTARTHOVER]->textureID = LoadTGA("Image//buttons//restarthoverbutton.tga");
+
+	//speech bubbles
+	meshList[GEO_STARTSPEECH] = MeshBuilder::GenerateQuad("Start speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_STARTSPEECH]->textureID = LoadTGA("Image//speech//startspeech.tga");
+
+	meshList[GEO_MENUSPEECH] = MeshBuilder::GenerateQuad("Menu speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_MENUSPEECH]->textureID = LoadTGA("Image//speech//menuspeech.tga");
+
+	meshList[GEO_EDITSPEECH] = MeshBuilder::GenerateQuad("Edit speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_EDITSPEECH]->textureID = LoadTGA("Image//speech//editspeech.tga");
+
+	meshList[GEO_LOADSPEECH] = MeshBuilder::GenerateQuad("Load speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_LOADSPEECH]->textureID = LoadTGA("Image//speech/loadspeech.tga");
+
+	meshList[GEO_HIGHSCORESPEECH] = MeshBuilder::GenerateQuad("Highscore speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_HIGHSCORESPEECH]->textureID = LoadTGA("Image//speech//highscorespeech.tga");
+
+	meshList[GEO_SAVESPEECH] = MeshBuilder::GenerateQuad("Save speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_SAVESPEECH]->textureID = LoadTGA("Image//speech//savespeech.tga");
+
+	meshList[GEO_EXITSPEECH] = MeshBuilder::GenerateQuad("Exit speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_EXITSPEECH]->textureID = LoadTGA("Image//speech//exitspeech.tga");
+
+	meshList[GEO_RESTARTSPEECH] = MeshBuilder::GenerateQuad("Restart speech", Color(1, 1, 1), 1.f);
+	meshList[GEO_RESTARTSPEECH]->textureID = LoadTGA("Image//speech//restartspeech.tga");
 
 
 	bLightEnabled = false;

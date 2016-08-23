@@ -56,6 +56,7 @@ public:
     void RenderText();
 	void RenderCharacter();
 	void RenderUI();
+	void RenderSpeechBubble();
     Vector3 CheckMousepos();
     void RenderEditorSelector(Platform* curr);
     void loadmap();

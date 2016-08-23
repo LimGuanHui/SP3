@@ -597,6 +597,12 @@ void SP3::RenderUI()
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
+		modelStack.Scale(10.f, 13.f, 0.f);
+		RenderMesh(meshList[GEO_PRINCESS], false);
+		modelStack.PopMatrix();
+
 		Play.PlayButton->active = true;
 		Play.PlayButton->pos.Set(65.f + camera.position.x, 30.f + camera.position.y, 1.f);
 		Play.EditButton->active = true;
@@ -613,12 +619,13 @@ void SP3::RenderUI()
 	}
 	if (gameState == Game)
 	{
-		Play.PlayButton->active = false;
-		Play.MenuButton->active = false;
-		Play.EditButton->active = false;
-		Play.LoadButton->active = false;
-		Play.ExitButton->active = false;
-		Play.RestartButton->active = false;
+		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.ExitButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.MenuButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.SaveButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		if (playerDead == true)
 		{
@@ -633,6 +640,12 @@ void SP3::RenderUI()
 			modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 			modelStack.Scale(180, 110, 0);
 			RenderMesh(meshList[GEO_DEATHSCREEN], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
+			modelStack.Scale(10.f, 13.f, 0.f);
+			RenderMesh(meshList[GEO_PRINCESS], false);
 			modelStack.PopMatrix();
 
 			Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
@@ -680,6 +693,12 @@ void SP3::RenderUI()
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_PAUSEUI], false);
 		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 1.f);
+		modelStack.Scale(10.f, 13.f, 0.f);
+		RenderMesh(meshList[GEO_PRINCESS], false);
+		modelStack.PopMatrix();
 	}
 	if (gameState == End)
 	{
@@ -687,6 +706,12 @@ void SP3::RenderUI()
 		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_VICTORY], false);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
+		modelStack.Scale(10.f, 13.f, 0.f);
+		RenderMesh(meshList[GEO_PRINCESS], false);
 		modelStack.PopMatrix();
 
 		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
@@ -724,6 +749,81 @@ void SP3::RenderUI()
 		{
 			RenderGO(go);
 		}
+	}
+}
+
+void SP3::RenderSpeechBubble()
+{
+	if (Play.isStart == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_STARTSPEECH], false);
+		modelStack.PopMatrix();
+	}
+	
+	if (Play.isMenu == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_MENUSPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isEdit == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_EDITSPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isLoad == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_LOADSPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isHighscore == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_HIGHSCORESPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isSave == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_SAVESPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isExit == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_EXITSPEECH], false);
+		modelStack.PopMatrix();
+	}
+
+	if (Play.isRestart == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 28.f + camera.position.y, 0.f);
+		modelStack.Scale(20.f, 20.f, 0.f);
+		RenderMesh(meshList[GEO_RESTARTSPEECH], false);
+		modelStack.PopMatrix();
 	}
 
 }
@@ -769,6 +869,7 @@ void SP3::Render()
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderUI();
+	RenderSpeechBubble();
     RenderCharacter();
     RenderText();
     RenderEditorSelector(mapEditor->curr);

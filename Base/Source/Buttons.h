@@ -19,6 +19,7 @@ public:
 	
 	bool isClick;
 	bool isHover;
+	bool isStart, isMenu, isEdit, isLoad, isHighscore, isSave, isExit, isRestart;
 
 	GameObject* button;
 	GameObject* PlayButton;
