@@ -56,10 +56,10 @@ public:
     void RenderText();
 	void RenderCharacter();
 	void RenderUI();
-	void RenderSpeechBubble();
     Vector3 CheckMousepos();
     void RenderEditorSelector(Platform* curr);
     void loadmap();
+    void RenderSpeechBubble();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
     
