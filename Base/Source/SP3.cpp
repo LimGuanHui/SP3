@@ -71,6 +71,9 @@ void SP3::Init()
 	Character->Movement->SetPos_X(25);
 	Character->Movement->SetPos_Y(0);
 
+	Character->AI->Monster->Movement->SetPos_X(60);
+	Character->AI->Monster->Movement->SetPos_Y(2);
+
 	sceneSoundEngine = createIrrKlangDevice();
 
 	Play.Init(&m_goList);
@@ -939,6 +942,12 @@ void SP3::RenderCharacter()
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
 
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER2], false);
+			modelStack.PopMatrix();
+
 		}
 		if (Character->Movement->GetAnimationCounter() == 1)
 		{
@@ -947,6 +956,12 @@ void SP3::RenderCharacter()
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER], false);
 			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER2], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 2)
 		{
@@ -954,6 +969,12 @@ void SP3::RenderCharacter()
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER2], false);
 			modelStack.PopMatrix();
 		}
 	}
@@ -966,6 +987,12 @@ void SP3::RenderCharacter()
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 1)
 		{
@@ -974,6 +1001,12 @@ void SP3::RenderCharacter()
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER2], false);
 			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER], false);
+			modelStack.PopMatrix();
 		}
 		if (Character->Movement->GetAnimationCounter() == 2)
 		{
@@ -981,6 +1014,12 @@ void SP3::RenderCharacter()
 			modelStack.Translate(Character->Movement->GetPos_X(), Character->Movement->GetPos_Y(), 0);
 			modelStack.Scale(10, 10, 10);
 			RenderMesh(meshList[GEO_CHARACTER2], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(Character->AI->Monster->Movement->GetPos_X(), Character->AI->Monster->Movement->GetPos_Y(), 0);
+			modelStack.Scale(10, 10, 10);
+			RenderMesh(meshList[GEO_MONSTER], false);
 			modelStack.PopMatrix();
 		}
 	}

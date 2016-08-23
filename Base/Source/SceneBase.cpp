@@ -126,6 +126,13 @@ void SceneBase::Init()
 	meshList[GEO_EDITBACKGROUND] = MeshBuilder::GenerateQuad("GEO_EDITBACKGROUND", Color(1, 1, 1), 1.f);
 	meshList[GEO_EDITBACKGROUND]->textureID = LoadTGA("Image//editbg.tga");
 
+	//monster
+	meshList[GEO_MONSTER] = MeshBuilder::GenerateQuad("Mario", Color(0, 0, 0), 1.0f);
+	meshList[GEO_MONSTER]->textureID = LoadTGA("Image//mario.tga");
+	meshList[GEO_MONSTER2] = MeshBuilder::GenerateQuad("Mario", Color(0, 0, 0), 1.f);
+	meshList[GEO_MONSTER2]->textureID = LoadTGA("Image//mario2.tga");
+
+
     //panels
     meshList[GEO_B_PANEL] = MeshBuilder::GenerateQuad("Panel", Color(0, 1, 0), 1.f);
     meshList[GEO_B_PANEL]->textureID = LoadTGA("Image//panels//bPanel.tga");

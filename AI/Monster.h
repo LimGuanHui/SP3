@@ -10,6 +10,8 @@ namespace MONSTER
 	public:
 		Monster();
 		~Monster();
+		MONSTER_MOVEMENT::MMovement* Movement;
+
 	};
 
 	MONSTER_API Monster* N_Monster();

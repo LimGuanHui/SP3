@@ -4,6 +4,7 @@ namespace MONSTER
 {
 	Monster::Monster()
 	{
+		Movement = new MONSTER_MOVEMENT::MMovement();
 	}
 
 
