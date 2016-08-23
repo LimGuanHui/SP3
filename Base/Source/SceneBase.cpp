@@ -110,6 +110,9 @@ void SceneBase::Init()
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(0, 1, 0), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//bg.tga");
 
+	meshList[GEO_PAUSEUI] = MeshBuilder::GenerateQuad("PauseUI", Color(0, 1, 0), 1.f);
+	meshList[GEO_PAUSEUI]->textureID = LoadTGA("Image//pauseui.tga");
+
 	// Character & background
 	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(0, 0, 0), 1.0f);
 	meshList[GEO_CHARACTER]->textureID = LoadTGA("Image//CharacterFrame0.tga");
