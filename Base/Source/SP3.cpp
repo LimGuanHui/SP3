@@ -580,9 +580,6 @@ void SP3::RenderUI()
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
-		//modelStack.Translate(50, 50, 1.f);
-		//modelStack.Scale(5, 5, 5);
-		//RenderMesh(meshList[GEO_PLAYERHP], false);
 		RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 50.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 57.7f, 1.f, Vector3(0.f, 0.f, 0.f));
 		modelStack.PopMatrix();
 
@@ -599,13 +596,13 @@ void SP3::RenderUI()
 		modelStack.PopMatrix();
 
 		Play.PlayButton->active = true;
-		Play.PlayButton->pos.Set(65.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.PlayButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30) / 2 + camera.position.y, 1.f);
 		Play.EditButton->active = true;
-		Play.EditButton->pos.Set(90.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.EditButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 55) / 2 + camera.position.y, 1.f);
 		Play.LoadButton->active = true;
-		Play.LoadButton->pos.Set(115.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.LoadButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 80) / 2 + camera.position.y, 1.f);
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(10.f + camera.position.x, 92.f + camera.position.y, 1.f);
+		Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 		Play.MenuButton->active = false;
 		Play.MenuButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
@@ -625,11 +622,11 @@ void SP3::RenderUI()
 		if (playerDead == true)
 		{
 			Play.RestartButton->active = true;
-			Play.RestartButton->pos.Set(75.f + camera.position.x, 30.f + camera.position.y, 1.f);
+			Play.RestartButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 			Play.MenuButton->active = true;
-			Play.MenuButton->pos.Set(105.f + camera.position.x, 30.f + camera.position.y, 1.f);
+			Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 			Play.ExitButton->active = true;
-			Play.ExitButton->pos.Set(10.f + camera.position.x, 92.f + camera.position.y, 1.f);
+			Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 			modelStack.PushMatrix();
 			modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
@@ -671,11 +668,11 @@ void SP3::RenderUI()
 		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		Play.PlayButton->active = true;
-		Play.PlayButton->pos.Set(70.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.PlayButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 		Play.MenuButton->active = true;
-		Play.MenuButton->pos.Set(100.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(10.f + camera.position.x, 92.f + camera.position.y, 1.f);
+		Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 		modelStack.PushMatrix();
 		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
@@ -697,10 +694,10 @@ void SP3::RenderUI()
 		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		Play.MenuButton->active = true;
-		Play.MenuButton->pos.Set(75.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(105.f + camera.position.x, 30.f + camera.position.y, 1.f);
+		Play.ExitButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 	}
 	if (gameState == EditMode)
 	{
