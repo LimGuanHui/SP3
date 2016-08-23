@@ -153,8 +153,9 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
-    
+    Character->Movement->jumpUpdate(dt);
     collision->CheckCollision();
+
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
 
@@ -168,30 +169,21 @@ void SP3::Update(double dt)
 		Character->Movement->MoveLeftRight(false, 0.5f);
 	}
 
-	if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+	/*if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
 	{
 		InputDelayTimer = InputDelay;
 		Character->Movement->SetToJump(true);
 		std::cout << Character->Movement->GetPos_Y() << std::endl;
-	}
+	}*/
 
-	Character->Movement->AnimationUpdate(dt);
+
 
 	firingDebounce += (float)dt;
-	/*if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
-	{
-		Fire = true;
-		firingDebounce = 0;
-		Character->Movement->ProjectileUpdate(2.f, dt);
-	}
-	else
-	{
-		Fire = false;
-	}*/
 
 	bool KeyDown = false;
 	bool check1 = false;
 	bool check2 = false;
+
 	if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
 	{
 		KeyDown = false;
@@ -666,7 +658,7 @@ void SP3::RenderUI()
         switch (gameStage)
         {
         case SP3::Normal:
-            mapEditor->LoadFromFile("Map1.txt");
+            mapEditor->LoadFromFile("Map3.txt");
 			 
             break;
         case SP3::Boss:
