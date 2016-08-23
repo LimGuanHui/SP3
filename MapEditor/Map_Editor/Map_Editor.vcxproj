@@ -52,7 +52,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MAP_EDITOR_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Common\Source;$(SolutionDir)\Character;$(SolutionDir)\AI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -80,14 +80,22 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="Map_Editor.h" />
     <ClInclude Include="Platform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Map_Editor.cpp" />
     <ClCompile Include="Platform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AI\AI.vcxproj">
+      <Project>{611353ad-3c23-4c93-a69e-b2638c9f8e4e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Character\Character.vcxproj">
+      <Project>{38e2e4d0-088c-41c9-9a96-96835fd9f5c2}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Common\Common.vcxproj">
       <Project>{b594fe34-e00b-4e94-ad04-d1ff100aa5dc}</Project>
     </ProjectReference>

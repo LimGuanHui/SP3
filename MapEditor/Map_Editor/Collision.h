@@ -7,7 +7,7 @@
 #include "Map_Editor.h"
 #include "Character.h"
 
-class Collision
+class COLLISION_API Collision
 {
 public:
     Collision();
@@ -23,3 +23,4 @@ public:
     void Init(CHARACTER::CCharacter* C_CHARACTER, Map_Editor* map);
 };
 
+COLLISION_API Collision* CreateNewCollisionInstance();

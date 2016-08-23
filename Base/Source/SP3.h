@@ -28,6 +28,7 @@ using namespace AI;
 using namespace irrklang;
 
 #include "Map_Editor.h"
+#include "Collision.h"
 
 #include "Buttons.h"
 
@@ -56,7 +57,7 @@ public:
 	void RenderCharacter();
 	void RenderUI();
     Vector3 CheckMousepos();
-    void RenderEditorSelector();
+    void RenderEditorSelector(Platform* curr);
     void loadmap();
     int m_objectCount = 0;
     std::vector<GameObject *> m_goList; //m_goList[0][1];
@@ -78,88 +79,6 @@ public:
         Normal,
         Boss,
     };
-
-	enum StartOption
-	{
-		Start,
-		Load,
-		Edit,
-		Quit,
-		NUM
-	};
-
-	enum PauseOption
-	{
-		Resume,
-		Menu2,
-		Quit2,
-		NUM2
-	};
-
-	enum DeathOption
-	{
-		Restart,
-		Menu3,
-		Quit3,
-		NUM6
-	};
-
-	enum WinOption
-	{
-		Menu4,
-		Quit4,
-		NUM8
-	};
-
-    
-
-	enum SelectMain
-	{
-		First,
-		Second,
-		Third,
-		Fourth,
-		NUM3
-	};
-
-	enum SelectPause
-	{
-		First2,
-		Second2,
-		Third2,
-		NUM4,
-	};
-
-	enum SelectDeath
-	{
-		First3,
-		Second3,
-		Third3,
-		NUM5,
-	};
-
-	enum SelectWin
-	{
-		First4,
-		Second4,
-		NUM7
-	};
-
-	// Main Menu
-	SelectMain option;
-	int selectArrow = 0;
-
-	// Pause Menu
-	SelectPause option2;
-	int selectArrow2 = 0;
-
-	// Death Menu
-	SelectDeath option3;
-	int selectArrow3 = 0;
-
-	// Victory Menu
-	SelectWin option4;
-	int selectArrow4 = 0;
 
     GameState gameState;
     Game_Stage gameStage;
@@ -199,6 +118,9 @@ protected:
     
     //Menu
     float InputDelayTimer;
+
+    //collision
+    Collision* collision;
 
 	float firingDebounce;
 	static const int fireRate = 10;

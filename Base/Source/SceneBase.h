@@ -46,8 +46,11 @@ public:
 		GEO_AXES,
 		GEO_TEXT,
 		GEO_UI,
+		GEO_PAUSEUI,
+		GEO_PRINCESS,
 		GEO_BACKGROUND,
 		GEO_EDITBACKGROUND,
+		GEO_PLAYERHP,
 		GEO_CHARACTER,
 		GEO_CHARACTER2,
 		GEO_MONSTER,
@@ -78,6 +81,8 @@ public:
 		GEO_EXITHOVER,
 		GEO_RESTART,
 		GEO_RESTARTHOVER,
+		GEO_RESUME,
+		GEO_RESUMEHOVER,
 		//Character
 		GEO_PROJECTILE,
 		NUM_GEOMETRY,
@@ -97,6 +102,7 @@ public:
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void Render2DMesh(Mesh *mesh, const bool enableLight, const float size = 1.0f, const float x = 0.0f, const float y = 0.0f, const bool rotate = false, const bool flip = false);
 	void RenderGO(GameObject *go);
+	void RenderModelOnScreen(Mesh *mesh, bool enableLight, Vector3 size, float x, float y, float z, Vector3 rotation);
 
 	GameObject* FetchGO();
 protected:

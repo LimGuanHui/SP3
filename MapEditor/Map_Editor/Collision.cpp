@@ -25,9 +25,11 @@ void Collision::CheckCollision()
 {
     for (std::vector<Platform* >::iterator it = Map->Platform_List.begin(); it != Map->Platform_List.end(); ++it)
     {
+        
         Platform* go = (Platform*)*it;
+        //if (go->getpos() < N_Character->Movement->)
         float distanceSquared = Vector3(go->getpos().x - N_Character->Movement->GetPos_X(), go->getpos().y - N_Character->Movement->GetPos_Y(), 0.f).LengthSquared();
-        float combinedRadiusSquared = (go->getscale().x + N_Character->Movement->GetScale_X()) * (go->getscale().x + N_Character->Movement->GetScale_Y());
+        float combinedRadiusSquared = (go->getscale().x + N_Character->Movement->GetScale_X()) * (go->getscale().x + N_Character->Movement->GetScale_X());
         if (distanceSquared < combinedRadiusSquared)
         {
             Response(go);
@@ -54,7 +56,11 @@ void Collision::Response(Platform* go)
     switch (go->type)
     {
     case Platform::Normal:
-        N_Character->Movement->SetPos_Y(0);
+       /*  N_Character->Movement->SetJumpspeed(0);
+        N_Character->Movement->Drop = false;
+        N_Character->Movement->SetPos_Y(go->getpos().y + go->getscale().y + 2.f);*/
+        N_Character->Movement->SetVel_Y(0);
+        N_Character->Movement->jumpstate = N_Character->Movement->ONGROUND;
         break;
     default:
         break;
@@ -66,3 +72,8 @@ void Collision::Response(Platform* go)
 //    go->active = false;
 //    N_Character->Attribute->SetCurrentHP(N_Character->Attribute->GetCurrentHP() - 10);
 //}
+
+Collision* CreateNewCollisionInstance()
+{
+    return new Collision();
+}

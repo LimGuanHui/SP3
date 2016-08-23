@@ -26,6 +26,7 @@ void Map_Editor::Init(Vector3 topofScreen)
     DisplayAvailablePlatforms(topofScreen);
     Fileselect = "";
     pushedfilenames = false;
+    playerspawn = Vector3(0, 0, 0);
 }
 void Map_Editor::Update(float dt, Vector3 mousepos)
 {

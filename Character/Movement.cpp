@@ -1,12 +1,15 @@
 #include "Movement.h"
+#include <Windows.h>
 
 namespace MOVEMENT
 {
-	CMovement::CMovement()
-		: jumpspeed(0)
-		, AnimationCounter(0)
-		, InAir(false)
-		, velocity(5,0,0)
+    CMovement::CMovement()
+        : jumpspeed(50)
+        , AnimationCounter(0)
+        , InAir(false)
+        , velocity(0, 0, 0)
+        , scale(6, 6, 1)
+        , gravity(100)
 	{
 		Projectile = new PROJECTILE::Projectile();
 	}
@@ -19,7 +22,8 @@ namespace MOVEMENT
 	void CMovement::Init()
 	{
 		position = Vector3(0, 0, 0);
-		scale = Vector3(10, 10, 1);
+		//scale = Vector3(10, 10, 1);
+        jumpstate = ONGROUND;
 	}
 
 	int CMovement::GetPos_X()
@@ -97,15 +101,46 @@ namespace MOVEMENT
 		this->AnimationCounter = AnimationCounter;
 	}
 
-	void CMovement::SetToJump(bool jump)
+	void CMovement::SetToJump()
 	{
-		if (jump && InAir == false && Drop == false)
+		if (jumpstate == ONGROUND)
 		{
-			InAir = true;
-			Drop = false;
-			jumpspeed = 6;
+            velocity.y += jumpspeed;
+            jumpstate = JUMP;            
 		}
 	}
+
+    void CMovement::jumpUpdate(double dt)
+    {
+        if (jumpstate != ONGROUND)
+        {
+            velocity.y -= gravity * (2 * dt);
+        }
+        
+        position += velocity * (2 * dt);
+        if (IsKeyPressed(' '))
+        {
+            SetToJump();
+        }
+        switch (jumpstate)
+        {
+        case MOVEMENT::CMovement::JUMP:
+        {
+            if (velocity.y <= 0)
+            {
+                jumpstate = DROP;
+            }
+        }
+            break;
+        case MOVEMENT::CMovement::DROP:
+        {
+            
+        }
+            break;
+        default:
+            break;
+        }
+    }
 
 	void CMovement::SetJumpspeed(int jumpspeed)
 	{
@@ -120,18 +155,7 @@ namespace MOVEMENT
 	bool CMovement::GetAnimationInvert()
 	{
 		return AnimationInvert;
-	}
-
-	void CMovement::UpdateJumpUpwards()
-	{
-		position.y -= jumpspeed;
-		jumpspeed -= 1;
-		if (jumpspeed == 0)
-		{
-			InAir = false;
-			Drop = true;
-		}
-	}
+	} 
 
 	void CMovement::MoveLeftRight(const bool mode, const float timeDiff)
 	{
@@ -150,41 +174,6 @@ namespace MOVEMENT
 			AnimationCounter++;
 			if (AnimationCounter > 2)
 				AnimationCounter = 0;
-		}
-	}
-
-	void CMovement::AnimationUpdate(double dt) // Collision Check for Normal Stage
-	{
-		if (!InAir && !Drop)
-		{
-			//jumpspeed = 0;
-			//InAir = false;
-			//Drop = true;
-		}
-
-		else if (InAir && !Drop)
-		{
-			position.y += jumpspeed;
-			jumpspeed -= 1;
-			if (jumpspeed == 0)
-			{
-				InAir = false;
-				Drop = true;
-			}
-		}
-
-		else if (!InAir & Drop)
-		{
-			if (position.y > 6) // for moment until collision
-			{
-				position.y -= jumpspeed;
-				jumpspeed += 1;
-				
-			}
-			else if (position.y == 6)
-			{
-				Drop = false;
-			}
 		}
 	}
 
@@ -214,7 +203,7 @@ namespace MOVEMENT
 
 	void CMovement::ProjectileUpdate(const float timeDiff, double dt, int scale)
 	{
-		
+        
 		if (AnimationInvert == false)
 		{
 			Projectile = FetchProjectile();
@@ -230,6 +219,13 @@ namespace MOVEMENT
 			Projectile->scale.Set(scale, scale, scale);
 		}
 	}
+
+    bool CMovement::IsKeyPressed(unsigned short key)
+    {
+        return ((GetAsyncKeyState(key) & 0x8001) != 0);
+    }
 }
+
+
 
 

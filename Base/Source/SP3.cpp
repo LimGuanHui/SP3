@@ -45,10 +45,6 @@ void SP3::Init()
 	quitGame = false;
 	playerDead = false;
 
-	option = First;
-	option2 = First2;
-	option3 = First3;
-
     gameState = Menu;
     gameStage = Normal;
 
@@ -56,7 +52,8 @@ void SP3::Init()
 	//B_battle->Init();
     mapEditor = CreateNewMapEditorInstance();
     mapEditor->Init(Vector3(10,90,0));
-
+    collision = CreateNewCollisionInstance();
+    
     //Menu
 	InputDelayTimer = 0;
 	firingDebounce = 0;
@@ -69,12 +66,14 @@ void SP3::Init()
 
 	Character->Movement->SetAnimationCounter(0);
 	Character->Movement->SetPos_X(25);
-	Character->Movement->SetPos_Y(0);
+	Character->Movement->SetPos_Y(20);
 
 	Character->AI->Monster->Movement->SetPos_X(60);
 	Character->AI->Monster->Movement->SetPos_Y(2);
 
 	sceneSoundEngine = createIrrKlangDevice();
+
+    collision->Init(Character, mapEditor);
 
 	Play.Init(&m_goList);
 }
@@ -157,7 +156,13 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
-    
+    Character->Movement->jumpUpdate(dt);
+    collision->CheckCollision();
+
+	if (Application::IsKeyPressed('H'))
+	{
+		Character->Attribute->SetReceivedDamage(10);
+	}
 
     if (InputDelayTimer > 0)
         InputDelayTimer -= dt;
@@ -172,30 +177,21 @@ void SP3::Update(double dt)
 		Character->Movement->MoveLeftRight(false, 0.5f);
 	}
 
-	if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
+	/*if (Application::IsKeyPressed(' ') && InputDelayTimer <= 0)
 	{
 		InputDelayTimer = InputDelay;
 		Character->Movement->SetToJump(true);
 		std::cout << Character->Movement->GetPos_Y() << std::endl;
-	}
+	}*/
 
-	Character->Movement->AnimationUpdate(dt);
+
 
 	firingDebounce += (float)dt;
-	/*if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
-	{
-		Fire = true;
-		firingDebounce = 0;
-		Character->Movement->ProjectileUpdate(2.f, dt);
-	}
-	else
-	{
-		Fire = false;
-	}*/
 
 	bool KeyDown = false;
 	bool check1 = false;
 	bool check2 = false;
+
 	if (Application::IsKeyPressed('Z') && firingDebounce > 1.f / fireRate)
 	{
 		KeyDown = false;
@@ -229,15 +225,6 @@ void SP3::Update(double dt)
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
 	//std::cout << Character->Movement->GetPos_X() << Character->Movement->GetPos_Y() << std::endl;
 
-	if (gameState == Menu)
-	{
-		
-	}
-
-	if (gameState == Game)
-	{
-        
-	}
     //Physics Simulation Section
 
     /*
@@ -360,6 +347,30 @@ void SP3::Update(double dt)
 				gameState = End;
 			}
 
+			
+			// Camera Panning to Character position & stuff
+			if (Character->Movement->GetPos_X() > 150 + camera.position.x)
+			{
+				camera.position.x += dt * camera.CAM_SPEED;
+				camera.target.x += dt * camera.CAM_SPEED;
+			}
+			else if (Character->Movement->GetPos_X() < 20 + camera.position.x)
+			{
+				camera.position.x -= dt * camera.CAM_SPEED;
+				camera.target.x -= dt * camera.CAM_SPEED;
+			}
+
+			if (Character->Movement->GetPos_Y() > 80 +  camera.position.y)
+			{
+				camera.position.y += dt * camera.CAM_SPEED;
+				camera.target.y += dt * camera.CAM_SPEED;
+			}
+			else if (Character->Movement->GetPos_Y() < 5 +  camera.position.y)
+			{
+				camera.position.y -= dt * camera.CAM_SPEED;
+				camera.target.y -= dt * camera.CAM_SPEED;
+			}
+
 			break;
 	case SP3::Transition:
 		//Transition here
@@ -398,7 +409,8 @@ void SP3::Update(double dt)
 	default:
 		break;
     }
-	Play.Update(CheckMousepos(), dt, &m_goList);
+	Play.Update(CheckMousepos() + camera.position, dt, &m_goList);
+	camera.Update(dt);
 }
 
 void SP3::RenderGO(GameObject *go)
@@ -571,52 +583,63 @@ void SP3::RenderUI()
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(m_worldWidth / 2, m_worldHeight / 2, -1.f);
+		RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 50.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 57.7f, 1.f, Vector3(0.f, 0.f, 0.f));
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_UI], false);
 		modelStack.PopMatrix();
 
+		modelStack.PushMatrix();
+		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
+		modelStack.Scale(10.f, 13.f, 0.f);
+		RenderMesh(meshList[GEO_PRINCESS], false);
+		modelStack.PopMatrix();
+
 		Play.PlayButton->active = true;
-		Play.PlayButton->pos.Set(65.f, 30.f, 1.f);
+		Play.PlayButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30) / 2 + camera.position.y, 1.f);
 		Play.EditButton->active = true;
-		Play.EditButton->pos.Set(90.f, 30.f, 1.f);
+		Play.EditButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 55) / 2 + camera.position.y, 1.f);
 		Play.LoadButton->active = true;
-		Play.LoadButton->pos.Set(115.f, 30.f, 1.f);
+		Play.LoadButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 80) / 2 + camera.position.y, 1.f);
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(10.f, 92.f, 1.f);
+		Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 		Play.MenuButton->active = false;
-		Play.MenuButton->pos.Set(-20, -20, 1);
+		Play.MenuButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 		Play.RestartButton->active = false;
-		Play.RestartButton->pos.Set(-20, -20, 1);
+		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 	}
 	if (gameState == Game)
 	{
-		Play.PlayButton->active = false;
-		Play.MenuButton->active = false;
-		Play.EditButton->active = false;
-		Play.LoadButton->active = false;
-		Play.ExitButton->active = false;
-		Play.RestartButton->active = false;
+		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.ExitButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.MenuButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.SaveButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		if (playerDead == true)
 		{
 			Play.RestartButton->active = true;
-			Play.RestartButton->pos.Set(75.f, 30.f, 1.f);
+			Play.RestartButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 			Play.MenuButton->active = true;
-			Play.MenuButton->pos.Set(105.f, 30.f, 1.f);
+			Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 			Play.ExitButton->active = true;
-			Play.ExitButton->pos.Set(10.f, 92.f, 1.f);
+			Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 			modelStack.PushMatrix();
-			modelStack.Translate(m_worldWidth / 2, m_worldHeight / 2, -1.f);
+			modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 			modelStack.Scale(180, 110, 0);
 			RenderMesh(meshList[GEO_DEATHSCREEN], false);
 			modelStack.PopMatrix();
 
-			Play.EditButton->pos.Set(-20, -20, 1);
-			Play.LoadButton->pos.Set(-20, -20, 1);
-			Play.PlayButton->pos.Set(-20, -20, 1);
+			Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+			Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+			Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 		}
 
 		RenderCharacter();
@@ -632,7 +655,7 @@ void SP3::RenderUI()
         switch (gameStage)
         {
         case SP3::Normal:
-            mapEditor->LoadFromFile("Map1.txt");
+            mapEditor->LoadFromFile("Map3.txt");
 			 
             break;
         case SP3::Boss:
@@ -644,53 +667,53 @@ void SP3::RenderUI()
 	}
 	if (gameState == Pause)
 	{
-		Play.LoadButton->pos.Set(-20, -20, 1);
-		Play.EditButton->pos.Set(-20, -20, 1);
+		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		Play.PlayButton->active = true;
-		Play.PlayButton->pos.Set(70.f, 30.f, 1.f);
+		Play.PlayButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 		Play.MenuButton->active = true;
-		Play.MenuButton->pos.Set(100.f, 30.f, 1.f);
+		Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(10.f, 92.f, 1.f);
+		Play.ExitButton->pos.Set(16.f + camera.position.x, 94.f + camera.position.y, 1.f);
 
 		modelStack.PushMatrix();
-		modelStack.Translate(m_worldWidth / 2, m_worldHeight / 2, -1.f);
+		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
-		RenderMesh(meshList[GEO_UI], false);
+		RenderMesh(meshList[GEO_PAUSEUI], false);
 		modelStack.PopMatrix();
 	}
 	if (gameState == End)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(m_worldWidth / 2, m_worldHeight / 2, -1.f);
+		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_VICTORY], false);
 		modelStack.PopMatrix();
 
-		Play.PlayButton->pos.Set(-20, -20, 1);
-		Play.EditButton->pos.Set(-20, -20, 1);
-		Play.LoadButton->pos.Set(-20, -20, 1);
-		Play.RestartButton->pos.Set(-20, -20, 1);
+		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		Play.MenuButton->active = true;
-		Play.MenuButton->pos.Set(75.f, 30.f, 1.f);
+		Play.MenuButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 30.f) / 2 + camera.position.y, 1.f);
 
 		Play.ExitButton->active = true;
-		Play.ExitButton->pos.Set(105.f, 30.f, 1.f);
+		Play.ExitButton->pos.Set(m_worldWidth / 2 + camera.position.x, (m_worldHeight - 60.f) / 2 + camera.position.y, 1.f);
 	}
 	if (gameState == EditMode)
 	{
-		Play.PlayButton->pos.Set(-20, -20, 1);
-		Play.EditButton->pos.Set(-20, -20, 1);
-		Play.LoadButton->pos.Set(-20, -20, 1);
-		Play.ExitButton->pos.Set(-20, -20, 1);
-		Play.RestartButton->pos.Set(-20, -20, 1);
-		Play.MenuButton->pos.Set(-20, -20, 1);
-		Play.SaveButton->pos.Set(-20, -20, 1);
+		Play.PlayButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.EditButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.LoadButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.ExitButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.RestartButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.MenuButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
+		Play.SaveButton->pos.Set(-20 + camera.position.x, -20 + camera.position.y, 1);
 
 		modelStack.PushMatrix();
-		modelStack.Translate(m_worldWidth / 2, m_worldHeight / 2, -1.f);
+		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_EDITBACKGROUND], false);
 		modelStack.PopMatrix();
@@ -704,7 +727,6 @@ void SP3::RenderUI()
 			RenderGO(go);
 		}
 	}
-
 }
 
 void SP3::Render()
@@ -740,21 +762,18 @@ void SP3::Render()
 
 
     RenderFromList(test_B_battle,mapEditor);
-    RenderEditorSelector();
-
+    
     std::ostringstream ss;
     ss.str(string());
     ss.precision(5);
   //ss << "FPS: " << Play.button->type;
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
-	RenderUI();
-    RenderText();
-	
-
     RenderUI();
     RenderCharacter();
     RenderText();
+    RenderEditorSelector(mapEditor->curr);
+
 	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
 	{
 		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
@@ -917,14 +936,14 @@ void SP3::RenderText()
     }
 }
 
-void SP3::RenderEditorSelector()
+void SP3::RenderEditorSelector(Platform* curr)
 {
     if (mapEditor->edit_state == Map_Editor::MANAGE)
     {
         modelStack.PushMatrix();
         Vector3 temp = mapEditor->curr->getpos();
-        modelStack.Translate(temp.x, temp.y, temp.z);
-        modelStack.Scale(30, 30, 30);
+        modelStack.Translate(curr->getpos().x, curr->getpos().y, curr->getpos().z);
+        modelStack.Scale(curr->getscale().x + 8, curr->getscale().y + 8, curr->getscale().z + 8);
         RenderMesh(meshList[GEO_PLAT_SELECTOR], false);
         modelStack.PopMatrix();
     }
