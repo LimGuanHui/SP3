@@ -2,11 +2,12 @@
 
 namespace MOVEMENT
 {
-	CMovement::CMovement()
-		: jumpspeed(0)
-		, AnimationCounter(0)
-		, InAir(false)
-		, velocity(5,0,0)
+    CMovement::CMovement()
+        : jumpspeed(0)
+        , AnimationCounter(0)
+        , InAir(false)
+        , velocity(5, 0, 0)
+        , scale(6, 6, 1)
 	{
 		Projectile = new PROJECTILE::Projectile();
 	}
@@ -19,7 +20,7 @@ namespace MOVEMENT
 	void CMovement::Init()
 	{
 		position = Vector3(0, 0, 0);
-		scale = Vector3(10, 10, 1);
+		//scale = Vector3(10, 10, 1);
 	}
 
 	int CMovement::GetPos_X()
@@ -103,7 +104,7 @@ namespace MOVEMENT
 		{
 			InAir = true;
 			Drop = false;
-			jumpspeed = 6;
+			jumpspeed = 4;
 		}
 	}
 
@@ -120,18 +121,7 @@ namespace MOVEMENT
 	bool CMovement::GetAnimationInvert()
 	{
 		return AnimationInvert;
-	}
-
-	void CMovement::UpdateJumpUpwards()
-	{
-		position.y -= jumpspeed;
-		jumpspeed -= 1;
-		if (jumpspeed == 0)
-		{
-			InAir = false;
-			Drop = true;
-		}
-	}
+	} 
 
 	void CMovement::MoveLeftRight(const bool mode, const float timeDiff)
 	{
@@ -162,29 +152,21 @@ namespace MOVEMENT
 			//Drop = true;
 		}
 
-		else if (InAir && !Drop)
+		else if (InAir && !Drop)//going up
 		{
 			position.y += jumpspeed;
 			jumpspeed -= 1;
-			if (jumpspeed == 0)
+			if (jumpspeed < 0)
 			{
 				InAir = false;
 				Drop = true;
 			}
 		}
 
-		else if (!InAir & Drop)
+		else if (!InAir & Drop)//falling
 		{
-			if (position.y > 6) // for moment until collision
-			{
-				position.y -= jumpspeed;
-				jumpspeed += 1;
-				
-			}
-			else if (position.y == 6)
-			{
-				Drop = false;
-			}
+            jumpspeed++;
+			position.y -= jumpspeed;
 		}
 	}
 

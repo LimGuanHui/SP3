@@ -51,12 +51,14 @@ public:
     std::string getSelectedFile();
 
     std::vector<Platform* > Platform_List;
+    std::vector<Vector3> EnemySpawn_List;
     std::vector<Platform* > Platform_Display_List;
     std::vector<std::string> SaveList;
     Platform* curr;
     Platform* nullplat;
 private:
     Vector3 mousepos;
+    Vector3 playerspawn;
     float inputDelayTimer;
     std::string Fileselect;
     bool pushedfilenames;
