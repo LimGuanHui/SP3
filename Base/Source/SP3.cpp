@@ -847,18 +847,19 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
     }*/
     if (gameState == Game)
     {
-        for (int i = 0; i < map_editor->Tilemap.size(); i++)//row
+        int rowct = 0;
+        for (int i = map_editor->Tilemap.size() - 1; i > 0; i--)//row
         {
             for (int i2 = 0; i2 < map_editor->Tilemap[i].size(); i2++)//col
             {
                 modelStack.PushMatrix();
                 modelStack.Translate((i2) * (m_worldWidth / 44) ,
-                    (map_editor->Tilemap.size() - i) * (m_worldHeight / 25 ), 0);
+                    (rowct + 1)* (m_worldHeight / 25)
+                    , 0);
                 modelStack.Scale(4,4,4);
                 switch (map_editor->Tilemap[i][i2])
                 {
                 case 0:
-
                     break;
                 case 1:
                     RenderMesh(meshList[GEO_PLAT_NORMAL], false);
@@ -868,14 +869,10 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
                 }
                 modelStack.PopMatrix();
             }
+            rowct++;
         }
     }
-    
-    
-
-
-
-    if (gameState == EditMode )
+    if (gameState == EditMode)
     {
         for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
         {
