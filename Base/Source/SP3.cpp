@@ -78,7 +78,7 @@ void SP3::Init()
 	Play.Init(&m_goList);
 
     //mapEditor->LoadFromFile("Map1.csv");
-    mapEditor->LoadFromFile("Map1.csv");
+    mapEditor->LoadFromFile("Map2.csv");
 }
 
 GameObject* SP3::FetchGO()
@@ -780,8 +780,6 @@ void SP3::Render()
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderUI();
-	RenderSpeechBubble();
-
     RenderCharacter();
     RenderText();
     RenderEditorSelector(mapEditor->curr);
@@ -1080,11 +1078,6 @@ void SP3::RenderCharacter()
 			modelStack.PopMatrix();
 		}
 	}
-}
-
-void SP3::RenderSpeechBubble()
-{
-
 }
 
 void SP3::Exit()
