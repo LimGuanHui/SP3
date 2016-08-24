@@ -115,7 +115,7 @@ void Collision::CheckCollision()
     }*/
 	//int distanceApart = (N_Character->Movement->GetScale_Y() / 2) - (Platform->getscale().y / 2);
 
-    Vector3(N_Character->Movement->GetPos_X(), N_Character->Movement->GetPos_Y(), 0);
+    Vector3 middlespot = Vector3(N_Character->Movement->GetPos_X(), N_Character->Movement->GetPos_Y(), 0);
 
 }
 
@@ -175,4 +175,55 @@ void Collision::Response_Y(Platform* go, bool below)
 Collision* CreateNewCollisionInstance()
 {
     return new Collision();
+}
+
+HOTSPOT::HOTSPOT()
+{
+
+}
+HOTSPOT::~HOTSPOT()
+{
+
+}
+
+void HOTSPOT::Init(Vector3 scale, int numHotspots_height, int numHotspots_width, float offset)
+{
+    collision_height = scale.y - offset;
+    collision_width = scale.x - offset;
+    detection_height = scale.y;
+    detection_width = scale.x;
+    hotspot_width = numHotspots_width;
+    hotspot_height = numHotspots_height;
+    //add hotspots to list
+
+}
+
+void HOTSPOT::Run()
+{
+
+}
+
+void HOTSPOT::Set_detectionheight(float detectionheight)
+{
+    detection_height = detectionheight;
+}
+void HOTSPOT::Set_detectionwidth(float detectionwidth)
+{
+    detection_width = detectionwidth;
+}
+void HOTSPOT::Set_collisionheight(float collisionheight)
+{
+    collision_height = collisionheight;
+}
+void HOTSPOT::Set_collisionwidth(float collisionwidth)
+{
+    collision_width = collisionwidth;
+}
+void HOTSPOT::Set_hotspotwidth(float hotspotwidth)
+{
+    hotspot_width = hotspotwidth;
+}
+void HOTSPOT::Set_hotspotheight(float hotspotheight)
+{
+    hotspot_height = hotspotheight;
 }
