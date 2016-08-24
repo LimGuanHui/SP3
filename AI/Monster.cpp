@@ -12,7 +12,7 @@ namespace MONSTER
 	{
 	}
 
-	Monster *N_Monster()
+	Monster* N_Monster()
 	{
 		return new Monster();
 	}

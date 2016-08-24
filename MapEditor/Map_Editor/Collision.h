@@ -21,6 +21,8 @@ public:
 	void CheckCollisionX();
     bool CheckCollisionY();
 
+	void CheckProjectileCollision();
+
     void Response_X(Platform* go, bool left);
     void Response_Y(Platform* go, bool below);
     void Response(Projectile* go);

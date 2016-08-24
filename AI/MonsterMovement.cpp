@@ -35,7 +35,7 @@ namespace MONSTER_MOVEMENT
 		this->position.y = pos_Y;
 	}
 
-	MMovement* N_Character()
+	MMovement* N_Monster()
 	{
 		return new MMovement();
 	}

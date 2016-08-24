@@ -592,10 +592,6 @@ void SP3::RenderUI()
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
-		RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 50.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 57.7f, 1.f, Vector3(0.f, 0.f, 0.f));
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
 		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_UI], false);
@@ -605,6 +601,19 @@ void SP3::RenderUI()
 		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
 		modelStack.Scale(10.f, 13.f, 0.f);
 		RenderMesh(meshList[GEO_PRINCESS], false);
+		modelStack.PopMatrix();
+		
+		if (Character->Attribute->GetCurrentHP() >= 0)
+		{
+			modelStack.PushMatrix();
+			RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 51.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 55.f, 7.f, Vector3(0.f, 0.f, 0.f));
+			modelStack.PopMatrix();
+		}
+
+		modelStack.PushMatrix();
+		modelStack.Translate(95.5f, 91.5f, 0.f);
+		modelStack.Scale(65.f, 10.f, 0.f);
+		RenderMesh(meshList[GEO_HEALTHBAR], false);
 		modelStack.PopMatrix();
 
 		Play.PlayButton->active = true;
@@ -780,7 +789,7 @@ void SP3::Render()
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderUI();
-	RenderSpeechBubble();
+	//RenderSpeechBubble();
 
     //RenderCharacter();
     RenderText();
@@ -847,18 +856,19 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
     }*/
     if (gameState == Game)
     {
-        for (int i = 0; i < map_editor->Tilemap.size(); i++)//row
+        int rowct = 0;
+        for (int i = map_editor->Tilemap.size() - 1; i > 0; i--)//row
         {
             for (int i2 = 0; i2 < map_editor->Tilemap[i].size(); i2++)//col
             {
                 modelStack.PushMatrix();
                 modelStack.Translate((i2) * (m_worldWidth / 44) ,
-                    (map_editor->Tilemap.size() - i) * (m_worldHeight / 25 ), 0);
+                    (rowct + 1)* (m_worldHeight / 25)
+                    , 0);
                 modelStack.Scale(4,4,4);
                 switch (map_editor->Tilemap[i][i2])
                 {
                 case 0:
-
                     break;
                 case 1:
                     RenderMesh(meshList[GEO_PLAT_NORMAL], false);
@@ -870,14 +880,10 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
                 }
                 modelStack.PopMatrix();
             }
+            rowct++;
         }
     }
-    
-    
-
-
-
-    if (gameState == EditMode )
+    if (gameState == EditMode)
     {
         for (std::vector<Platform *>::iterator it = mapEditor->Platform_Display_List.begin(); it != mapEditor->Platform_Display_List.end(); ++it)
         {
@@ -1085,11 +1091,6 @@ void SP3::RenderCharacter()
 			modelStack.PopMatrix();
 		}
 	}
-}
-
-void SP3::RenderSpeechBubble()
-{
-
 }
 
 void SP3::Exit()
