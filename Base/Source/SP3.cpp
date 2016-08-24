@@ -78,7 +78,7 @@ void SP3::Init()
 	Play.Init(&m_goList);
 
     //mapEditor->LoadFromFile("Map1.csv");
-    mapEditor->LoadFromFile("Map2.csv");
+    mapEditor->LoadFromFile("Map1.csv");
 }
 
 GameObject* SP3::FetchGO()
