@@ -592,10 +592,6 @@ void SP3::RenderUI()
 	if (gameState == Menu)
 	{
 		modelStack.PushMatrix();
-		RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 50.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 57.7f, 1.f, Vector3(0.f, 0.f, 0.f));
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
 		modelStack.Translate(m_worldWidth / 2 + camera.position.x, m_worldHeight / 2 + camera.position.y, -1.f);
 		modelStack.Scale(180, 110, 0);
 		RenderMesh(meshList[GEO_UI], false);
@@ -605,6 +601,19 @@ void SP3::RenderUI()
 		modelStack.Translate(10.f + camera.position.x, 10.f + camera.position.y, 0.f);
 		modelStack.Scale(10.f, 13.f, 0.f);
 		RenderMesh(meshList[GEO_PRINCESS], false);
+		modelStack.PopMatrix();
+		
+		if (Character->Attribute->GetCurrentHP() >= 0)
+		{
+			modelStack.PushMatrix();
+			RenderModelOnScreen(meshList[GEO_PLAYERHP], false, Vector3(Character->Attribute->GetCurrentHP() * 0.2f, 2.f, 0.f), 51.f - (157.f - (float)Character->Attribute->GetCurrentHP())*0.1f, 55.f, 7.f, Vector3(0.f, 0.f, 0.f));
+			modelStack.PopMatrix();
+		}
+
+		modelStack.PushMatrix();
+		modelStack.Translate(95.5f, 91.5f, 0.f);
+		modelStack.Scale(65.f, 10.f, 0.f);
+		RenderMesh(meshList[GEO_HEALTHBAR], false);
 		modelStack.PopMatrix();
 
 		Play.PlayButton->active = true;
