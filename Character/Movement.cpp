@@ -9,7 +9,7 @@ namespace MOVEMENT
         , AnimationCounter(0)
         , InAir(false)
         , velocity(0, 0, 0)
-        , scale(6, 6, 1)
+        , scale(2, 2, 1)
         , gravity(100)
         , ground(false)
 	{
@@ -211,14 +211,14 @@ namespace MOVEMENT
 		{
 			Projectile = FetchProjectile();
 			Projectile->pos.Set(position.x, position.y, 10);
-			Projectile->vel.Set(500, 0, 0);
+			Projectile->vel.Set(100, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
 		else if (AnimationInvert == true)
 		{
 			Projectile = FetchProjectile();
 			Projectile->pos.Set(position.x, position.y, 10);
-			Projectile->vel.Set(-500, 0, 0);
+			Projectile->vel.Set(-100, 0, 0);
 			Projectile->scale.Set(scale, scale, scale);
 		}
 	}

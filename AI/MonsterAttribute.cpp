@@ -49,4 +49,9 @@ namespace MONSTER_ATTRIBUTE
 		return CurrentHealth;
 	}
 
+	MonsterAttribute* test()
+	{
+		return new MonsterAttribute();
+	}
+
 }

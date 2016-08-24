@@ -45,6 +45,7 @@ void Collision::CheckCollisionX()
     }
     return;
 }
+
 bool Collision::CheckCollisionY()
 {
     for (std::vector<Platform* >::iterator it = Map->Platform_List.begin(); it != Map->Platform_List.end(); ++it)
@@ -141,6 +142,7 @@ void Collision::Response_X(Platform* go, bool left)
         break;
     }
 }
+
 void Collision::Response_Y(Platform* go, bool below)
 {
     switch (go->type)
@@ -166,11 +168,20 @@ void Collision::Response_Y(Platform* go, bool below)
         break;
     }
 }
+
 //void Collision::Response(Projectile* go)
 //{
 //    go->active = false;
 //    N_Character->Attribute->SetCurrentHP(N_Character->Attribute->GetCurrentHP() - 10);
 //}
+
+void Collision::CheckProjectileCollision()
+{
+	/*if (N_Character->Movement->Projectile->active == true)
+	{
+		if ((N_Character->Movement->Projectile->GetPos().x + N_Character->Movement->Projectile->scale.x) > (N_Character->AI->Monster->Movement->GetPos_X() - N_Character->AI->Monster->)
+	}*/
+}
 
 Collision* CreateNewCollisionInstance()
 {
