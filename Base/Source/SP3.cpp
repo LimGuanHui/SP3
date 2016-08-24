@@ -69,7 +69,7 @@ void SP3::Init()
 	Character->Movement->SetPos_Y(90);
 
 	Character->AI->Monster->Movement->SetPos_X(60);
-	Character->AI->Monster->Movement->SetPos_Y(2);
+	Character->AI->Monster->Movement->SetPos_Y(25);
 
 	sceneSoundEngine = createIrrKlangDevice();
 
@@ -209,7 +209,7 @@ void SP3::Update(double dt)
 		Character->Movement->ProjectileUpdate(2.f, dt, 3);
 	}
 
-//	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
+	//std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
@@ -836,6 +836,13 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
                     break;
 				case 3:
 					RenderMesh(meshList[GEO_CAVE], false);
+					break;
+				case 4:
+					RenderMesh(meshList[GEO_CASTLE], false);
+					break;
+				case 5:
+					RenderMesh(meshList[GEO_CASTLECENTER], false);
+					break;
                 default:
                     break;
                 }

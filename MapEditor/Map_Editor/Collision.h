@@ -28,3 +28,25 @@ public:
 };
 
 COLLISION_API Collision* CreateNewCollisionInstance();
+
+class COLLISION_API HOTSPOT
+{
+public:
+    HOTSPOT();
+    ~HOTSPOT();
+    void Init(Vector3 scale, int numHotspots_height, int numHotspots_width, float offset);
+    void Run();
+
+    void Set_detectionheight(float detectionheight);
+    void Set_detectionwidth(float detectionwidth);
+    void Set_collisionheight(float collisionheight);
+    void Set_collisionwidth(float collisionwidth);
+    void Set_hotspotwidth(float hotspotwidth);
+    void Set_hotspotheight(float hotspotheight);
+
+private:
+    float detection_height, detection_width;
+    float collision_height, collision_width;
+    int hotspot_width, hotspot_height;
+    std::vector<Vector3> hotspot_List;
+};
