@@ -9,7 +9,7 @@ namespace MOVEMENT
         , AnimationCounter(0)
         , InAir(false)
         , velocity(0, 0, 0)
-        , scale(2, 2, 1)
+        , scale(4, 4, 1)
         , gravity(100)
         , ground(false)
 	{
@@ -164,7 +164,7 @@ namespace MOVEMENT
 	{
 		if (mode) //left
 		{
-            velocity.x = -30;
+            velocity.x = -10;
 			AnimationInvert = true;
 			AnimationCounter--;
 			if (AnimationCounter < 0)
@@ -172,7 +172,7 @@ namespace MOVEMENT
 		}
 		else//right
 		{
-            velocity.x = 30;
+            velocity.x = 10;
 			AnimationInvert = false;
 			AnimationCounter++;
 			if (AnimationCounter > 2)
@@ -232,6 +232,26 @@ namespace MOVEMENT
     {
         this->ground = ground;
     }
+
+	int CMovement::GetMapOffset_x(void)
+	{
+		return mapOffset_x;
+	}
+
+	int CMovement::GetMapOffset_y(void)
+	{
+		return mapOffset_y;
+	}
+
+	int CMovement::GetMapFineOffset_x(void)
+	{
+		return mapFineOffset_x;
+	}
+
+	int CMovement::GetMapFineOffset_y(void)
+	{
+		return mapFineOffset_y;
+	}
 }
 
 

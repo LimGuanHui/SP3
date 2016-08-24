@@ -48,6 +48,11 @@ namespace MOVEMENT
 		void SetAnimationInvert(bool AnimationInvert);
 		bool GetAnimationInvert();
 
+		int GetMapOffset_x(void);
+		int GetMapOffset_y(void);
+		int GetMapFineOffset_x(void);
+		int GetMapFineOffset_y(void);
+
 		void ProjectileUpdate(const float timeDiff, double dt, int scale);
 
         void jumpUpdate(double dt);
@@ -78,6 +83,10 @@ namespace MOVEMENT
 		bool AnimationInvert;
 		int AnimationCounter;
 		int jumpspeed;
+
+		int mapOffset_x;
+		int mapOffset_y;
+		int mapFineOffset_x, mapFineOffset_y;
 
 	};
 

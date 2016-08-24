@@ -174,14 +174,6 @@ void Collision::Response_Y(Platform* go, bool below)
 //    N_Character->Attribute->SetCurrentHP(N_Character->Attribute->GetCurrentHP() - 10);
 //}
 
-void Collision::CheckProjectileCollision()
-{
-	/*if (N_Character->Movement->Projectile->active == true)
-	{
-		if ((N_Character->Movement->Projectile->GetPos().x + N_Character->Movement->Projectile->scale.x) > (N_Character->AI->Monster->Movement->GetPos_X() - N_Character->AI->Monster->)
-	}*/
-}
-
 Collision* CreateNewCollisionInstance()
 {
     return new Collision();
