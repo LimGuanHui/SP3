@@ -73,7 +73,7 @@ void Buttons::Init(vector<GameObject *>* buttonList)
 void Buttons::Update(Vector3 mousepos, float dt, vector<GameObject *>* buttonList)
 {
 	isClick = false;
-	for (vector<GameObject *>::iterator it = buttonList->begin(); it != buttonList->end(); ++it)
+	/*for (vector<GameObject *>::iterator it = buttonList->begin(); it != buttonList->end(); ++it)
 	{
 		GameObject *go1 = (GameObject *)*it;
 		float distanceSquared = ((go1->pos) - (mousepos)).LengthSquared();
@@ -132,6 +132,67 @@ void Buttons::Update(Vector3 mousepos, float dt, vector<GameObject *>* buttonLis
 				go1->type = GameObject::GO_RESTART;
 				go1->scale.Set(30.f, 10.f, 0.f);
 				break;
+			}
+		}
+	}*/
+
+	for (vector<GameObject *>::iterator it = buttonList->begin(); it != buttonList->end(); ++it)
+	{
+		GameObject *go1 = (GameObject *)*it;
+		if ((abs(go1->pos.x - mousepos.x) * 2 < (go1->scale.x + 0.1) &&
+			(abs(go1->pos.y - mousepos.y) * 2 < (go1->scale.y + 0.1))))
+		{
+			MouseHover(go1);
+
+			if ((GetKeyState(VK_LBUTTON) & 0x100) != 0)
+			{
+				isClick = true;
+				button = go1;
+			}
+			else
+			{
+				switch (go1->type)
+				{
+				case(GameObject::GO_PLAYHOVER) :
+					go1->type = GameObject::GO_PLAY;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_MENUHOVER) :
+					go1->type = GameObject::GO_MENU;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_EDITHOVER) :
+					go1->type = GameObject::GO_EDIT;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_LOADHOVER) :
+					go1->type = GameObject::GO_LOAD;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_HIGHSCOREHOVER) :
+					go1->type = GameObject::GO_HIGHSCORE;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_SAVEHOVER) :
+					go1->type = GameObject::GO_SAVE;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_EXITHOVER) :
+					go1->type = GameObject::GO_EXIT;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+
+				case(GameObject::GO_RESTARTHOVER) :
+					go1->type = GameObject::GO_RESTART;
+					go1->scale.Set(30.f, 10.f, 0.f);
+					break;
+				}
 			}
 		}
 	}
