@@ -41,8 +41,7 @@ void Collision::CheckCollisionX()
                 Response_X(go, false);
                 return;
             }
-        }
-        
+        }        
     }
     return;
 }
@@ -50,7 +49,6 @@ bool Collision::CheckCollisionY()
 {
     for (std::vector<Platform* >::iterator it = Map->Platform_List.begin(); it != Map->Platform_List.end(); ++it)
     {
-
         Platform* go = (Platform*)*it;
         //y check
         if (go->getpos().y < N_Character->Movement->GetPos_Y())
@@ -77,12 +75,12 @@ bool Collision::CheckCollisionY()
 
 void Collision::CheckCollision()
 {
-    CheckCollisionX();
+    /*CheckCollisionX();
     if (!CheckCollisionY())
     {
         N_Character->Movement->setground(false);
         N_Character->Movement->jumpstate = N_Character->Movement->DROP;
-    }
+    }*/
         //x check
        /* if (go->getpos().x < N_Character->Movement->GetPos_X())
         {
@@ -116,6 +114,9 @@ void Collision::CheckCollision()
         }
     }*/
 	//int distanceApart = (N_Character->Movement->GetScale_Y() / 2) - (Platform->getscale().y / 2);
+
+    Vector3(N_Character->Movement->GetPos_X(), N_Character->Movement->GetPos_Y(), 0);
+
 }
 
 void Collision::Response_X(Platform* go, bool left)
