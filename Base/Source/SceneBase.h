@@ -64,6 +64,7 @@ public:
         //platform
         GEO_PLAT_NORMAL,
         GEO_PLAT_SELECTOR,
+		GEO_CAVE,
 		//buttons
 		GEO_PLAY,
 		GEO_PLAYHOVER,
