@@ -69,7 +69,7 @@ void SP3::Init()
 	Character->Movement->SetPos_Y(90);
 
 	Character->AI->Monster->Movement->SetPos_X(60);
-	Character->AI->Monster->Movement->SetPos_Y(2);
+	Character->AI->Monster->Movement->SetPos_Y(25);
 
 	sceneSoundEngine = createIrrKlangDevice();
 
@@ -227,7 +227,7 @@ void SP3::Update(double dt)
 		Character->Movement->ProjectileUpdate(2.f, dt, 3);
 	}
 
-//	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
+	//std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
 
 
 	//std::cout << Character->Movement->Projectile->pos << std::endl;
