@@ -78,7 +78,7 @@ void SP3::Init()
 	Play.Init(&m_goList);
 
     //mapEditor->LoadFromFile("Map1.csv");
-    mapEditor->LoadFromFile("Map2.csv");
+    mapEditor->LoadFromFile("Map4.csv");
 }
 
 GameObject* SP3::FetchGO()
@@ -875,6 +875,13 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
                     break;
 				case 3:
 					RenderMesh(meshList[GEO_CAVE], false);
+					break;
+				case 4:
+					RenderMesh(meshList[GEO_CASTLE], false);
+					break;
+				case 5:
+					RenderMesh(meshList[GEO_CASTLECENTER], false);
+					break;
                 default:
                     break;
                 }
