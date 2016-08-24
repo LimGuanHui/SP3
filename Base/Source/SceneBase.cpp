@@ -116,6 +116,9 @@ void SceneBase::Init()
 	meshList[GEO_PRINCESS] = MeshBuilder::GenerateQuad("Princess", Color(0, 0, 0), 1.f);
 	meshList[GEO_PRINCESS]->textureID = LoadTGA("Image//princess.tga");
 
+	meshList[GEO_HEALTHBAR] = MeshBuilder::GenerateQuad("Health Bar", Color(1, 1, 1), 1.f);
+	meshList[GEO_HEALTHBAR]->textureID = LoadTGA("Image//healthbar.tga");
+
 	// Character & background
     meshList[GEO_PLAYERHP] = MeshBuilder::GenerateQuad("Player HP", Color(0, 1, 0), 1.f);
 	meshList[GEO_CHARACTER] = MeshBuilder::GenerateQuad("Character", Color(1, 0,1), 1.0f);
