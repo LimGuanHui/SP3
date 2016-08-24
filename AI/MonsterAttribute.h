@@ -27,4 +27,7 @@ namespace MONSTER_ATTRIBUTE
 		int ReceiveDmg;
 		int CurrentHealth;
 	};
+
 }
+	MONSTER_ATTRIBUTE_API MONSTER_ATTRIBUTE::MonsterAttribute* test;
+

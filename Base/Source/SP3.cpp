@@ -66,7 +66,7 @@ void SP3::Init()
 
 	Character->Movement->SetAnimationCounter(0);
 	Character->Movement->SetPos_X(25);
-	Character->Movement->SetPos_Y(20);
+	Character->Movement->SetPos_Y(90);
 
 	Character->AI->Monster->Movement->SetPos_X(60);
 	Character->AI->Monster->Movement->SetPos_Y(2);
@@ -159,10 +159,10 @@ void SP3::CollisionResponse(GameObject *go1, GameObject *go2)
 void SP3::Update(double dt)
 {
     SceneBase::Update(dt);
-    collision->CheckCollision();
+   // collision->CheckCollision();
 
 
-    Character->Movement->jumpUpdate(dt);
+   // Character->Movement->jumpUpdate(dt);
     
 	if (Application::IsKeyPressed('H'))
 	{
@@ -224,7 +224,7 @@ void SP3::Update(double dt)
 		chargeFire = false;
 		KeyDown = false;
 		chargeTime = 0;
-		Character->Movement->ProjectileUpdate(2.f, dt, 7);
+		Character->Movement->ProjectileUpdate(2.f, dt, 3);
 	}
 
 //	std::cout << Character->Movement->Drop << " " << Character->Movement->InAir << std::endl;
@@ -789,18 +789,20 @@ void SP3::Render()
   //RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 0, 0);
 
     RenderUI();
-    RenderCharacter();
+	//RenderSpeechBubble();
+
+    //RenderCharacter();
     RenderText();
     RenderEditorSelector(mapEditor->curr);
 
-	for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
+	/*for (std::vector<PROJECTILE::Projectile *>::iterator it = Character->Movement->m_projectileList.begin(); it != Character->Movement->m_projectileList.end(); ++it)
 	{
 		PROJECTILE::Projectile *projectile = (PROJECTILE::Projectile *)*it;
 		if (projectile->active)
 		{
 			RenderProjectile(projectile);
 		}
-	}
+	}*/
 }
 
 void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
@@ -871,6 +873,8 @@ void SP3::RenderFromList(Boss_Battle* b_battle, Map_Editor* map_editor)
                 case 1:
                     RenderMesh(meshList[GEO_PLAT_NORMAL], false);
                     break;
+				case 3:
+					RenderMesh(meshList[GEO_CAVE], false);
                 default:
                     break;
                 }

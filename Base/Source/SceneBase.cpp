@@ -157,6 +157,9 @@ void SceneBase::Init()
     meshList[GEO_PLAT_NORMAL] = MeshBuilder::GenerateQuad("Normal platform", Color(0, 1, 0), 1.f);
     meshList[GEO_PLAT_NORMAL]->textureID = LoadTGA("Image//platform//normal.tga");
 
+	meshList[GEO_CAVE] = MeshBuilder::GenerateQuad("Cave Platform", Color(1, 0, 0), 1.f);
+	meshList[GEO_CAVE]->textureID = LoadTGA("Image//CaveTile.tga");
+
     meshList[GEO_PLAT_SELECTOR] = MeshBuilder::GenerateQuad("platform selector", Color(0, 1, 0), 1.f);
     meshList[GEO_PLAT_SELECTOR]->textureID = LoadTGA("Image//platform//selector//ss1.tga");
 
